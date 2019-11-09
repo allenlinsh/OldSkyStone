@@ -91,7 +91,12 @@ public class MainTeleOp extends LinearOpMode {
             rightServo.setPosition(rightServoState);
 
             telemetry.addData("Status", "Running");
-            telemetry.addData("Power", tgtPower);
+            telemetry.addData("tgtPower", tgtPower);
+            telemetry.addData("rtnPower", rtnPower);
+            telemetry.addData("gripPower", gripPower);
+            telemetry.addData("armPower", armPower);
+            telemetry.addData("leftWheel", tgtPower + rtnPower);
+            telemetry.addData("rightWheel", tgtPower - rtnPower);
             telemetry.update();
         }
     }
