@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous
-public class MainAutonomous extends LinearOpMode {
+public class NearParkingAutonomousBlue extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftMotor;
     private DcMotor rightMotor;
@@ -26,6 +26,7 @@ public class MainAutonomous extends LinearOpMode {
     double timePerUnit      = 1075;
     double timePerDegreeCW  = 7.95;
     double timePerDegreeCCW = 8;
+    double power = 0.5;
 
     @Override
     public void runOpMode() {
@@ -69,63 +70,21 @@ public class MainAutonomous extends LinearOpMode {
         // **************************************************
         // autonomous path 
         // 
-        // forward 2
-        // ccw 90
-        // forward 1
-        // ccw 90
-        // forward 1
-        // cw 90
-        // forward 1
-        // cw 90
-        // forward 0.5
-        // hook on
-        // backward 1.5
-        // hook off
+        // forward 0.2
         // cw 90
         // forward 1.5
         // stop
         //
         // **************************************************
 
-        // forward 2
-        drive(1);
-        driveFor(2);
-        // ccw 90
-        turn(-1);
+        // forward 0.2
+        drive(power);
+        driveFor(0.2);
+        // cw 90
+        turn(1);
         turnForCCW(90);
-        // forward 1
-        drive(1);
-        driveFor(1);
-        // ccw 90
-        turn(-1);
-        turnForCCW(90);
-        // forward 1
-        drive(1);
-        driveFor(1);
-        // cw 90
-        turn(1);
-        turnForCW(90);
-        // forward 1
-        drive(1);
-        driveFor(1);
-        // cw 90
-        turn(1);
-        turnForCW(90);
-        // forward 0.5
-        drive(1);
-        driveFor(0.5);
-        // hook on
-        hookOn();
-        // backward 1.5
-        drive(-1);
-        driveFor(1.5);
-        // hook off
-        hookOff();
-        // cw 90
-        turn(1);
-        turnForCW(90);
         // forward 1.5
-        drive(1);
+        drive(power);
         driveFor(1.5);
         // stop
         drive(0);
