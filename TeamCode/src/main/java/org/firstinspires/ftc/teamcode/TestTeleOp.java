@@ -1,16 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
 @TeleOp
-public class MainTeleOp extends LinearOpMode {
+public class TestTeleOp extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -75,9 +74,9 @@ public class MainTeleOp extends LinearOpMode {
         // run until the end of the match
         while (opModeIsActive()) {
             // assign controller power values
-            driveAxial      = gamepad1.left_stick_y;
-            driveLateral    = gamepad1.left_stick_x;
-            driveYaw        = gamepad1.right_stick_x;
+            driveAxial      = 0;
+            driveLateral    = 0;
+            driveYaw        = 0;
             armPower        = this.gamepad2.left_stick_y;
             gripPower       = 0;
 
@@ -85,8 +84,7 @@ public class MainTeleOp extends LinearOpMode {
                 // hook on
                 leftServoState = 1;
                 rightServoState = 1;
-            }
-            else if (this.gamepad1.left_bumper) {
+            } else if (this.gamepad1.left_bumper) {
                 // hook off
                 leftServoState = 0.35;
                 rightServoState = 0.61;
@@ -95,10 +93,60 @@ public class MainTeleOp extends LinearOpMode {
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
-            }
-            else if (this.gamepad2.left_bumper) {
+            } else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
+            }
+
+            if (gamepad1.left_stick_y == 0 && gamepad1.left_stick_x == 0 && gamepad1.right_stick_x == 0) {
+                // dpad_left = slow left
+                if (gamepad1.dpad_left) {
+                    driveLateral = -0.6;
+                }
+                // dpad_right = slow right
+                if (gamepad1.dpad_right) {
+                    driveLateral = 0.6;
+                }
+                // dpad_up = slow forward
+                if (gamepad1.dpad_up) {
+                    driveAxial = -0.3;
+                }
+                // dpad_down = slow backward
+                if (gamepad1.dpad_down) {
+                    driveAxial = 0.3;
+                }
+                // x = slow rotate ccw
+                if (gamepad1.x) {
+                    driveYaw = -0.35;
+                }
+                // b = slow rotate cw
+                if (gamepad1.b) {
+                    driveYaw = 0.35;
+                }
+            }
+            else {
+                // set axial movement to 0.5 if the stick value is less than 0.75
+                if (Math.abs(this.gamepad1.left_stick_y) > 0.75) {
+                    driveAxial = this.gamepad1.left_stick_y;
+                }
+                else {
+                    driveAxial = 0.5 * this.gamepad1.left_stick_y;
+                }
+                // set axial movement to 0 if lateral movement is greater than 0.25
+                if (Math.abs(this.gamepad1.left_stick_x) > 0.25 && Math.abs(this.gamepad1.left_stick_y) < 0.5) {
+                    driveAxial = 0;
+                    driveLateral = this.gamepad1.left_stick_x;
+                }
+                else {
+                    driveLateral = this.gamepad1.left_stick_x;
+                }
+                // set yaw movement to half if the stick value is less than 0.75
+                if (Math.abs(this.gamepad1.right_stick_x) > 0.75) {
+                    driveYaw = this.gamepad1.right_stick_x;
+                }
+                else {
+                    driveYaw = 0.5 * this.gamepad1.right_stick_x;
+                }
             }
 
             leftBackMotor.setPower(-driveLateral - driveAxial + driveYaw);
@@ -115,7 +163,6 @@ public class MainTeleOp extends LinearOpMode {
             telemetry.addData("driveAxial", driveAxial);
             telemetry.addData("driveLateral", driveLateral);
             telemetry.addData("driveYaw", driveYaw);
-            telemetry.addData("armPos", armMotor.getCurrentPosition());
             telemetry.update();
         }
     }

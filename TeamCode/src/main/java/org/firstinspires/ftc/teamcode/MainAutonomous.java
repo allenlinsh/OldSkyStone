@@ -6,187 +6,246 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+import java.util.ArrayList;
+import java.util.List;
 
 @Autonomous
-public class MainAutonomousBlue extends LinearOpMode {
+public class MainAutonomous extends LinearOpMode {
     private BNO055IMU imu;
-    private DcMotor leftMotor;
-    private DcMotor rightMotor;
+    private DcMotor leftBackMotor;
+    private DcMotor rightBackMotor;
+    private DcMotor leftFrontMotor;
+    private DcMotor rightFrontMotor;
     private DcMotor gripMotor;
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
+    private ColorSensor colorSensor;
 
-    int ticksPerRev         = 1440;
-    double timePerUnit      = 1075;
-    double timePerDegreeCW  = 7.95;
-    double timePerDegreeCCW = 8;
-    double power = 0.5;
+    int ticksPerRev             = 1440;
+    double timePerInchLateral   = 1075/24;
+    double timePerInchAxial     = 1275/24;
+    double timePerDegreeCCW     = 11.15;
+    double timePerDegreeCW     = 11.6;
+    String alliance             = "blue";
 
     @Override
     public void runOpMode() {
-        imu         = hardwareMap.get(BNO055IMU.class, "imu");
-        leftMotor   = hardwareMap.get(DcMotor.class, "leftMotor");
-        rightMotor  = hardwareMap.get(DcMotor.class, "rightMotor");
-        gripMotor   = hardwareMap.get(DcMotor.class, "gripMotor");
-        armMotor    = hardwareMap.get(DcMotor.class, "armMotor");
-        leftServo   = hardwareMap.get(Servo.class, "leftServo");
-        rightServo  = hardwareMap.get(Servo.class, "rightServo");
+        imu                     = hardwareMap.get(BNO055IMU.class, "imu");
+        leftBackMotor           = hardwareMap.get(DcMotor.class, "leftBackMotor");
+        rightBackMotor          = hardwareMap.get(DcMotor.class, "rightBackMotor");
+        leftFrontMotor          = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        rightFrontMotor         = hardwareMap.get(DcMotor.class, "rightFrontMotor");
+        gripMotor               = hardwareMap.get(DcMotor.class, "gripMotor");
+        armMotor                = hardwareMap.get(DcMotor.class, "armMotor");
+        leftServo               = hardwareMap.get(Servo.class, "leftServo");
+        rightServo              = hardwareMap.get(Servo.class, "rightServo");
+        colorSensor             = hardwareMap.get(ColorSensor.class, "colorSensor");
+    
+        // set motor direction
+        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        gripMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        // set the left motor direction to "forward"
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        
-        // set the arm motor zero power behavior to "brake"
+        // set motor zero power behavior
         armMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        
-        // set the grip motor zero power behavior to "brake"
         gripMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        
-        // set both motors zero power behavior to "brake"
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        
-        // set both motors mode to "run without encoder"
-        leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        
-        // set the servo position to "hook off"
-        hookOff();
+        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // initialize the hook
+        hookOff();
+        
+        // initialize imu
+        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        imuParameters.loggingEnabled = false;
+        imu.initialize(imuParameters);
+        
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         // wait for the game to start
         waitForStart();
-
+        
+        // program start here
         telemetry.addData("Status", "Running");
+        telemetry.addData("Alliance", alliance);
         telemetry.update();
-
+        
         // **************************************************
         // autonomous path 
-        // 
-        // forward 2
-        // ccw 90
-        // forward 1
-        // ccw 90
-        // forward 1
-        // cw 90
-        // forward 1
-        // cw 90
-        // forward 0.5
-        // hook on
-        // backward 1.5
-        // hook off
-        // cw 90
-        // forward 1.5
+        //
+        // look for skystone
+        // grab a stone
+        // go over alliance bridge
+        // place skystone on the foundation
+        // re-position the foundation
+        // park under the alliance bridge
         // stop
         //
         // **************************************************
-
-        // forward 2
-        drive(power);
-        driveFor(2);
-        // ccw 90
-        turn(-1);
-        turnForCCW(90);
-        // forward 1
-        drive(power);
-        driveFor(1);
-        // ccw 90
-        turn(-1);
-        turnForCCW(90);
-        // forward 1
-        drive(power);
-        driveFor(1);
-        // cw 90
-        turn(1);
-        turnForCW(90);
-        // forward 1
-        drive(power);
-        driveFor(1);
-        // cw 90
-        turn(1);
-        turnForCW(90);
-        // forward 0.5
-        drive(power);
-        driveFor(0.5);
-        // hook on
-        hookOn();
-        // backward 1.5
-        drive(-power);
-        driveFor(1.5);
-        // hook off
-        hookOff();
-        // cw 90
-        turn(1);
-        turnForCW(90);
-        // forward 1.5
-        drive(power);
-        driveFor(1.5);
-        // stop
-        drive(0);
-
+        
+        // autonomous start
+        if (opModeIsActive() && alliance == "red") {
+            armForward();
+            driveRight(8, 1);
+            driveForward(34, 1);
+            hookOn();
+            pause();
+            driveBackward(35, 1);
+            hookOff();
+            driveLeft(32, 1);
+            turn(90, 1);
+            driveLeft(16, 1);
+            driveForward(10, 1);
+            driveLeft(2, 1);
+            driveBackward(26, 1);
+        }
+        else if (opModeIsActive() && alliance == "blue") {
+            armForward();
+            driveLeft(8, 1);
+            driveForward(34, 1);
+            hookOn();
+            pause();
+            driveBackward(35, 1);
+            hookOff();
+            driveRight(32, 1);
+            turn(-90, 1);
+            driveRight(16, 1);
+            driveForward(10, 1);
+            driveRight(2, 1);
+            driveBackward(26, 1);
+        }      
     }
-    public void drive (double power) {
-        // default: forward
-        leftMotor.setPower(power);
-        rightMotor.setPower(power);
+    public void pause() {
+        sleep(100);
     }
-    public void driveFor (double unit) {
-        int time = (int)(timePerUnit * unit);
-        sleep(time);
-    }
-    public void turn (double power) {
-        // default: cw
-        leftMotor.setPower(power);
-        rightMotor.setPower(-power);
-    }
-    public void turnForCW (double degree) {
-        int time = (int)(timePerDegreeCW * degree);
-        sleep(time);
-    }
-    public void turnForCCW (double degree) {
-        int time = (int)(timePerDegreeCCW * degree);
-        sleep(time);
-    }
-    public void hookOn () {
+    public void hookOn() {
         leftServo.setPosition(1);
-        rightServo.setPosition(0);
-    }
-    public void hookOff () {
-        leftServo.setPosition(0);
         rightServo.setPosition(1);
+        pause();
     }
-    /*
-    public int drivePos (double distance) {
-        double circumference = Math.PI * 4.0; // pi * diameter
-        double inPerRev = circumference / ticksPerRev;
-        int targetPos = (int)(distance / inPerRev);
+    public void hookOff() {
+        leftServo.setPosition(0.35);
+        rightServo.setPosition(0.61);
+        pause();
+    }
+    public void gripHold() {
+        double power = 0.3;
+        gripMotor.setPower(power);
+        sleep(400);   
+        gripMotor.setPower(0);
+        pause();
+    }
+    public void gripRelease() {
+        double power = -0.3;
+        gripMotor.setPower(power);
+        sleep(300);   
+        gripMotor.setPower(0);
+        pause();
+    }
+    public void stopMotor() {
+        leftBackMotor.setPower(0);
+        rightBackMotor.setPower(0);
+        leftFrontMotor.setPower(0);
+        rightFrontMotor.setPower(0);
+    }
+    public void armBackward() {
+        double power = 1;
+        // set motor speed
+        armMotor.setPower(power);
+        sleep(1600);
+        armMotor.setPower(0);
+        pause();
+    }
+    public void armForward() {
+        double power = -1;
+        // set motor speed
+        armMotor.setPower(power);
+        sleep(500);
+        armMotor.setPower(0);
+        pause();
+    }
+    public void driveForward(double distance, double power) {
+        int runTime = (int)(distance * timePerInchLateral);
+        
+        // set motor speed
+        leftBackMotor.setPower(power);
+        rightBackMotor.setPower(power);
+        leftFrontMotor.setPower(power);
+        rightFrontMotor.setPower(power);
+        sleep(runTime);
+        
+        stopMotor();
+        pause();
+    }
+    public void driveBackward(double distance, double power) {
+        driveForward(distance, -power);
+    }
+    public void driveLeft(double distance, double power) {
+        int runTime = (int)(distance * timePerInchAxial);
+        
+        // set motor speed
+        leftBackMotor.setPower(power);
+        rightBackMotor.setPower(-power);
+        leftFrontMotor.setPower(-power);
+        rightFrontMotor.setPower(power);
+        sleep(runTime);
+        
+        stopMotor();
+    }
+    public void driveRight(double distance, double power) {
+        driveLeft(distance, -power);
+    }
+    public void turn(int angle, double power) {
+        double leftPower, rightPower;
+        int runTimeCW   = (int)(Math.abs(angle) * timePerDegreeCW);
+        int runTimeCCW  = (int)(Math.abs(angle) * timePerDegreeCCW);
 
-        return targetPos;
-    }
-    public double getCurrentAngle(){
-        angles = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.XYZ, AngleUnit.DEGREES);
-        double currentAngle = angles.thirdAngle;
+        if (angle < 0)
+        {   // turn counterclockwise.
+            leftPower   = -power;
+            rightPower  = power;
+            
+            // set power to rotate.
+            leftBackMotor.setPower(leftPower);
+            leftFrontMotor.setPower(leftPower);
+            rightBackMotor.setPower(rightPower);
+            rightFrontMotor.setPower(rightPower);
+            sleep(runTimeCCW);
+        }
+        else if (angle > 0)
+        {   // turn clockwise.
+            leftPower   = power;
+            rightPower  = -power;
+            
+            // set power to rotate.
+            leftBackMotor.setPower(leftPower);
+            leftFrontMotor.setPower(leftPower);
+            rightBackMotor.setPower(rightPower);
+            rightFrontMotor.setPower(rightPower);
+            sleep(runTimeCW);
+        }
+        else return;
 
-        return currentAngle;
+        stopMotor();
+        pause();
     }
-    public void turnPos (double angle) {
-        angles = this.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double initialAngle = angles.firstAngle;
-        double robotAngle = angles.firstAngle;
-        double previousAngle = angles.firstAngle;
-        double minMotorPower = 0.3 ;
-        double powerScaleFactor;
-
-        // calculate target angle
-        double targetAngle = initialAngle + angle;
-        double diffAngle = Math.abs(targetAngle - robotAngle);
+    public void turnWithFoundation(int angle, double power) {
+        int extraAngle = 90;
+        if (angle > 0) {
+            turn(angle + extraAngle, power);   
+        }
+        else if (angle < 0) {
+            turn(angle - extraAngle, power);
+        }
+        else return;
     }
-    */
 }

@@ -3,9 +3,11 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -35,9 +37,10 @@ public class VuforiaAutonomousBlue extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
-    private VuforiaLocalizer vuforia;
+    (private VuforiaLocalizer vuforia;)
     private OpenGLMatrix lastLocation;
     private WebcamName webcamName;
+    private ColorSensor colorSensor;
 
     private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = VuforiaLocalizer.CameraDirection.BACK;
     private static final boolean PHONE_IS_PORTRAIT                      = false  ;
@@ -73,8 +76,9 @@ public class VuforiaAutonomousBlue extends LinearOpMode {
         armMotor    = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo   = hardwareMap.get(Servo.class, "leftServo");
         rightServo  = hardwareMap.get(Servo.class, "rightServo");
-        webcamName = hardwareMap.get(WebcamName.class, "Logitech C310");
+        webcamName  = hardwareMap.get(WebcamName.class, "Logitech C310");
         int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         // initialize vuforia localizer
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters(cameraMonitorViewId);
@@ -246,8 +250,6 @@ public class VuforiaAutonomousBlue extends LinearOpMode {
         // set motor mode
         leftMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        gripMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         
         // initialize the hook
         hookOff();
