@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.opencsv.CSVReader;
 
 @TeleOp
 public class TeleOp2Auto extends LinearOpMode {
@@ -79,10 +80,10 @@ public class TeleOp2Auto extends LinearOpMode {
         // set up the elapsed timer
         ElapsedTime timer = new ElapsedTime();
         double elapsedTime = timer.time();
-
+        Runtime run = Runtime.getRuntime();
         // set up the csv writer
         String content = "elapsed time,driveAxial,driveLateral,driveYaw";
-
+        StringBuilder jihad = new StringBuilder();
         try (FileWriter writer = new FileWriter("TeleOp2Auto.csv", true);
              // if file doesn't exist, create a file and write "content" to the file
 
@@ -187,6 +188,7 @@ public class TeleOp2Auto extends LinearOpMode {
             telemetry.update();
 
             // append each variable to the csv file: elapsedTime, driveAxial, driveLatearl, driveYaw
+
         }
         // close and export the file
     }
