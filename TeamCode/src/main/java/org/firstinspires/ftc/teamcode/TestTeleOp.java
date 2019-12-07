@@ -55,8 +55,8 @@ public class TestTeleOp extends LinearOpMode {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // initialize the hook
-        leftServo.setPosition(0.37);
-        rightServo.setPosition(0.7);
+        leftServo.setPosition(0);
+        rightServo.setPosition(1);
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -69,8 +69,9 @@ public class TestTeleOp extends LinearOpMode {
         double driveYaw         = 0;
         double gripPower        = 0;
         double armPower         = 0;
-        double leftServoState   = 0.37;
-        double rightServoState  = 0.7;
+        double leftServoState   = 0;
+        double rightServoState  = 1;
+
         // run until the end of the match
         while (opModeIsActive()) {
             // assign controller power values
@@ -83,11 +84,11 @@ public class TestTeleOp extends LinearOpMode {
             if (this.gamepad1.right_bumper) {
                 // hook on
                 leftServoState = 1;
-                rightServoState = 1;
+                rightServoState = 0;
             } else if (this.gamepad1.left_bumper) {
                 // hook off
-                leftServoState = 0.35;
-                rightServoState = 0.61;
+                leftServoState = 0;
+                rightServoState = 1;
             }
 
             if (this.gamepad2.right_bumper) {
@@ -101,27 +102,27 @@ public class TestTeleOp extends LinearOpMode {
             if (gamepad1.left_stick_y == 0 && gamepad1.left_stick_x == 0 && gamepad1.right_stick_x == 0) {
                 // dpad_left = slow left
                 if (gamepad1.dpad_left) {
-                    driveLateral = -0.6;
+                    driveLateral = -0.4;
                 }
                 // dpad_right = slow right
                 if (gamepad1.dpad_right) {
-                    driveLateral = 0.6;
+                    driveLateral = 0.4;
                 }
                 // dpad_up = slow forward
                 if (gamepad1.dpad_up) {
-                    driveAxial = -0.3;
+                    driveAxial = -0.2;
                 }
                 // dpad_down = slow backward
                 if (gamepad1.dpad_down) {
-                    driveAxial = 0.3;
+                    driveAxial = 0.2;
                 }
                 // x = slow rotate ccw
                 if (gamepad1.x) {
-                    driveYaw = -0.35;
+                    driveYaw = -0.2;
                 }
                 // b = slow rotate cw
                 if (gamepad1.b) {
-                    driveYaw = 0.35;
+                    driveYaw = 0.2;
                 }
             }
             else {
@@ -132,15 +133,14 @@ public class TestTeleOp extends LinearOpMode {
                 else {
                     driveAxial = 0.5 * this.gamepad1.left_stick_y;
                 }
-                // set axial movement to 0 if lateral movement is greater than 0.25
-                if (Math.abs(this.gamepad1.left_stick_x) > 0.25 && Math.abs(this.gamepad1.left_stick_y) < 0.5) {
-                    driveAxial = 0;
+                // set lateral movement to 0.5 if lateral movement is less than 0.75
+                if (Math.abs(this.gamepad1.left_stick_x) > 0.75) {
                     driveLateral = this.gamepad1.left_stick_x;
                 }
                 else {
-                    driveLateral = this.gamepad1.left_stick_x;
+                    driveLateral = 0.5 * this.gamepad1.left_stick_x;
                 }
-                // set yaw movement to half if the stick value is less than 0.75
+                // set yaw movement to 0.5 if the yaw movement is less than 0.75
                 if (Math.abs(this.gamepad1.right_stick_x) > 0.75) {
                     driveYaw = this.gamepad1.right_stick_x;
                 }
@@ -163,6 +163,8 @@ public class TestTeleOp extends LinearOpMode {
             telemetry.addData("driveAxial", driveAxial);
             telemetry.addData("driveLateral", driveLateral);
             telemetry.addData("driveYaw", driveYaw);
+            telemetry.addData("gripPower", gripPower);
+            telemetry.addData("armPower", armPower);
             telemetry.update();
         }
     }

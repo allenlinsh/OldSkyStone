@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Autonomous
-public class MainAutonomous extends LinearOpMode {
+public class PreciseAutonomous extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
