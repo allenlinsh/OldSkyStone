@@ -29,12 +29,9 @@ public class TestAutonomous extends LinearOpMode {
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0.4, correction;
     double elapsedTime;
+    boolean startAutonomous = true;
 
-    int ticksPerRev             = 1440;
-    double timePerInchLateral   = 1550 / 24;
-    double timePerInchAxial     = 1275/24;
-    double timePerDegreeCCW     = 11.15;
-    double timePerDegreeCW      = 11.6;
+    int ticksPerRev             = 480;
     String alliance             = "blue";
 
     @Override
@@ -98,7 +95,7 @@ public class TestAutonomous extends LinearOpMode {
         telemetry.addData("Alliance", alliance);
 
         while (opModeIsActive()) {
-            elapsedTime = timer.time() * 1000;
+            elapsedTime = timer.time();
 
             // Use gyro to drive in a straight line.
             correction = checkDirection();
@@ -123,19 +120,16 @@ public class TestAutonomous extends LinearOpMode {
             //
             // **************************************************
 
-            if (elapsedTime > 0) {
-                if (elapsedTime < 950) {
-                    driveForward(power, correction);
-                }
-                if (elapsedTime > 950 && elapsedTime < 1000) {
-                    stopMotor();
-                }
-                if (elapsedTime > 1000 && elapsedTime < 1000 + timePerInchLateral * 24 * 2) {
-                    driveLeft(power, correction);
-                }
-                if (elapsedTime > 1000 + timePerInchLateral * 23.75 * 2) {
-                    stopMotor();
-                }
+            if (startAutonomous) {
+                //driveForward(1,power,correction);
+                //driveBackward(1,power,correction);
+                //driveForward(1,power,correction);
+                //driveBackward(1,power,correction);
+                driveRight(1,power,correction);
+                driveLeft(1,power,correction);
+                driveRight(1,power,correction);
+                driveLeft(1,power,correction);
+                startAutonomous = false;
             }
         }
         stopMotor();
@@ -187,27 +181,97 @@ public class TestAutonomous extends LinearOpMode {
         armMotor.setPower(0);
         pause();
     }
-    public void driveForward(double power, double correction) {
+    public void driveForward(double block, double power, double correction) {
         power = power * 100 / 127;
+
+        // calculate target position
+        double circumference = Math.PI * 3.75; // pi * diameter
+        double inPerRev = circumference / ticksPerRev;
+        int targetPos = (int)(block * 24 / inPerRev);
+
+        // set motor mode
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setTargetPosition(targetPos);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         // set motor speed
         leftBackMotor.setPower(power - correction);
         rightBackMotor.setPower(power + correction);
         leftFrontMotor.setPower(power - correction);
         rightFrontMotor.setPower(power + correction);
+
+        while(opModeIsActive() && leftBackMotor.isBusy()) {}
+        stopMotor();
+        pause();
     }
-    public void driveBackward(double power, double correction) {
-        power = power * 100 /127;
-        driveForward(-power, correction);
+    public void driveBackward(double block, double power, double correction) {
+        power = power * 100 / 127;
+
+        // calculate target position
+        double circumference = Math.PI * 3.75; // pi * diameter
+        double inPerRev = circumference / ticksPerRev;
+        int targetPos = (int)(block * 24 / inPerRev);
+
+        // set motor mode
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setTargetPosition(-targetPos);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // set motor speed
+        leftBackMotor.setPower(-power - correction);
+        rightBackMotor.setPower(-power + correction);
+        leftFrontMotor.setPower(-power - correction);
+        rightFrontMotor.setPower(-power + correction);
+
+        while(opModeIsActive() && leftBackMotor.isBusy()) {}
+        stopMotor();
+        pause();
     }
-    public void driveLeft(double power, double correction) {
+    public void driveLeft(double block, double power, double correction) {
+        power = power * 100 / 127;
+
+        // calculate target position
+        double circumference = Math.PI * 3.75; // pi * diameter
+        double inPerRev = circumference / ticksPerRev;
+        int targetPos = (int)(block * 24 / inPerRev * Math.sqrt(2));
+
+        // set motor mode
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setTargetPosition(targetPos);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
         // set motor speed
         leftBackMotor.setPower(power - correction);
         rightBackMotor.setPower(-power + correction);
         leftFrontMotor.setPower(-power - correction);
         rightFrontMotor.setPower(power + correction);
+
+        while(opModeIsActive() && leftBackMotor.isBusy()) {}
+        stopMotor();
+        pause();
     }
-    public void driveRight(double power, double correction) {
-        driveLeft(-power, correction);
+    public void driveRight(double block, double power, double correction) {
+        power = power * 100 / 127;
+
+        // calculate target position
+        double circumference = Math.PI * 3.75; // pi * diameter
+        double inPerRev = circumference / ticksPerRev;
+        int targetPos = (int)(block * 24 / inPerRev * Math.sqrt(2));
+
+        // set motor mode
+        leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftBackMotor.setTargetPosition(-targetPos);
+        leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        // set motor speed
+        leftBackMotor.setPower(-power - correction);
+        rightBackMotor.setPower(power + correction);
+        leftFrontMotor.setPower(power - correction);
+        rightFrontMotor.setPower(-power + correction);
+
+        while(opModeIsActive() && leftBackMotor.isBusy()) {}
+        stopMotor();
+        pause();
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()
@@ -259,15 +323,15 @@ public class TestAutonomous extends LinearOpMode {
         // restart imu movement tracking.
         resetAngle();
 
-        if (degrees < 0)
-        {   // turn counterclockwise.
-            leftPower = -power;
-            rightPower = power;
+        if (degrees < 0) {
+            // turn counterclockwise.
+            leftPower   = -power;
+            rightPower  = power;
         }
-        else if (degrees > 0)
-        {   // turn clockwise.
-            leftPower = power;
-            rightPower = -power;
+        else if (degrees > 0) {
+            // turn clockwise.
+            leftPower   = power;
+            rightPower  = -power;
         }
         else return;
 
@@ -290,6 +354,7 @@ public class TestAutonomous extends LinearOpMode {
 
         // turn the motors off.
         stopMotor();
+        pause();
 
         // reset angle tracking on new heading.
         resetAngle();

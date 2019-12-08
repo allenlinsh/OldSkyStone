@@ -94,20 +94,20 @@ public class TestTeleOp extends LinearOpMode {
         double gripPower        = 0;
         double armPower         = 0;
 
-        double leftBackPower = 0;
-        double rightBackPower = 0;
-        double leftFrontPower = 0;
-        double rightFrontPower = 0;
+        double leftBackPower    = 0;
+        double rightBackPower   = 0;
+        double leftFrontPower   = 0;
+        double rightFrontPower  = 0;
 
         // run until the end of the match
         while (opModeIsActive()) {
             // Use gyro to drive in a straight line.
-            if (gamepad1.right_stick_x == 0 || !gamepad1.x || !gamepad1.b) {
-                correction = checkDirection();
-            }
-            else {
+            if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
                 resetAngle();
                 correction = 0;
+            }
+            else {
+                correction = checkDirection();
             }
 
             telemetry.addData("1 imu heading", lastAngles.firstAngle);
@@ -175,7 +175,7 @@ public class TestTeleOp extends LinearOpMode {
                     driveAxial = 0;
                 }
                 else {
-                    driveAxial = driveAxial * 100 /127;
+                    driveAxial = driveAxial * 110 /127;
                     driveAxial = driveAxial * driveAxial * Math.signum(driveAxial) / 1.0;
                 }
                 // set lateral movement to logarithmic values and set a dead zone
@@ -184,7 +184,7 @@ public class TestTeleOp extends LinearOpMode {
                     driveLateral = 0;
                 }
                 else {
-                    driveLateral = driveLateral * 100 /127;
+                    driveLateral = driveLateral * 100 / 127;
                     driveLateral = driveLateral * driveLateral * Math.signum(driveLateral) / 1.0;
                 }
                 // set yaw movement to logarithmic values and set a dead zone
@@ -193,7 +193,7 @@ public class TestTeleOp extends LinearOpMode {
                     driveYaw = 0;
                 }
                 else {
-                    driveYaw = driveYaw * 100 / 127;
+                    driveYaw = driveYaw * 110 / 127;
                     driveYaw = driveYaw * driveYaw * Math.signum(driveYaw) / 1.0;
                 }
             }
@@ -203,10 +203,18 @@ public class TestTeleOp extends LinearOpMode {
             leftFrontPower = driveLateral - driveAxial + driveYaw - correction;
             rightFrontPower = -driveLateral - driveAxial - driveYaw + correction;
 
-            leftBackMotor.setPower(leftBackPower);
-            rightBackMotor.setPower(rightBackPower);
-            leftFrontMotor.setPower(leftFrontPower);
-            rightFrontMotor.setPower(rightFrontPower);
+            if (this.gamepad1.left_stick_y != 0 || this.gamepad1.left_stick_x != 0 || this.gamepad1.right_stick_x != 0 || this. gamepad1.dpad_up || this. gamepad1.dpad_down || this. gamepad1.dpad_left || this. gamepad1.dpad_right || this. gamepad1.x || this. gamepad1.b) {
+                leftBackMotor.setPower(leftBackPower);
+                rightBackMotor.setPower(rightBackPower);
+                leftFrontMotor.setPower(leftFrontPower);
+                rightFrontMotor.setPower(rightFrontPower);
+            }
+            else {
+                leftBackMotor.setPower(0);
+                rightBackMotor.setPower(0);
+                leftFrontMotor.setPower(0);
+                rightFrontMotor.setPower(0);
+            }
             gripMotor.setPower(gripPower);
             armMotor.setPower(armPower);
         }
@@ -248,7 +256,7 @@ public class TestTeleOp extends LinearOpMode {
     }
     private double checkDirection() {
         // The gain value determines how sensitive the correction is to direction changes.
-        double correction, angle, gain = 0.02;
+        double correction, angle, gain = 0.025;
 
         angle = getAngle();
 

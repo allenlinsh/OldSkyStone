@@ -4,9 +4,9 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Calendar;
 
-import com.opencsv.CSVWriter;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -115,11 +115,11 @@ public class TeleOp2Auto extends LinearOpMode {
             FileWriter outputfile = new FileWriter(file);
 
             // create CSVWriter object filewriter object as parameter
-            CSVWriter writer = new CSVWriter(outputfile);
+            BufferedWriter writer = new BufferedWriter(outputfile);
 
             // adding header to csv
-            String[] header = {"elapsedTime", "driveAxial", "driveLateral", "driveYaw", "gripPower", "armPower", "leftServoState", "rightServoState"};
-            writer.writeNext(header);
+            String header = "elapsedTime, leftBackPower, rightBackPower, leftFrontPower, rightFrontPower, gripPower, armPower";
+            writer.write(header);
 
             // wait for the game to start
             waitForStart();
@@ -238,8 +238,8 @@ public class TeleOp2Auto extends LinearOpMode {
                 armMotor.setPower(armPower);
 
                 // adding motor values to csv
-                String[] values = {Double.toString(elapsedTime), Double.toString(leftBackPower), Double.toString(rightBackPower), Double.toString(leftFrontPower), Double.toString(rightFrontPower), Double.toString(gripPower), Double.toString(armPower)};
-                writer.writeNext(values);
+                String values = elapsedTime + ", " + leftBackPower + ", " + rightBackPower + ", " + leftFrontPower + ", " + rightFrontPower + ", " + gripPower + ", " + armPower;
+                writer.append(values);
             }
             // close and export the file
             writer.close();

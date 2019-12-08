@@ -243,7 +243,7 @@ public class PreciseAutonomous extends LinearOpMode {
         // enable skystone identification
         targetsSkyStone.activate();
         
-        // program start here
+        // progra`m start here
         telemetry.addData("Status", "Running");
         telemetry.addData("Alliance", alliance);
         telemetry.update();
