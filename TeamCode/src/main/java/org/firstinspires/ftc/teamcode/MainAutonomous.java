@@ -45,8 +45,8 @@ public class MainAutonomous extends LinearOpMode {
         colorSensor             = hardwareMap.get(ColorSensor.class, "colorSensor");
     
         // set motor direction
-        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightFrontMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         armMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         gripMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
@@ -70,6 +70,8 @@ public class MainAutonomous extends LinearOpMode {
         
         telemetry.addData("Status", "Initialized");
         telemetry.update();
+
+
 
         // wait for the game to start
         waitForStart();
