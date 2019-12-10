@@ -7,13 +7,14 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
-public class TestTeleOp extends LinearOpMode {
+public class BackupTeleOp extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -23,10 +24,7 @@ public class TestTeleOp extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
-    private Servo skystoneServo;
     private ColorSensor colorSensor;
-    Orientation lastAngles = new Orientation();
-    double globalAngle, power = 0, correction;
 
     @Override
     public void runOpMode() {
@@ -39,7 +37,6 @@ public class TestTeleOp extends LinearOpMode {
         armMotor        = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo       = hardwareMap.get(Servo.class, "leftServo");
         rightServo      = hardwareMap.get(Servo.class, "rightServo");
-        skystoneServo   = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor     = hardwareMap.get(ColorSensor.class,"colorSensor");
 
         // set motor direction
@@ -62,26 +59,11 @@ public class TestTeleOp extends LinearOpMode {
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // initialize servos
+        // initialize the hook
         hookOff();
-        skystoneOff();
-
-        // initialize imu
-        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
-        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        imuParameters.loggingEnabled = false;
-        imu.initialize(imuParameters);
 
         telemetry.addData("Status", "Initializing...");
         telemetry.update();
-
-        // make sure the imu gyro is calibrated before continuing.
-        while (!isStopRequested() && !imu.isGyroCalibrated())
-        {
-            sleep(50);
-            idle();
-        }
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -104,24 +86,12 @@ public class TestTeleOp extends LinearOpMode {
 
         // run until the end of the match
         while (opModeIsActive()) {
-            // Use gyro to drive in a straight line.
-            if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
-                correction = 0;
-                resetAngle();
-            }
-            else {
-                correction = checkDirection();
-            }
-
-            telemetry.addData("1 imu heading", lastAngles.firstAngle);
-            telemetry.addData("2 global heading", globalAngle);
-            telemetry.addData("3 correction", correction);
-            telemetry.addData("4 leftBackPower", leftBackPower);
-            telemetry.addData("5 rightBackPower", rightBackPower);
-            telemetry.addData("6 leftFrontPower", leftFrontPower);
-            telemetry.addData("7 rightFrontPower", rightBackPower);
-            telemetry.addData("8 gripPower", gripPower);
-            telemetry.addData("9 armPower", armPower);
+            telemetry.addData("1 leftBackPower", leftBackPower);
+            telemetry.addData("2 rightBackPower", rightBackPower);
+            telemetry.addData("3 leftFrontPower", leftFrontPower);
+            telemetry.addData("4 rightFrontPower", rightBackPower);
+            telemetry.addData("5 gripPower", gripPower);
+            telemetry.addData("6 armPower", armPower);
             telemetry.update();
 
             // assign controller power values
@@ -133,25 +103,16 @@ public class TestTeleOp extends LinearOpMode {
 
             if (this.gamepad1.right_bumper) {
                 hookOn();
-            }
-            else if (this.gamepad1.left_bumper) {
+            } else if (this.gamepad1.left_bumper) {
                 hookOff();
             }
 
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
-            }
-            else if (this.gamepad2.left_bumper) {
+            } else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
-            }
-
-            if (this.gamepad2.a) {
-                skystoneOn();
-            }
-            else if (this.gamepad2.y) {
-                skystoneOff();
             }
 
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
@@ -210,10 +171,10 @@ public class TestTeleOp extends LinearOpMode {
                 }
             }
 
-            leftBackPower = -driveLateral - driveAxial + driveYaw - correction;
-            rightBackPower = driveLateral - driveAxial - driveYaw + correction;
-            leftFrontPower = driveLateral - driveAxial + driveYaw - correction;
-            rightFrontPower = -driveLateral - driveAxial - driveYaw + correction;
+            leftBackPower = -driveLateral - driveAxial + driveYaw;
+            rightBackPower = driveLateral - driveAxial - driveYaw;
+            leftFrontPower = driveLateral - driveAxial + driveYaw;
+            rightFrontPower = -driveLateral - driveAxial - driveYaw;
 
             if (this.gamepad1.left_stick_y != 0 || this.gamepad1.left_stick_x != 0 || this.gamepad1.right_stick_x != 0 || this. gamepad1.dpad_up || this. gamepad1.dpad_down || this. gamepad1.dpad_left || this. gamepad1.dpad_right || this. gamepad1.x || this. gamepad1.b) {
                 leftBackMotor.setPower(leftBackPower);
@@ -238,53 +199,5 @@ public class TestTeleOp extends LinearOpMode {
     public void hookOff() {
         leftServo.setPosition(0.1);
         rightServo.setPosition(0.9);
-    }
-    public void skystoneOn() {
-        skystoneServo.setPosition(1);
-    }
-    public void skystoneOff() {
-        skystoneServo.setPosition(0.55);
-    }
-    // resets the cumulative angle tracking to zero.
-    private void resetAngle()
-    {
-        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        globalAngle = 0;
-    }
-    private double getAngle()
-    {
-        // z axis is the axis for heading angle.
-        // convert the euler angles to relative angles
-
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
-
-        if (deltaAngle < -180)
-            deltaAngle += 360;
-        else if (deltaAngle > 180)
-            deltaAngle -= 360;
-
-        globalAngle += deltaAngle;
-
-        lastAngles = angles;
-
-        return globalAngle;
-    }
-    private double checkDirection() {
-        // The gain value determines how sensitive the correction is to direction changes.
-        double correction, angle, gain = 0.025;
-
-        angle = getAngle();
-
-        if (angle == 0)
-            correction = 0;             // no adjustment.
-        else
-            correction = -angle;        // reverse sign of angle for correction.
-
-        correction = correction * gain;
-
-        return correction;
     }
 }

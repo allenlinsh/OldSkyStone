@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
-public class TestTeleOp extends LinearOpMode {
+public class TestColorSensor extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -27,6 +27,7 @@ public class TestTeleOp extends LinearOpMode {
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
+    double colorThreshold;
 
     @Override
     public void runOpMode() {
@@ -104,10 +105,22 @@ public class TestTeleOp extends LinearOpMode {
 
         // run until the end of the match
         while (opModeIsActive()) {
+            // skystone recognition
+            colorThreshold = colorSensor.red() * colorSensor.green() / (colorSensor.blue() * colorSensor.blue());
+
+            if (colorThreshold <= 3) {
+                // skystone
+                skystoneOn();
+            }
+            else {
+                // no skystone
+                skystoneOff();
+            }
+
             // Use gyro to drive in a straight line.
             if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
-                correction = 0;
                 resetAngle();
+                correction = 0;
             }
             else {
                 correction = checkDirection();
@@ -133,25 +146,16 @@ public class TestTeleOp extends LinearOpMode {
 
             if (this.gamepad1.right_bumper) {
                 hookOn();
-            }
-            else if (this.gamepad1.left_bumper) {
+            } else if (this.gamepad1.left_bumper) {
                 hookOff();
             }
 
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
-            }
-            else if (this.gamepad2.left_bumper) {
+            } else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
-            }
-
-            if (this.gamepad2.a) {
-                skystoneOn();
-            }
-            else if (this.gamepad2.y) {
-                skystoneOff();
             }
 
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
@@ -240,10 +244,10 @@ public class TestTeleOp extends LinearOpMode {
         rightServo.setPosition(0.9);
     }
     public void skystoneOn() {
-        skystoneServo.setPosition(1);
+        skystoneServo.setPosition(0.98);
     }
     public void skystoneOff() {
-        skystoneServo.setPosition(0.55);
+        skystoneServo.setPosition(0.52);
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

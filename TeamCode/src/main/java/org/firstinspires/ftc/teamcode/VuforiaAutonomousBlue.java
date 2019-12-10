@@ -37,7 +37,7 @@ public class VuforiaAutonomousBlue extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
-    (private VuforiaLocalizer vuforia;)
+    private VuforiaLocalizer vuforia;
     private OpenGLMatrix lastLocation;
     private WebcamName webcamName;
     private ColorSensor colorSensor;
