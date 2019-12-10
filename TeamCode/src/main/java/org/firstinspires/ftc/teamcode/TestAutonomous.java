@@ -27,7 +27,7 @@ public class TestAutonomous extends LinearOpMode {
     private Servo rightServo;
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
-    double globalAngle, power = 0.4, correction;
+    double globalAngle, power = 0.2, correction;
     double elapsedTime;
     boolean startAutonomous = true;
 
@@ -120,7 +120,7 @@ public class TestAutonomous extends LinearOpMode {
             //
             // **************************************************
 
-            if (startAutonomous) {
+            if (startAutonomous) { // https://stemrobotics.cs.pdx.edu/node/5184
                 //driveForward(1,power,correction);
                 //driveBackward(1,power,correction);
                 //driveForward(1,power,correction);
@@ -233,12 +233,23 @@ public class TestAutonomous extends LinearOpMode {
         // calculate target position
         double circumference = Math.PI * 3.75; // pi * diameter
         double inPerRev = circumference / ticksPerRev;
-        int targetPos = (int)(block * 24 / inPerRev * Math.sqrt(2));
+        int targetPos = (int)(block * 24 / inPerRev * 7 / 6);
 
         // set motor mode
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         leftBackMotor.setTargetPosition(targetPos);
+        rightBackMotor.setTargetPosition(-targetPos);
+        leftFrontMotor.setTargetPosition(-targetPos);
+        rightFrontMotor.setTargetPosition(targetPos);
+
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
         leftBackMotor.setPower(power - correction);
@@ -256,18 +267,29 @@ public class TestAutonomous extends LinearOpMode {
         // calculate target position
         double circumference = Math.PI * 3.75; // pi * diameter
         double inPerRev = circumference / ticksPerRev;
-        int targetPos = (int)(block * 24 / inPerRev * Math.sqrt(2));
+        int targetPos = (int)(block * 24 / inPerRev * 7 / 6);
 
         // set motor mode
         leftBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightBackMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        leftFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        rightFrontMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         leftBackMotor.setTargetPosition(-targetPos);
+        rightBackMotor.setTargetPosition(targetPos);
+        leftFrontMotor.setTargetPosition(targetPos);
+        rightFrontMotor.setTargetPosition(-targetPos);
+
         leftBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightBackMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        leftFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
-        leftBackMotor.setPower(-power - correction);
-        rightBackMotor.setPower(power + correction);
-        leftFrontMotor.setPower(power - correction);
-        rightFrontMotor.setPower(-power + correction);
+        leftBackMotor.setPower(power - correction);
+        rightBackMotor.setPower(-power + correction);
+        leftFrontMotor.setPower(-power - correction);
+        rightFrontMotor.setPower(power + correction);
 
         while(opModeIsActive() && leftBackMotor.isBusy()) {}
         stopMotor();
