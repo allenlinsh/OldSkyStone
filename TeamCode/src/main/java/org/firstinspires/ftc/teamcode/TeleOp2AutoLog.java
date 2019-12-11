@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.RobotLog;
+import java.io.IOException;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -26,10 +26,12 @@ public class TeleOp2AutoLog extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
+    private Servo skystoneServo;
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
     double elapsedTime;
+    double leftServoState, rightServoState, skystoneServoState;
 
     @Override
     public void runOpMode() {
@@ -42,6 +44,7 @@ public class TeleOp2AutoLog extends LinearOpMode {
         armMotor        = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo       = hardwareMap.get(Servo.class, "leftServo");
         rightServo      = hardwareMap.get(Servo.class, "rightServo");
+        skystoneServo   = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor     = hardwareMap.get(ColorSensor.class,"colorSensor");
 
         // set motor direction
@@ -64,8 +67,9 @@ public class TeleOp2AutoLog extends LinearOpMode {
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // initialize the hook
+        // initialize servos
         hookOff();
+        skystoneOff();
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -102,8 +106,8 @@ public class TeleOp2AutoLog extends LinearOpMode {
         ElapsedTime timer = new ElapsedTime();
 
         // adding header to log
-        String header = "elapsedTime, leftBackPower, rightBackPower, leftFrontPower, rightFrontPower, gripPower, armPower";
-        RobotLog.v(header);
+        String header = "elapsedTime,leftBackPower,rightBackPower,leftFrontPower,rightFrontPower,gripPower,armPower,leftServoState,rightServoState,skystoneServoState";
+        Logging.logNoFormatNoMethod(header);
 
         // wait for the game to start
         waitForStart();
@@ -151,6 +155,13 @@ public class TeleOp2AutoLog extends LinearOpMode {
             } else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
+            }
+
+            if (this.gamepad2.a) {
+                skystoneOn();
+            }
+            else if (this.gamepad2.y) {
+                skystoneOff();
             }
 
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
@@ -228,19 +239,28 @@ public class TeleOp2AutoLog extends LinearOpMode {
             }
             gripMotor.setPower(gripPower);
             armMotor.setPower(armPower);
+            leftServo.setPosition(leftServoState);
+            rightServo.setPosition(rightServoState);
+            skystoneServo.setPosition(skystoneServoState);
 
             // adding motor values to csv
-            String values = elapsedTime + ", " + leftBackPower + ", " + rightBackPower + ", " + leftFrontPower + ", " + rightFrontPower + ", " + gripPower + ", " + armPower;
-            RobotLog.v(values);
+            String values = elapsedTime + "," + leftBackPower + "," + rightBackPower + "," + leftFrontPower + "," + rightFrontPower + "," + gripPower + "," + armPower + "," + leftServoState + "," + rightServoState + "," + skystoneServoState;
+            Logging.logNoFormatNoMethod(values);
         }
     }
     public void hookOn() {
-        leftServo.setPosition(1);
-        rightServo.setPosition(0);
+        leftServoState = 1;
+        rightServoState = 0;
     }
     public void hookOff() {
-        leftServo.setPosition(0.1);
-        rightServo.setPosition(0.9);
+        leftServoState = 0.1;
+        rightServoState = 0.9;
+    }
+    public void skystoneOn() {
+        skystoneServoState = 0.98;
+    }
+    public void skystoneOff() {
+        skystoneServoState = 0.52;
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

@@ -27,6 +27,7 @@ public class TestTeleOp extends LinearOpMode {
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
+    double leftServoState, rightServoState, skystoneServoState;
 
     @Override
     public void runOpMode() {
@@ -229,21 +230,24 @@ public class TestTeleOp extends LinearOpMode {
             }
             gripMotor.setPower(gripPower);
             armMotor.setPower(armPower);
+            leftServo.setPosition(leftServoState);
+            rightServo.setPosition(rightServoState);
+            skystoneServo.setPosition(skystoneServoState);
         }
     }
     public void hookOn() {
-        leftServo.setPosition(1);
-        rightServo.setPosition(0);
+        leftServoState = 1;
+        rightServoState = 0;
     }
     public void hookOff() {
-        leftServo.setPosition(0.1);
-        rightServo.setPosition(0.9);
+        leftServoState = 0.1;
+        rightServoState = 0.9;
     }
     public void skystoneOn() {
-        skystoneServo.setPosition(1);
+        skystoneServoState = 0.98;
     }
     public void skystoneOff() {
-        skystoneServo.setPosition(0.55);
+        skystoneServoState = 0.52;
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

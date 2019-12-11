@@ -1,12 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.Buffer;
-import java.util.Calendar;
-
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -15,13 +8,15 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.RobotLog;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
-public class TeleOp2Auto extends LinearOpMode {
+public class TeleOp2AutoRobotLog extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -34,6 +29,7 @@ public class TeleOp2Auto extends LinearOpMode {
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
+    double elapsedTime;
 
     @Override
     public void runOpMode() {
@@ -104,147 +100,138 @@ public class TeleOp2Auto extends LinearOpMode {
 
         // set up the elapsed timer
         ElapsedTime timer = new ElapsedTime();
-        double elapsedTime;
 
-        String filename = "#15429_" + Calendar.getInstance().getTime().toString() + ".csv";
-        File file = new File(filename);
-        try {
-            // create FileWriter object with file as parameter
-            FileWriter outputfile = new FileWriter(file);
+        // adding header to log
+        String header = "elapsedTime, leftBackPower, rightBackPower, leftFrontPower, rightFrontPower, gripPower, armPower";
+        RobotLog.v(header);
 
-            // create CSVWriter object filewriter object as parameter
-            BufferedWriter writer = new BufferedWriter(outputfile);
+        // wait for the game to start
+        waitForStart();
 
-            // adding header to csv
-            String header = "elapsedTime, leftBackPower, rightBackPower, leftFrontPower, rightFrontPower, gripPower, armPower";
-            writer.write(header);
+        // run until the end of the match
+        while (opModeIsActive()) {
+            elapsedTime = timer.time();
 
-            // wait for the game to start
-            waitForStart();
+            // Use gyro to drive in a straight line.
+            if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
+                resetAngle();
+                correction = 0;
+            }
+            else {
+                correction = checkDirection();
+            }
 
-            // run until the end of the match
-            while (opModeIsActive()) {
-                elapsedTime = timer.time() * 1000;
+            telemetry.addData("1 imu heading", lastAngles.firstAngle);
+            telemetry.addData("2 global heading", globalAngle);
+            telemetry.addData("3 correction", correction);
+            telemetry.addData("4 leftBackPower", leftBackPower);
+            telemetry.addData("5 rightBackPower", rightBackPower);
+            telemetry.addData("6 leftFrontPower", leftFrontPower);
+            telemetry.addData("7 rightFrontPower", rightBackPower);
+            telemetry.addData("8 gripPower", gripPower);
+            telemetry.addData("9 armPower", armPower);
+            telemetry.update();
 
-                // Use gyro to drive in a straight line.
-                if (gamepad1.right_stick_x == 0 || !gamepad1.x || !gamepad1.b) {
-                    correction = checkDirection();
+            // assign controller power values
+            driveAxial      = 0;
+            driveLateral    = 0;
+            driveYaw        = 0;
+            armPower        = this.gamepad2.left_stick_y;
+            gripPower       = 0;
+
+            if (this.gamepad1.right_bumper) {
+                hookOn();
+            } else if (this.gamepad1.left_bumper) {
+                hookOff();
+            }
+
+            if (this.gamepad2.right_bumper) {
+                // grip hold
+                gripPower = 0.3;
+            } else if (this.gamepad2.left_bumper) {
+                // grip release
+                gripPower = -0.3;
+            }
+
+            if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
+                // dpad_left = slow left
+                if (gamepad1.dpad_left) {
+                    driveLateral = -0.5;
+                }
+                // dpad_right = slow right
+                if (gamepad1.dpad_right) {
+                    driveLateral = 0.5;
+                }
+                // dpad_up = slow forward
+                if (gamepad1.dpad_up) {
+                    driveAxial = -0.25;
+                }
+                // dpad_down = slow backward
+                if (gamepad1.dpad_down) {
+                    driveAxial = 0.25;
+                }
+                // x = slow rotate ccw
+                if (gamepad1.x) {
+                    driveYaw = -0.35;
+                }
+                // b = slow rotate cw
+                if (gamepad1.b) {
+                    driveYaw = 0.35;
+                }
+            }
+            else {
+                // set axial movement to logarithmic values and set a dead zone
+                driveAxial = this.gamepad1.left_stick_y;
+                if (Math.abs(driveAxial) < Math.sqrt(0.1)) {
+                    driveAxial = 0;
                 }
                 else {
-                    resetAngle();
-                    correction = 0;
+                    driveAxial = driveAxial * 110 /127;
+                    driveAxial = driveAxial * driveAxial * Math.signum(driveAxial) / 1.0;
                 }
-
-                telemetry.addData("1 imu heading", lastAngles.firstAngle);
-                telemetry.addData("2 global heading", globalAngle);
-                telemetry.addData("3 correction", correction);
-                telemetry.addData("4 leftBackPower", leftBackPower);
-                telemetry.addData("5 rightBackPower", rightBackPower);
-                telemetry.addData("6 leftFrontPower", leftFrontPower);
-                telemetry.addData("7 rightFrontPower", rightBackPower);
-                telemetry.addData("8 gripPower", gripPower);
-                telemetry.addData("9 armPower", armPower);
-                telemetry.update();
-
-                // assign controller power values
-                driveAxial      = 0;
-                driveLateral    = 0;
-                driveYaw        = 0;
-                armPower        = this.gamepad2.left_stick_y;
-                gripPower       = 0;
-
-                if (this.gamepad1.right_bumper) {
-                    hookOn();
-                } else if (this.gamepad1.left_bumper) {
-                    hookOff();
-                }
-
-                if (this.gamepad2.right_bumper) {
-                    // grip hold
-                    gripPower = 0.3;
-                } else if (this.gamepad2.left_bumper) {
-                    // grip release
-                    gripPower = -0.3;
-                }
-
-                if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
-                    // dpad_left = slow left
-                    if (gamepad1.dpad_left) {
-                        driveLateral = -0.5;
-                    }
-                    // dpad_right = slow right
-                    if (gamepad1.dpad_right) {
-                        driveLateral = 0.5;
-                    }
-                    // dpad_up = slow forward
-                    if (gamepad1.dpad_up) {
-                        driveAxial = -0.25;
-                    }
-                    // dpad_down = slow backward
-                    if (gamepad1.dpad_down) {
-                        driveAxial = 0.25;
-                    }
-                    // x = slow rotate ccw
-                    if (gamepad1.x) {
-                        driveYaw = -0.35;
-                    }
-                    // b = slow rotate cw
-                    if (gamepad1.b) {
-                        driveYaw = 0.35;
-                    }
+                // set lateral movement to logarithmic values and set a dead zone
+                driveLateral = this.gamepad1.left_stick_x;
+                if (Math.abs(driveLateral) < Math.sqrt(0.1)) {
+                    driveLateral = 0;
                 }
                 else {
-                    // set axial movement to logarithmic values and set a dead zone
-                    driveAxial = this.gamepad1.left_stick_y;
-                    if (Math.abs(driveAxial) < Math.sqrt(0.1)) {
-                        driveAxial = 0;
-                    }
-                    else {
-                        driveAxial = driveAxial * 100 /127;
-                        driveAxial = driveAxial * driveAxial * Math.signum(driveAxial) / 1.0;
-                    }
-                    // set lateral movement to logarithmic values and set a dead zone
-                    driveLateral = this.gamepad1.left_stick_x;
-                    if (Math.abs(driveLateral) < Math.sqrt(0.1)) {
-                        driveLateral = 0;
-                    }
-                    else {
-                        driveLateral = driveLateral * 100 /127;
-                        driveLateral = driveLateral * driveLateral * Math.signum(driveLateral) / 1.0;
-                    }
-                    // set yaw movement to logarithmic values and set a dead zone
-                    driveYaw = this.gamepad1.right_stick_x;
-                    if (Math.abs(driveYaw) < Math.sqrt(0.1)) {
-                        driveYaw = 0;
-                    }
-                    else {
-                        driveYaw = driveYaw * 100 / 127;
-                        driveYaw = driveYaw * driveYaw * Math.signum(driveYaw) / 1.0;
-                    }
+                    driveLateral = driveLateral * 100 / 127;
+                    driveLateral = driveLateral * driveLateral * Math.signum(driveLateral) / 1.0;
                 }
+                // set yaw movement to logarithmic values and set a dead zone
+                driveYaw = this.gamepad1.right_stick_x;
+                if (Math.abs(driveYaw) < Math.sqrt(0.1)) {
+                    driveYaw = 0;
+                }
+                else {
+                    driveYaw = driveYaw * 110 / 127;
+                    driveYaw = driveYaw * driveYaw * Math.signum(driveYaw) / 1.0;
+                }
+            }
 
-                leftBackPower = -driveLateral - driveAxial + driveYaw - correction;
-                rightBackPower = driveLateral - driveAxial - driveYaw + correction;
-                leftFrontPower = driveLateral - driveAxial + driveYaw - correction;
-                rightFrontPower = -driveLateral - driveAxial - driveYaw + correction;
+            leftBackPower = -driveLateral - driveAxial + driveYaw - correction;
+            rightBackPower = driveLateral - driveAxial - driveYaw + correction;
+            leftFrontPower = driveLateral - driveAxial + driveYaw - correction;
+            rightFrontPower = -driveLateral - driveAxial - driveYaw + correction;
 
+            if (this.gamepad1.left_stick_y != 0 || this.gamepad1.left_stick_x != 0 || this.gamepad1.right_stick_x != 0 || this. gamepad1.dpad_up || this. gamepad1.dpad_down || this. gamepad1.dpad_left || this. gamepad1.dpad_right || this. gamepad1.x || this. gamepad1.b) {
                 leftBackMotor.setPower(leftBackPower);
                 rightBackMotor.setPower(rightBackPower);
                 leftFrontMotor.setPower(leftFrontPower);
                 rightFrontMotor.setPower(rightFrontPower);
-                gripMotor.setPower(gripPower);
-                armMotor.setPower(armPower);
-
-                // adding motor values to csv
-                String values = elapsedTime + ", " + leftBackPower + ", " + rightBackPower + ", " + leftFrontPower + ", " + rightFrontPower + ", " + gripPower + ", " + armPower;
-                writer.append(values);
             }
-            // close and export the file
-            writer.close();
-        }
-        catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            else {
+                leftBackMotor.setPower(0);
+                rightBackMotor.setPower(0);
+                leftFrontMotor.setPower(0);
+                rightFrontMotor.setPower(0);
+            }
+            gripMotor.setPower(gripPower);
+            armMotor.setPower(armPower);
+
+            // adding motor values to csv
+            String values = elapsedTime + ", " + leftBackPower + ", " + rightBackPower + ", " + leftFrontPower + ", " + rightFrontPower + ", " + gripPower + ", " + armPower;
+            RobotLog.v(values);
         }
     }
     public void hookOn() {
