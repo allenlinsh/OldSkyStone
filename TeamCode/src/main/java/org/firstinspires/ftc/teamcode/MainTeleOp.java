@@ -23,9 +23,11 @@ public class MainTeleOp extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
+    private Servo skystoneServo;
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
+    double leftServoState, rightServoState, skystoneServoState;
 
     @Override
     public void runOpMode() {
@@ -38,6 +40,7 @@ public class MainTeleOp extends LinearOpMode {
         armMotor        = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo       = hardwareMap.get(Servo.class, "leftServo");
         rightServo      = hardwareMap.get(Servo.class, "rightServo");
+        skystoneServo   = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor     = hardwareMap.get(ColorSensor.class,"colorSensor");
 
         // set motor direction
@@ -60,8 +63,9 @@ public class MainTeleOp extends LinearOpMode {
         leftFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // initialize the hook
+        // initialize servos
         hookOff();
+        skystoneOff();
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -103,8 +107,8 @@ public class MainTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             // Use gyro to drive in a straight line.
             if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
-                resetAngle();
                 correction = 0;
+                resetAngle();
             }
             else {
                 correction = checkDirection();
@@ -130,16 +134,25 @@ public class MainTeleOp extends LinearOpMode {
 
             if (this.gamepad1.right_bumper) {
                 hookOn();
-            } else if (this.gamepad1.left_bumper) {
+            }
+            else if (this.gamepad1.left_bumper) {
                 hookOff();
             }
 
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
-            } else if (this.gamepad2.left_bumper) {
+            }
+            else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
+            }
+
+            if (this.gamepad2.a) {
+                skystoneOn();
+            }
+            else if (this.gamepad2.y) {
+                skystoneOff();
             }
 
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
@@ -217,15 +230,24 @@ public class MainTeleOp extends LinearOpMode {
             }
             gripMotor.setPower(gripPower);
             armMotor.setPower(armPower);
+            leftServo.setPosition(leftServoState);
+            rightServo.setPosition(rightServoState);
+            skystoneServo.setPosition(skystoneServoState);
         }
     }
     public void hookOn() {
-        leftServo.setPosition(1);
-        rightServo.setPosition(0);
+        leftServoState = 1;
+        rightServoState = 0;
     }
     public void hookOff() {
-        leftServo.setPosition(0.1);
-        rightServo.setPosition(0.9);
+        leftServoState = 0.1;
+        rightServoState = 0.9;
+    }
+    public void skystoneOn() {
+        skystoneServoState = 0.98;
+    }
+    public void skystoneOff() {
+        skystoneServoState = 0.52;
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

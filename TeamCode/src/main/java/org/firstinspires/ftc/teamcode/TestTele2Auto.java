@@ -28,7 +28,7 @@ public class TestTele2Auto extends LinearOpMode {
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0.2, correction;
-    double elapsedTime;
+    double elapsedTime, endTime;
     boolean startAutonomous = true;
 
     int ticksPerRev             = 480;
@@ -123,8 +123,8 @@ public class TestTele2Auto extends LinearOpMode {
             // **************************************************
 
             if (startAutonomous) { // https://stemrobotics.cs.pdx.edu/node/5184
-                //teleOp2Auto();
-                if(elapsedTime > 17.158796605) {
+                teleOp2Auto();
+                if(elapsedTime > endTime) {
                     startAutonomous = false;
                 }
             }
@@ -374,2998 +374,1921 @@ public class TestTele2Auto extends LinearOpMode {
         // reset angle tracking on new heading.
         resetAngle();
     }
-     public void teleOp2Auto() {
-         if(elapsedTime > 0 && elapsedTime < 1.586442658) {
-         leftBackMotor.setPower(0);
-         rightBackMotor.setPower(0);
-         leftFrontMotor.setPower(0);
-         rightFrontMotor.setPower(0);
-         gripMotor.setPower(0);
-         armMotor.setPower(0);
-         }
-         if(elapsedTime > 1.586442658 && elapsedTime < 2.16636506) {
-         leftBackMotor.setPower(0.00125);
-         rightBackMotor.setPower(-0.00125);
-         leftFrontMotor.setPower(0.00125);
-         rightFrontMotor.setPower(-0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.16636506 && elapsedTime < 2.206498814) {
-         leftBackMotor.setPower(0.7377347312929418);
-         rightBackMotor.setPower(0.7377347312929418);
-         leftFrontMotor.setPower(0.7377347312929418);
-         rightFrontMotor.setPower(0.7377347312929418);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.206498814 && elapsedTime < 2.233769754) {
-         leftBackMotor.setPower(0.7502015004030008);
-         rightBackMotor.setPower(0.7502015004030008);
-         leftFrontMotor.setPower(0.7502015004030008);
-         rightFrontMotor.setPower(0.7502015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.233769754 && elapsedTime < 2.289038145) {
-         leftBackMotor.setPower(0.7489515004030008);
-         rightBackMotor.setPower(0.7514515004030008);
-         leftFrontMotor.setPower(0.7489515004030008);
-         rightFrontMotor.setPower(0.7514515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.289038145 && elapsedTime < 2.320112158) {
-         leftBackMotor.setPower(0.7514515004030008);
-         rightBackMotor.setPower(0.7489515004030008);
-         leftFrontMotor.setPower(0.7514515004030008);
-         rightFrontMotor.setPower(0.7489515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.320112158 && elapsedTime < 2.359665027) {
-         leftBackMotor.setPower(0.7552015004030008);
-         rightBackMotor.setPower(0.7452015004030008);
-         leftFrontMotor.setPower(0.7552015004030008);
-         rightFrontMotor.setPower(0.7452015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.359665027 && elapsedTime < 2.399759406) {
-         leftBackMotor.setPower(0.7539515004030009);
-         rightBackMotor.setPower(0.7464515004030008);
-         leftFrontMotor.setPower(0.7539515004030009);
-         rightFrontMotor.setPower(0.7464515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.399759406 && elapsedTime < 2.428005398) {
-         leftBackMotor.setPower(0.7527015004030008);
-         rightBackMotor.setPower(0.7477015004030009);
-         leftFrontMotor.setPower(0.7527015004030008);
-         rightFrontMotor.setPower(0.7477015004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.428005398 && elapsedTime < 2.455505766) {
-         leftBackMotor.setPower(0.7502015004030008);
-         rightBackMotor.setPower(0.7502015004030008);
-         leftFrontMotor.setPower(0.7502015004030008);
-         rightFrontMotor.setPower(0.7502015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.455505766 && elapsedTime < 2.482988164) {
-         leftBackMotor.setPower(0.7414515004030008);
-         rightBackMotor.setPower(0.7589515004030009);
-         leftFrontMotor.setPower(0.7414515004030008);
-         rightFrontMotor.setPower(0.7589515004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.482988164 && elapsedTime < 2.510083219) {
-         leftBackMotor.setPower(0.7377015004030009);
-         rightBackMotor.setPower(0.7627015004030008);
-         leftFrontMotor.setPower(0.7377015004030009);
-         rightFrontMotor.setPower(0.7627015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.510083219 && elapsedTime < 2.538718482) {
-         leftBackMotor.setPower(0.7302015004030008);
-         rightBackMotor.setPower(0.7702015004030008);
-         leftFrontMotor.setPower(0.7302015004030008);
-         rightFrontMotor.setPower(0.7702015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.538718482 && elapsedTime < 2.562692547) {
-         leftBackMotor.setPower(0.7277015004030009);
-         rightBackMotor.setPower(0.7727015004030008);
-         leftFrontMotor.setPower(0.7277015004030009);
-         rightFrontMotor.setPower(0.7727015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.562692547 && elapsedTime < 2.585719476) {
-         leftBackMotor.setPower(0.7227015004030009);
-         rightBackMotor.setPower(0.7777015004030008);
-         leftFrontMotor.setPower(0.7227015004030009);
-         rightFrontMotor.setPower(0.7777015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.585719476 && elapsedTime < 2.609701979) {
-         leftBackMotor.setPower(0.7189515004030008);
-         rightBackMotor.setPower(0.7814515004030008);
-         leftFrontMotor.setPower(0.7189515004030008);
-         rightFrontMotor.setPower(0.7814515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.609701979 && elapsedTime < 2.681459903) {
-         leftBackMotor.setPower(0.7139515004030008);
-         rightBackMotor.setPower(0.7864515004030008);
-         leftFrontMotor.setPower(0.7139515004030008);
-         rightFrontMotor.setPower(0.7864515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.681459903 && elapsedTime < 2.702632509) {
-         leftBackMotor.setPower(0.7102015004030008);
-         rightBackMotor.setPower(0.7902015004030009);
-         leftFrontMotor.setPower(0.7102015004030008);
-         rightFrontMotor.setPower(0.7902015004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.702632509 && elapsedTime < 2.725758032) {
-         leftBackMotor.setPower(0.7077015004030008);
-         rightBackMotor.setPower(0.7927015004030008);
-         leftFrontMotor.setPower(0.7077015004030008);
-         rightFrontMotor.setPower(0.7927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.725758032 && elapsedTime < 2.746381211) {
-         leftBackMotor.setPower(0.7089515004030008);
-         rightBackMotor.setPower(0.7914515004030008);
-         leftFrontMotor.setPower(0.7089515004030008);
-         rightFrontMotor.setPower(0.7914515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.746381211 && elapsedTime < 2.769636995) {
-         leftBackMotor.setPower(0.7077015004030008);
-         rightBackMotor.setPower(0.7927015004030008);
-         leftFrontMotor.setPower(0.7077015004030008);
-         rightFrontMotor.setPower(0.7927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.769636995 && elapsedTime < 2.789697986) {
-         leftBackMotor.setPower(0.7089515004030008);
-         rightBackMotor.setPower(0.7914515004030008);
-         leftFrontMotor.setPower(0.7089515004030008);
-         rightFrontMotor.setPower(0.7914515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.789697986 && elapsedTime < 2.824170125) {
-         leftBackMotor.setPower(0.7077015004030008);
-         rightBackMotor.setPower(0.7927015004030008);
-         leftFrontMotor.setPower(0.7077015004030008);
-         rightFrontMotor.setPower(0.7927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.824170125 && elapsedTime < 2.852154607) {
-         leftBackMotor.setPower(0.7089515004030008);
-         rightBackMotor.setPower(0.7914515004030008);
-         leftFrontMotor.setPower(0.7089515004030008);
-         rightFrontMotor.setPower(0.7914515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.852154607 && elapsedTime < 2.883072527) {
-         leftBackMotor.setPower(0.7052015004030008);
-         rightBackMotor.setPower(0.7952015004030009);
-         leftFrontMotor.setPower(0.7052015004030008);
-         rightFrontMotor.setPower(0.7952015004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.883072527 && elapsedTime < 2.924873) {
-         leftBackMotor.setPower(0.7064515004030009);
-         rightBackMotor.setPower(0.7939515004030008);
-         leftFrontMotor.setPower(0.7064515004030009);
-         rightFrontMotor.setPower(0.7939515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.924873 && elapsedTime < 2.965115087) {
-         leftBackMotor.setPower(0.7077015004030008);
-         rightBackMotor.setPower(0.7927015004030008);
-         leftFrontMotor.setPower(0.7077015004030008);
-         rightFrontMotor.setPower(0.7927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.965115087 && elapsedTime < 2.988712069) {
-         leftBackMotor.setPower(0.598010892166388);
-         rightBackMotor.setPower(0.6855108921663879);
-         leftFrontMotor.setPower(0.598010892166388);
-         rightFrontMotor.setPower(0.6855108921663879);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 2.988712069 && elapsedTime < 3.008623477) {
-         leftBackMotor.setPower(0.599260892166388);
-         rightBackMotor.setPower(0.684260892166388);
-         leftFrontMotor.setPower(0.599260892166388);
-         rightFrontMotor.setPower(0.684260892166388);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.008623477 && elapsedTime < 3.029606656) {
-         leftBackMotor.setPower(0.14963513821910332);
-         rightBackMotor.setPower(0.23713513821910334);
-         leftFrontMotor.setPower(0.14963513821910332);
-         rightFrontMotor.setPower(0.23713513821910334);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.029606656 && elapsedTime < 3.049763221) {
-         leftBackMotor.setPower(0.14838513821910332);
-         rightBackMotor.setPower(0.23838513821910334);
-         leftFrontMotor.setPower(0.14838513821910332);
-         rightFrontMotor.setPower(0.23838513821910334);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.049763221 && elapsedTime < 3.113207029) {
-         leftBackMotor.setPower(-0.0425);
-         rightBackMotor.setPower(0.0425);
-         leftFrontMotor.setPower(-0.0425);
-         rightFrontMotor.setPower(0.0425);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.113207029 && elapsedTime < 3.123758697) {
-         leftBackMotor.setPower(-0.03625);
-         rightBackMotor.setPower(0.03625);
-         leftFrontMotor.setPower(-0.03625);
-         rightFrontMotor.setPower(0.03625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.123758697 && elapsedTime < 3.14273823) {
-         leftBackMotor.setPower(-0.03125);
-         rightBackMotor.setPower(0.03125);
-         leftFrontMotor.setPower(-0.03125);
-         rightFrontMotor.setPower(0.03125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.14273823 && elapsedTime < 3.157004273) {
-         leftBackMotor.setPower(-0.02);
-         rightBackMotor.setPower(0.02);
-         leftFrontMotor.setPower(-0.02);
-         rightFrontMotor.setPower(0.02);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.157004273 && elapsedTime < 3.176009639) {
-         leftBackMotor.setPower(-0.01625);
-         rightBackMotor.setPower(0.01625);
-         leftFrontMotor.setPower(-0.01625);
-         rightFrontMotor.setPower(0.01625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.176009639 && elapsedTime < 3.193704797) {
-         leftBackMotor.setPower(-0.0075);
-         rightBackMotor.setPower(0.0075);
-         leftFrontMotor.setPower(-0.0075);
-         rightFrontMotor.setPower(0.0075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.193704797 && elapsedTime < 3.20354558) {
-         leftBackMotor.setPower(0.00125);
-         rightBackMotor.setPower(-0.00125);
-         leftFrontMotor.setPower(0.00125);
-         rightFrontMotor.setPower(-0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.20354558 && elapsedTime < 3.214456987) {
-         leftBackMotor.setPower(0.00375);
-         rightBackMotor.setPower(-0.00375);
-         leftFrontMotor.setPower(0.00375);
-         rightFrontMotor.setPower(-0.00375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.214456987 && elapsedTime < 3.225481415) {
-         leftBackMotor.setPower(0.0075);
-         rightBackMotor.setPower(-0.0075);
-         leftFrontMotor.setPower(0.0075);
-         rightFrontMotor.setPower(-0.0075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.225481415 && elapsedTime < 3.235578395) {
-         leftBackMotor.setPower(0.01);
-         rightBackMotor.setPower(-0.01);
-         leftFrontMotor.setPower(0.01);
-         rightFrontMotor.setPower(-0.01);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.235578395 && elapsedTime < 3.303561788) {
-         leftBackMotor.setPower(0.0125);
-         rightBackMotor.setPower(-0.0125);
-         leftFrontMotor.setPower(0.0125);
-         rightFrontMotor.setPower(-0.0125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.303561788 && elapsedTime < 3.316480174) {
-         leftBackMotor.setPower(0.01125);
-         rightBackMotor.setPower(-0.01125);
-         leftFrontMotor.setPower(0.01125);
-         rightFrontMotor.setPower(-0.01125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.316480174 && elapsedTime < 3.330100749) {
-         leftBackMotor.setPower(0.01);
-         rightBackMotor.setPower(-0.01);
-         leftFrontMotor.setPower(0.01);
-         rightFrontMotor.setPower(-0.01);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.330100749 && elapsedTime < 3.342613979) {
-         leftBackMotor.setPower(0.00875);
-         rightBackMotor.setPower(-0.00875);
-         leftFrontMotor.setPower(0.00875);
-         rightFrontMotor.setPower(-0.00875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.342613979 && elapsedTime < 3.355448511) {
-         leftBackMotor.setPower(0.0075);
-         rightBackMotor.setPower(-0.0075);
-         leftFrontMotor.setPower(0.0075);
-         rightFrontMotor.setPower(-0.0075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.355448511 && elapsedTime < 3.368227836) {
-         leftBackMotor.setPower(0.00625);
-         rightBackMotor.setPower(-0.00625);
-         leftFrontMotor.setPower(0.00625);
-         rightFrontMotor.setPower(-0.00625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.368227836 && elapsedTime < 3.379403722) {
-         leftBackMotor.setPower(0.00375);
-         rightBackMotor.setPower(-0.00375);
-         leftFrontMotor.setPower(0.00375);
-         rightFrontMotor.setPower(-0.00375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.379403722 && elapsedTime < 3.388606744) {
-         leftBackMotor.setPower(0.0025);
-         rightBackMotor.setPower(-0.0025);
-         leftFrontMotor.setPower(0.0025);
-         rightFrontMotor.setPower(-0.0025);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.388606744 && elapsedTime < 3.40437461) {
-         leftBackMotor.setPower(0.00125);
-         rightBackMotor.setPower(-0.00125);
-         leftFrontMotor.setPower(0.00125);
-         rightFrontMotor.setPower(-0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.40437461 && elapsedTime < 3.571786241) {
-         leftBackMotor.setPower(-0.00125);
-         rightBackMotor.setPower(0.00125);
-         leftFrontMotor.setPower(-0.00125);
-         rightFrontMotor.setPower(0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.571786241 && elapsedTime < 3.609635412) {
-         leftBackMotor.setPower(0.12463241380882835);
-         rightBackMotor.setPower(-0.12463241380882835);
-         leftFrontMotor.setPower(0.12463241380882835);
-         rightFrontMotor.setPower(-0.12463241380882835);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.609635412 && elapsedTime < 3.731035163) {
-         leftBackMotor.setPower(0.2196452633608522);
-         rightBackMotor.setPower(-0.2196452633608522);
-         leftFrontMotor.setPower(0.2196452633608522);
-         rightFrontMotor.setPower(-0.2196452633608522);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.731035163 && elapsedTime < 3.765117771) {
-         leftBackMotor.setPower(0.22647143328998318);
-         rightBackMotor.setPower(-0.22647143328998318);
-         leftFrontMotor.setPower(0.22647143328998318);
-         rightFrontMotor.setPower(-0.22647143328998318);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.765117771 && elapsedTime < 3.80562314) {
-         leftBackMotor.setPower(0.2621691676654319);
-         rightBackMotor.setPower(-0.2621691676654319);
-         leftFrontMotor.setPower(0.2621691676654319);
-         rightFrontMotor.setPower(-0.2621691676654319);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.80562314 && elapsedTime < 3.855026686) {
-         leftBackMotor.setPower(0.3004782393411393);
-         rightBackMotor.setPower(-0.3004782393411393);
-         leftFrontMotor.setPower(0.3004782393411393);
-         rightFrontMotor.setPower(-0.3004782393411393);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.855026686 && elapsedTime < 3.886851273) {
-         leftBackMotor.setPower(0.33300575449965014);
-         rightBackMotor.setPower(-0.33300575449965014);
-         leftFrontMotor.setPower(0.33300575449965014);
-         rightFrontMotor.setPower(-0.33300575449965014);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.886851273 && elapsedTime < 3.919105026) {
-         leftBackMotor.setPower(0.40307459913129406);
-         rightBackMotor.setPower(-0.40307459913129406);
-         leftFrontMotor.setPower(0.40307459913129406);
-         rightFrontMotor.setPower(-0.40307459913129406);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.919105026 && elapsedTime < 3.97476149) {
-         leftBackMotor.setPower(0.5103348476400692);
-         rightBackMotor.setPower(-0.5103348476400692);
-         leftFrontMotor.setPower(0.5103348476400692);
-         rightFrontMotor.setPower(-0.5103348476400692);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 3.97476149 && elapsedTime < 4.127228588) {
-         leftBackMotor.setPower(0.5851721005083078);
-         rightBackMotor.setPower(-0.5851721005083078);
-         leftFrontMotor.setPower(0.5851721005083078);
-         rightFrontMotor.setPower(-0.5851721005083078);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.127228588 && elapsedTime < 4.375473926) {
-         leftBackMotor.setPower(0.5962809479249688);
-         rightBackMotor.setPower(-0.5962809479249688);
-         leftFrontMotor.setPower(0.5962809479249688);
-         rightFrontMotor.setPower(-0.5962809479249688);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.375473926 && elapsedTime < 4.415138617) {
-         leftBackMotor.setPower(0.6302342229198168);
-         rightBackMotor.setPower(-0.6302342229198168);
-         leftFrontMotor.setPower(0.6302342229198168);
-         rightFrontMotor.setPower(-0.6302342229198168);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.415138617 && elapsedTime < 4.490323468) {
-         leftBackMotor.setPower(0.6533920168704366);
-         rightBackMotor.setPower(-0.6533920168704366);
-         leftFrontMotor.setPower(0.6533920168704366);
-         rightFrontMotor.setPower(-0.6533920168704366);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.490323468 && elapsedTime < 4.853514234) {
-         leftBackMotor.setPower(0.6651275970319626);
-         rightBackMotor.setPower(-0.6651275970319626);
-         leftFrontMotor.setPower(0.6651275970319626);
-         rightFrontMotor.setPower(-0.6651275970319626);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.853514234 && elapsedTime < 4.893309029) {
-         leftBackMotor.setPower(0.3760153254927976);
-         rightBackMotor.setPower(-0.3760153254927976);
-         leftFrontMotor.setPower(0.3760153254927976);
-         rightFrontMotor.setPower(-0.3760153254927976);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.893309029 && elapsedTime < 4.915751271) {
-         leftBackMotor.setPower(0.0);
-         rightBackMotor.setPower(0.0);
-         leftFrontMotor.setPower(0.0);
-         rightFrontMotor.setPower(0.0);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.915751271 && elapsedTime < 4.928506429) {
-         leftBackMotor.setPower(-0.12125);
-         rightBackMotor.setPower(0.12125);
-         leftFrontMotor.setPower(-0.12125);
-         rightFrontMotor.setPower(0.12125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.928506429 && elapsedTime < 4.941443722) {
-         leftBackMotor.setPower(-0.16125);
-         rightBackMotor.setPower(0.16125);
-         leftFrontMotor.setPower(-0.16125);
-         rightFrontMotor.setPower(0.16125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.941443722 && elapsedTime < 4.95442789) {
-         leftBackMotor.setPower(-0.19875);
-         rightBackMotor.setPower(0.19875);
-         leftFrontMotor.setPower(-0.19875);
-         rightFrontMotor.setPower(0.19875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.95442789 && elapsedTime < 4.965794297) {
-         leftBackMotor.setPower(-0.2675);
-         rightBackMotor.setPower(0.2675);
-         leftFrontMotor.setPower(-0.2675);
-         rightFrontMotor.setPower(0.2675);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.965794297 && elapsedTime < 4.978366382) {
-         leftBackMotor.setPower(-0.29625);
-         rightBackMotor.setPower(0.29625);
-         leftFrontMotor.setPower(-0.29625);
-         rightFrontMotor.setPower(0.29625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.978366382 && elapsedTime < 4.9923993) {
-         leftBackMotor.setPower(-0.32);
-         rightBackMotor.setPower(0.32);
-         leftFrontMotor.setPower(-0.32);
-         rightFrontMotor.setPower(0.32);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 4.9923993 && elapsedTime < 5.00359628) {
-         leftBackMotor.setPower(-0.34);
-         rightBackMotor.setPower(0.34);
-         leftFrontMotor.setPower(-0.34);
-         rightFrontMotor.setPower(0.34);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.00359628 && elapsedTime < 5.015225396) {
-         leftBackMotor.setPower(-0.35625);
-         rightBackMotor.setPower(0.35625);
-         leftFrontMotor.setPower(-0.35625);
-         rightFrontMotor.setPower(0.35625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.015225396 && elapsedTime < 5.027571543) {
-         leftBackMotor.setPower(-0.3775);
-         rightBackMotor.setPower(0.3775);
-         leftFrontMotor.setPower(-0.3775);
-         rightFrontMotor.setPower(0.3775);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.027571543 && elapsedTime < 5.039744252) {
-         leftBackMotor.setPower(-0.38125000000000003);
-         rightBackMotor.setPower(0.38125000000000003);
-         leftFrontMotor.setPower(-0.38125000000000003);
-         rightFrontMotor.setPower(0.38125000000000003);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.039744252 && elapsedTime < 5.052936024) {
-         leftBackMotor.setPower(-0.3825);
-         rightBackMotor.setPower(0.3825);
-         leftFrontMotor.setPower(-0.3825);
-         rightFrontMotor.setPower(0.3825);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.052936024 && elapsedTime < 5.063595036) {
-         leftBackMotor.setPower(-0.38375000000000004);
-         rightBackMotor.setPower(0.38375000000000004);
-         leftFrontMotor.setPower(-0.38375000000000004);
-         rightFrontMotor.setPower(0.38375000000000004);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.063595036 && elapsedTime < 5.07268988) {
-         leftBackMotor.setPower(-0.3825);
-         rightBackMotor.setPower(0.3825);
-         leftFrontMotor.setPower(-0.3825);
-         rightFrontMotor.setPower(0.3825);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.07268988 && elapsedTime < 5.163842077) {
-         leftBackMotor.setPower(-0.38125000000000003);
-         rightBackMotor.setPower(0.38125000000000003);
-         leftFrontMotor.setPower(-0.38125000000000003);
-         rightFrontMotor.setPower(0.38125000000000003);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.163842077 && elapsedTime < 5.17903312) {
-         leftBackMotor.setPower(-0.38);
-         rightBackMotor.setPower(0.38);
-         leftFrontMotor.setPower(-0.38);
-         rightFrontMotor.setPower(0.38);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.17903312 && elapsedTime < 5.229977865) {
-         leftBackMotor.setPower(-0.38125000000000003);
-         rightBackMotor.setPower(0.38125000000000003);
-         leftFrontMotor.setPower(-0.38125000000000003);
-         rightFrontMotor.setPower(0.38125000000000003);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.229977865 && elapsedTime < 5.27475313) {
-         leftBackMotor.setPower(-0.38);
-         rightBackMotor.setPower(0.38);
-         leftFrontMotor.setPower(-0.38);
-         rightFrontMotor.setPower(0.38);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.27475313 && elapsedTime < 5.294630267) {
-         leftBackMotor.setPower(-0.38125000000000003);
-         rightBackMotor.setPower(0.38125000000000003);
-         leftFrontMotor.setPower(-0.38125000000000003);
-         rightFrontMotor.setPower(0.38125000000000003);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.294630267 && elapsedTime < 5.326682041) {
-         leftBackMotor.setPower(-0.10505742718182999);
-         rightBackMotor.setPower(0.10505742718182999);
-         leftFrontMotor.setPower(-0.10505742718182999);
-         rightFrontMotor.setPower(0.10505742718182999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.326682041 && elapsedTime < 5.372613192) {
-         leftBackMotor.setPower(-0.6302342229198168);
-         rightBackMotor.setPower(0.6302342229198168);
-         leftFrontMotor.setPower(-0.6302342229198168);
-         rightFrontMotor.setPower(0.6302342229198168);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.372613192 && elapsedTime < 5.407369237) {
-         leftBackMotor.setPower(-0.7502015004030008);
-         rightBackMotor.setPower(0.7502015004030008);
-         leftFrontMotor.setPower(-0.7502015004030008);
-         rightFrontMotor.setPower(0.7502015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.407369237 && elapsedTime < 5.463166013) {
-         leftBackMotor.setPower(0.0);
-         rightBackMotor.setPower(0.0);
-         leftFrontMotor.setPower(0.0);
-         rightFrontMotor.setPower(0.0);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.463166013 && elapsedTime < 5.473158514) {
-         leftBackMotor.setPower(0.0275);
-         rightBackMotor.setPower(-0.0275);
-         leftFrontMotor.setPower(0.0275);
-         rightFrontMotor.setPower(-0.0275);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.473158514 && elapsedTime < 5.48410414) {
-         leftBackMotor.setPower(0.0525);
-         rightBackMotor.setPower(-0.0525);
-         leftFrontMotor.setPower(0.0525);
-         rightFrontMotor.setPower(-0.0525);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.48410414 && elapsedTime < 5.494344089) {
-         leftBackMotor.setPower(0.07375);
-         rightBackMotor.setPower(-0.07375);
-         leftFrontMotor.setPower(0.07375);
-         rightFrontMotor.setPower(-0.07375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.494344089 && elapsedTime < 5.503854767) {
-         leftBackMotor.setPower(0.08875);
-         rightBackMotor.setPower(-0.08875);
-         leftFrontMotor.setPower(0.08875);
-         rightFrontMotor.setPower(-0.08875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.503854767 && elapsedTime < 5.512923362) {
-         leftBackMotor.setPower(0.10125);
-         rightBackMotor.setPower(-0.10125);
-         leftFrontMotor.setPower(0.10125);
-         rightFrontMotor.setPower(-0.10125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.512923362 && elapsedTime < 5.521743154) {
-         leftBackMotor.setPower(0.11);
-         rightBackMotor.setPower(-0.11);
-         leftFrontMotor.setPower(0.11);
-         rightFrontMotor.setPower(-0.11);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.521743154 && elapsedTime < 5.532100187) {
-         leftBackMotor.setPower(0.115);
-         rightBackMotor.setPower(-0.115);
-         leftFrontMotor.setPower(0.115);
-         rightFrontMotor.setPower(-0.115);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.532100187 && elapsedTime < 5.54260774) {
-         leftBackMotor.setPower(0.11625);
-         rightBackMotor.setPower(-0.11625);
-         leftFrontMotor.setPower(0.11625);
-         rightFrontMotor.setPower(-0.11625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.54260774 && elapsedTime < 5.563124981) {
-         leftBackMotor.setPower(0.115);
-         rightBackMotor.setPower(-0.115);
-         leftFrontMotor.setPower(0.115);
-         rightFrontMotor.setPower(-0.115);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.563124981 && elapsedTime < 5.575042951) {
-         leftBackMotor.setPower(0.11375);
-         rightBackMotor.setPower(-0.11375);
-         leftFrontMotor.setPower(0.11375);
-         rightFrontMotor.setPower(-0.11375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.575042951 && elapsedTime < 5.60303436) {
-         leftBackMotor.setPower(0.1125);
-         rightBackMotor.setPower(-0.1125);
-         leftFrontMotor.setPower(0.1125);
-         rightFrontMotor.setPower(-0.1125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.60303436 && elapsedTime < 5.641928218) {
-         leftBackMotor.setPower(0.5935785334581443);
-         rightBackMotor.setPower(0.3660785334581443);
-         leftFrontMotor.setPower(0.5935785334581443);
-         rightFrontMotor.setPower(0.3660785334581443);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.641928218 && elapsedTime < 5.66932843) {
-         leftBackMotor.setPower(0.5923285334581443);
-         rightBackMotor.setPower(0.3673285334581443);
-         leftFrontMotor.setPower(0.5923285334581443);
-         rightFrontMotor.setPower(0.3673285334581443);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.66932843 && elapsedTime < 5.726144789) {
-         leftBackMotor.setPower(0.8402347312929418);
-         rightBackMotor.setPower(0.6352347312929417);
-         leftFrontMotor.setPower(0.8402347312929418);
-         rightFrontMotor.setPower(0.6352347312929417);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.726144789 && elapsedTime < 5.766260054) {
-         leftBackMotor.setPower(0.8264515004030009);
-         rightBackMotor.setPower(0.6739515004030008);
-         leftFrontMotor.setPower(0.8264515004030009);
-         rightFrontMotor.setPower(0.6739515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.766260054 && elapsedTime < 5.795807661) {
-         leftBackMotor.setPower(0.8064515004030008);
-         rightBackMotor.setPower(0.6939515004030008);
-         leftFrontMotor.setPower(0.8064515004030008);
-         rightFrontMotor.setPower(0.6939515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.795807661 && elapsedTime < 5.822346726) {
-         leftBackMotor.setPower(0.7877015004030008);
-         rightBackMotor.setPower(0.7127015004030008);
-         leftFrontMotor.setPower(0.7877015004030008);
-         rightFrontMotor.setPower(0.7127015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.822346726 && elapsedTime < 5.847250999) {
-         leftBackMotor.setPower(0.7739515004030009);
-         rightBackMotor.setPower(0.7264515004030008);
-         leftFrontMotor.setPower(0.7739515004030009);
-         rightFrontMotor.setPower(0.7264515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.847250999 && elapsedTime < 5.874160898) {
-         leftBackMotor.setPower(0.7564515004030008);
-         rightBackMotor.setPower(0.7439515004030008);
-         leftFrontMotor.setPower(0.7564515004030008);
-         rightFrontMotor.setPower(0.7439515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.874160898 && elapsedTime < 5.910592881) {
-         leftBackMotor.setPower(0.7427015004030009);
-         rightBackMotor.setPower(0.7577015004030008);
-         leftFrontMotor.setPower(0.7427015004030009);
-         rightFrontMotor.setPower(0.7577015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.910592881 && elapsedTime < 5.930607362) {
-         leftBackMotor.setPower(0.7227015004030009);
-         rightBackMotor.setPower(0.7777015004030008);
-         leftFrontMotor.setPower(0.7227015004030009);
-         rightFrontMotor.setPower(0.7777015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.930607362 && elapsedTime < 5.951584864) {
-         leftBackMotor.setPower(0.7139515004030008);
-         rightBackMotor.setPower(0.7864515004030008);
-         leftFrontMotor.setPower(0.7139515004030008);
-         rightFrontMotor.setPower(0.7864515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.951584864 && elapsedTime < 5.971608355) {
-         leftBackMotor.setPower(0.7077015004030008);
-         rightBackMotor.setPower(0.7927015004030008);
-         leftFrontMotor.setPower(0.7077015004030008);
-         rightFrontMotor.setPower(0.7927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.971608355 && elapsedTime < 5.99158367) {
-         leftBackMotor.setPower(0.7027015004030008);
-         rightBackMotor.setPower(0.7977015004030008);
-         leftFrontMotor.setPower(0.7027015004030008);
-         rightFrontMotor.setPower(0.7977015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 5.99158367 && elapsedTime < 6.012613203) {
-         leftBackMotor.setPower(0.7002015004030008);
-         rightBackMotor.setPower(0.8002015004030009);
-         leftFrontMotor.setPower(0.7002015004030008);
-         rightFrontMotor.setPower(0.8002015004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.012613203 && elapsedTime < 6.033720028) {
-         leftBackMotor.setPower(0.6977015004030008);
-         rightBackMotor.setPower(0.8027015004030008);
-         leftFrontMotor.setPower(0.6977015004030008);
-         rightFrontMotor.setPower(0.8027015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.033720028 && elapsedTime < 6.056230395) {
-         leftBackMotor.setPower(0.6952015004030008);
-         rightBackMotor.setPower(0.8052015004030009);
-         leftFrontMotor.setPower(0.6952015004030008);
-         rightFrontMotor.setPower(0.8052015004030009);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.056230395 && elapsedTime < 6.085454669) {
-         leftBackMotor.setPower(0.7502015004030008);
-         rightBackMotor.setPower(0.7502015004030008);
-         leftFrontMotor.setPower(0.7502015004030008);
-         rightFrontMotor.setPower(0.7502015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.085454669 && elapsedTime < 6.136639414) {
-         leftBackMotor.setPower(0.19772928614555474);
-         rightBackMotor.setPower(1.3026737146604468);
-         leftFrontMotor.setPower(0.19772928614555474);
-         rightFrontMotor.setPower(1.3026737146604468);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.136639414 && elapsedTime < 6.218222963) {
-         leftBackMotor.setPower(0.0);
-         rightBackMotor.setPower(1.5004030008060016);
-         leftFrontMotor.setPower(0.0);
-         rightFrontMotor.setPower(1.5004030008060016);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.218222963 && elapsedTime < 6.251093852) {
-         leftBackMotor.setPower(-0.22948899429480374);
-         rightBackMotor.setPower(1.270914006511198);
-         leftFrontMotor.setPower(-0.22948899429480374);
-         rightFrontMotor.setPower(1.270914006511198);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.251093852 && elapsedTime < 6.694758167) {
-         leftBackMotor.setPower(-0.7502015004030008);
-         rightBackMotor.setPower(0.7502015004030008);
-         leftFrontMotor.setPower(-0.7502015004030008);
-         rightFrontMotor.setPower(0.7502015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.694758167 && elapsedTime < 6.754583329) {
-         leftBackMotor.setPower(-0.24757672719749152);
-         rightBackMotor.setPower(0.24757672719749152);
-         leftFrontMotor.setPower(-0.24757672719749152);
-         rightFrontMotor.setPower(0.24757672719749152);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.754583329 && elapsedTime < 6.792209635) {
-         leftBackMotor.setPower(0.25375000000000003);
-         rightBackMotor.setPower(-0.25375000000000003);
-         leftFrontMotor.setPower(0.25375000000000003);
-         rightFrontMotor.setPower(-0.25375000000000003);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.792209635 && elapsedTime < 6.812387137) {
-         leftBackMotor.setPower(1.1306145594452564);
-         rightBackMotor.setPower(0.2956145594452563);
-         leftFrontMotor.setPower(1.1306145594452564);
-         rightFrontMotor.setPower(0.2956145594452563);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.812387137 && elapsedTime < 6.827236201) {
-         leftBackMotor.setPower(1.2427015004030009);
-         rightBackMotor.setPower(0.2577015004030008);
-         leftFrontMotor.setPower(1.2427015004030009);
-         rightFrontMotor.setPower(0.2577015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.827236201 && elapsedTime < 6.842078703) {
-         leftBackMotor.setPower(1.3064515004030008);
-         rightBackMotor.setPower(0.1939515004030008);
-         leftFrontMotor.setPower(1.3064515004030008);
-         rightFrontMotor.setPower(0.1939515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.842078703 && elapsedTime < 6.856226048) {
-         leftBackMotor.setPower(1.3302015004030008);
-         rightBackMotor.setPower(0.17020150040300086);
-         leftFrontMotor.setPower(1.3302015004030008);
-         rightFrontMotor.setPower(0.17020150040300086);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.856226048 && elapsedTime < 6.875767977) {
-         leftBackMotor.setPower(1.366451500403001);
-         rightBackMotor.setPower(0.13395150040300086);
-         leftFrontMotor.setPower(1.366451500403001);
-         rightFrontMotor.setPower(0.13395150040300086);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.875767977 && elapsedTime < 6.894856468) {
-         leftBackMotor.setPower(1.3789515004030009);
-         rightBackMotor.setPower(0.12145150040300079);
-         leftFrontMotor.setPower(1.3789515004030009);
-         rightFrontMotor.setPower(0.12145150040300079);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.894856468 && elapsedTime < 6.911377303) {
-         leftBackMotor.setPower(1.3927015004030008);
-         rightBackMotor.setPower(0.10770150040300086);
-         leftFrontMotor.setPower(1.3927015004030008);
-         rightFrontMotor.setPower(0.10770150040300086);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.911377303 && elapsedTime < 6.927352722) {
-         leftBackMotor.setPower(1.4002015004030008);
-         rightBackMotor.setPower(0.1002015004030008);
-         leftFrontMotor.setPower(1.4002015004030008);
-         rightFrontMotor.setPower(0.1002015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.927352722 && elapsedTime < 6.944367723) {
-         leftBackMotor.setPower(1.4014515004030008);
-         rightBackMotor.setPower(0.09895150040300082);
-         leftFrontMotor.setPower(1.4014515004030008);
-         rightFrontMotor.setPower(0.09895150040300082);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.944367723 && elapsedTime < 6.965562204) {
-         leftBackMotor.setPower(1.3989515004030009);
-         rightBackMotor.setPower(0.10145150040300077);
-         leftFrontMotor.setPower(1.3989515004030009);
-         rightFrontMotor.setPower(0.10145150040300077);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.965562204 && elapsedTime < 6.980249341) {
-         leftBackMotor.setPower(1.3914515004030008);
-         rightBackMotor.setPower(0.10895150040300083);
-         leftFrontMotor.setPower(1.3914515004030008);
-         rightFrontMotor.setPower(0.10895150040300083);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.980249341 && elapsedTime < 6.99564752) {
-         leftBackMotor.setPower(1.3777015004030009);
-         rightBackMotor.setPower(0.12270150040300076);
-         leftFrontMotor.setPower(1.3777015004030009);
-         rightFrontMotor.setPower(0.12270150040300076);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 6.99564752 && elapsedTime < 7.010335646) {
-         leftBackMotor.setPower(1.3702015004030008);
-         rightBackMotor.setPower(0.13020150040300082);
-         leftFrontMotor.setPower(1.3702015004030008);
-         rightFrontMotor.setPower(0.13020150040300082);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.010335646 && elapsedTime < 7.030008461) {
-         leftBackMotor.setPower(1.3489515004030008);
-         rightBackMotor.setPower(0.15145150040300082);
-         leftFrontMotor.setPower(1.3489515004030008);
-         rightFrontMotor.setPower(0.15145150040300082);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.030008461 && elapsedTime < 7.051006171) {
-         leftBackMotor.setPower(1.3252015004030009);
-         rightBackMotor.setPower(0.17520150040300075);
-         leftFrontMotor.setPower(1.3252015004030009);
-         rightFrontMotor.setPower(0.17520150040300075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.051006171 && elapsedTime < 7.072072215) {
-         leftBackMotor.setPower(1.3002015004030008);
-         rightBackMotor.setPower(0.20020150040300078);
-         leftFrontMotor.setPower(1.3002015004030008);
-         rightFrontMotor.setPower(0.20020150040300078);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.072072215 && elapsedTime < 7.091807634) {
-         leftBackMotor.setPower(1.2714515004030007);
-         rightBackMotor.setPower(0.22895150040300083);
-         leftFrontMotor.setPower(1.2714515004030007);
-         rightFrontMotor.setPower(0.22895150040300083);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.091807634 && elapsedTime < 7.113125396) {
-         leftBackMotor.setPower(1.2402015004030007);
-         rightBackMotor.setPower(0.26020150040300083);
-         leftFrontMotor.setPower(1.2402015004030007);
-         rightFrontMotor.setPower(0.26020150040300083);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.113125396 && elapsedTime < 7.132271023) {
-         leftBackMotor.setPower(1.207701500403001);
-         rightBackMotor.setPower(0.2927015004030008);
-         leftFrontMotor.setPower(1.207701500403001);
-         rightFrontMotor.setPower(0.2927015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.132271023 && elapsedTime < 7.150140296) {
-         leftBackMotor.setPower(1.1739515004030008);
-         rightBackMotor.setPower(0.3264515004030008);
-         leftFrontMotor.setPower(1.1739515004030008);
-         rightFrontMotor.setPower(0.3264515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.150140296 && elapsedTime < 7.169953527) {
-         leftBackMotor.setPower(1.1402015004030008);
-         rightBackMotor.setPower(0.3602015004030008);
-         leftFrontMotor.setPower(1.1402015004030008);
-         rightFrontMotor.setPower(0.3602015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.169953527 && elapsedTime < 7.18811155) {
-         leftBackMotor.setPower(1.1064515004030009);
-         rightBackMotor.setPower(0.3939515004030008);
-         leftFrontMotor.setPower(1.1064515004030009);
-         rightFrontMotor.setPower(0.3939515004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.18811155 && elapsedTime < 7.207108791) {
-         leftBackMotor.setPower(1.0727015004030007);
-         rightBackMotor.setPower(0.4277015004030008);
-         leftFrontMotor.setPower(1.0727015004030007);
-         rightFrontMotor.setPower(0.4277015004030008);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.207108791 && elapsedTime < 7.247500514) {
-         leftBackMotor.setPower(0.4696317864364227);
-         rightBackMotor.setPower(-0.10786821356357729);
-         leftFrontMotor.setPower(0.4696317864364227);
-         rightFrontMotor.setPower(-0.10786821356357729);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.247500514 && elapsedTime < 7.27449385) {
-         leftBackMotor.setPower(0.23);
-         rightBackMotor.setPower(-0.23);
-         leftFrontMotor.setPower(0.23);
-         rightFrontMotor.setPower(-0.23);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.27449385 && elapsedTime < 7.31052552) {
-         leftBackMotor.setPower(0.2);
-         rightBackMotor.setPower(-0.2);
-         leftFrontMotor.setPower(0.2);
-         rightFrontMotor.setPower(-0.2);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.31052552 && elapsedTime < 7.332648179) {
-         leftBackMotor.setPower(0.12625);
-         rightBackMotor.setPower(-0.12625);
-         leftFrontMotor.setPower(0.12625);
-         rightFrontMotor.setPower(-0.12625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.332648179 && elapsedTime < 7.346436565) {
-         leftBackMotor.setPower(0.08375);
-         rightBackMotor.setPower(-0.08375);
-         leftFrontMotor.setPower(0.08375);
-         rightFrontMotor.setPower(-0.08375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.346436565 && elapsedTime < 7.356449431) {
-         leftBackMotor.setPower(0.0625);
-         rightBackMotor.setPower(-0.0625);
-         leftFrontMotor.setPower(0.0625);
-         rightFrontMotor.setPower(-0.0625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.356449431 && elapsedTime < 7.366196151) {
-         leftBackMotor.setPower(0.04);
-         rightBackMotor.setPower(-0.04);
-         leftFrontMotor.setPower(0.04);
-         rightFrontMotor.setPower(-0.04);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.366196151 && elapsedTime < 7.376475631) {
-         leftBackMotor.setPower(0.0175);
-         rightBackMotor.setPower(-0.0175);
-         leftFrontMotor.setPower(0.0175);
-         rightFrontMotor.setPower(-0.0175);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.376475631 && elapsedTime < 7.388334174) {
-         leftBackMotor.setPower(-0.00375);
-         rightBackMotor.setPower(0.00375);
-         leftFrontMotor.setPower(-0.00375);
-         rightFrontMotor.setPower(0.00375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.388334174 && elapsedTime < 7.398343602) {
-         leftBackMotor.setPower(-0.03875);
-         rightBackMotor.setPower(0.03875);
-         leftFrontMotor.setPower(-0.03875);
-         rightFrontMotor.setPower(0.03875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.398343602 && elapsedTime < 7.408297405) {
-         leftBackMotor.setPower(-0.0525);
-         rightBackMotor.setPower(0.0525);
-         leftFrontMotor.setPower(-0.0525);
-         rightFrontMotor.setPower(0.0525);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.408297405 && elapsedTime < 7.420416833) {
-         leftBackMotor.setPower(-0.065);
-         rightBackMotor.setPower(0.065);
-         leftFrontMotor.setPower(-0.065);
-         rightFrontMotor.setPower(0.065);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.420416833 && elapsedTime < 7.433144491) {
-         leftBackMotor.setPower(-0.075);
-         rightBackMotor.setPower(0.075);
-         leftFrontMotor.setPower(-0.075);
-         rightFrontMotor.setPower(0.075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.433144491 && elapsedTime < 7.44662345) {
-         leftBackMotor.setPower(-0.08375);
-         rightBackMotor.setPower(0.08375);
-         leftFrontMotor.setPower(-0.08375);
-         rightFrontMotor.setPower(0.08375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.44662345 && elapsedTime < 7.459071524) {
-         leftBackMotor.setPower(-0.0925);
-         rightBackMotor.setPower(0.0925);
-         leftFrontMotor.setPower(-0.0925);
-         rightFrontMotor.setPower(0.0925);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.459071524 && elapsedTime < 7.469586578) {
-         leftBackMotor.setPower(-0.105);
-         rightBackMotor.setPower(0.105);
-         leftFrontMotor.setPower(-0.105);
-         rightFrontMotor.setPower(0.105);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.469586578 && elapsedTime < 7.480420797) {
-         leftBackMotor.setPower(-0.10875);
-         rightBackMotor.setPower(0.10875);
-         leftFrontMotor.setPower(-0.10875);
-         rightFrontMotor.setPower(0.10875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.480420797 && elapsedTime < 7.491395694) {
-         leftBackMotor.setPower(-0.11);
-         rightBackMotor.setPower(0.11);
-         leftFrontMotor.setPower(-0.11);
-         rightFrontMotor.setPower(0.11);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.491395694 && elapsedTime < 7.501490122) {
-         leftBackMotor.setPower(-0.11125);
-         rightBackMotor.setPower(0.11125);
-         leftFrontMotor.setPower(-0.11125);
-         rightFrontMotor.setPower(0.11125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.501490122 && elapsedTime < 7.512497884) {
-         leftBackMotor.setPower(-0.1125);
-         rightBackMotor.setPower(0.1125);
-         leftFrontMotor.setPower(-0.1125);
-         rightFrontMotor.setPower(0.1125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.512497884 && elapsedTime < 7.528406688) {
-         leftBackMotor.setPower(-0.11375);
-         rightBackMotor.setPower(0.11375);
-         leftFrontMotor.setPower(-0.11375);
-         rightFrontMotor.setPower(0.11375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.528406688 && elapsedTime < 7.539350907) {
-         leftBackMotor.setPower(-0.115);
-         rightBackMotor.setPower(0.115);
-         leftFrontMotor.setPower(-0.115);
-         rightFrontMotor.setPower(0.115);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.539350907 && elapsedTime < 7.599636955) {
-         leftBackMotor.setPower(-0.11625);
-         rightBackMotor.setPower(0.11625);
-         leftFrontMotor.setPower(-0.11625);
-         rightFrontMotor.setPower(0.11625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.599636955 && elapsedTime < 7.652988835) {
-         leftBackMotor.setPower(-0.115);
-         rightBackMotor.setPower(0.115);
-         leftFrontMotor.setPower(-0.115);
-         rightFrontMotor.setPower(0.115);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.652988835 && elapsedTime < 7.679519828) {
-         leftBackMotor.setPower(0.14659761512787917);
-         rightBackMotor.setPower(-0.14659761512787917);
-         leftFrontMotor.setPower(-0.37659761512787915);
-         rightFrontMotor.setPower(0.37659761512787915);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.679519828 && elapsedTime < 7.709399883) {
-         leftBackMotor.setPower(0.14784761512787914);
-         rightBackMotor.setPower(-0.14784761512787914);
-         leftFrontMotor.setPower(-0.3753476151278792);
-         rightFrontMotor.setPower(0.3753476151278792);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.709399883 && elapsedTime < 7.758789783) {
-         leftBackMotor.setPower(0.51000124000248);
-         rightBackMotor.setPower(-0.51000124000248);
-         leftFrontMotor.setPower(-0.73000124000248);
-         rightFrontMotor.setPower(0.73000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.758789783 && elapsedTime < 7.795107652) {
-         leftBackMotor.setPower(0.52250124000248);
-         rightBackMotor.setPower(-0.52250124000248);
-         leftFrontMotor.setPower(-0.7175012400024801);
-         rightFrontMotor.setPower(0.7175012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.795107652 && elapsedTime < 7.830349686) {
-         leftBackMotor.setPower(0.5287512400024801);
-         rightBackMotor.setPower(-0.5287512400024801);
-         leftFrontMotor.setPower(-0.71125124000248);
-         rightFrontMotor.setPower(0.71125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.830349686 && elapsedTime < 7.854688335) {
-         leftBackMotor.setPower(0.53250124000248);
-         rightBackMotor.setPower(-0.53250124000248);
-         leftFrontMotor.setPower(-0.70750124000248);
-         rightFrontMotor.setPower(0.70750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.854688335 && elapsedTime < 7.881613598) {
-         leftBackMotor.setPower(0.53375124000248);
-         rightBackMotor.setPower(-0.53375124000248);
-         leftFrontMotor.setPower(-0.7062512400024801);
-         rightFrontMotor.setPower(0.7062512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.881613598 && elapsedTime < 7.909749278) {
-         leftBackMotor.setPower(0.53625124000248);
-         rightBackMotor.setPower(-0.53625124000248);
-         leftFrontMotor.setPower(-0.70375124000248);
-         rightFrontMotor.setPower(0.70375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.909749278 && elapsedTime < 7.93639402) {
-         leftBackMotor.setPower(0.53750124000248);
-         rightBackMotor.setPower(-0.53750124000248);
-         leftFrontMotor.setPower(-0.70250124000248);
-         rightFrontMotor.setPower(0.70250124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.93639402 && elapsedTime < 7.96052621) {
-         leftBackMotor.setPower(0.54250124000248);
-         rightBackMotor.setPower(-0.54250124000248);
-         leftFrontMotor.setPower(-0.69750124000248);
-         rightFrontMotor.setPower(0.69750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.96052621 && elapsedTime < 7.988524233) {
-         leftBackMotor.setPower(0.54625124000248);
-         rightBackMotor.setPower(-0.54625124000248);
-         leftFrontMotor.setPower(-0.69375124000248);
-         rightFrontMotor.setPower(0.69375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 7.988524233 && elapsedTime < 8.014787726) {
-         leftBackMotor.setPower(0.55500124000248);
-         rightBackMotor.setPower(-0.55500124000248);
-         leftFrontMotor.setPower(-0.6850012400024801);
-         rightFrontMotor.setPower(0.6850012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.014787726 && elapsedTime < 8.036187936) {
-         leftBackMotor.setPower(0.55875124000248);
-         rightBackMotor.setPower(-0.55875124000248);
-         leftFrontMotor.setPower(-0.68125124000248);
-         rightFrontMotor.setPower(0.68125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.036187936 && elapsedTime < 8.057273615) {
-         leftBackMotor.setPower(0.5662512400024801);
-         rightBackMotor.setPower(-0.5662512400024801);
-         leftFrontMotor.setPower(-0.67375124000248);
-         rightFrontMotor.setPower(0.67375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.057273615 && elapsedTime < 8.078096534) {
-         leftBackMotor.setPower(0.57250124000248);
-         rightBackMotor.setPower(-0.57250124000248);
-         leftFrontMotor.setPower(-0.66750124000248);
-         rightFrontMotor.setPower(0.66750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.078096534 && elapsedTime < 8.100094818) {
-         leftBackMotor.setPower(0.57750124000248);
-         rightBackMotor.setPower(-0.57750124000248);
-         leftFrontMotor.setPower(-0.66250124000248);
-         rightFrontMotor.setPower(0.66250124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.100094818 && elapsedTime < 8.120088309) {
-         leftBackMotor.setPower(0.58875124000248);
-         rightBackMotor.setPower(-0.58875124000248);
-         leftFrontMotor.setPower(-0.65125124000248);
-         rightFrontMotor.setPower(0.65125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.120088309 && elapsedTime < 8.14410977) {
-         leftBackMotor.setPower(0.5925012400024801);
-         rightBackMotor.setPower(-0.5925012400024801);
-         leftFrontMotor.setPower(-0.64750124000248);
-         rightFrontMotor.setPower(0.64750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.14410977 && elapsedTime < 8.16883847) {
-         leftBackMotor.setPower(0.60000124000248);
-         rightBackMotor.setPower(-0.60000124000248);
-         leftFrontMotor.setPower(-0.64000124000248);
-         rightFrontMotor.setPower(0.64000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.16883847 && elapsedTime < 8.191096702) {
-         leftBackMotor.setPower(0.6075012400024801);
-         rightBackMotor.setPower(-0.6075012400024801);
-         leftFrontMotor.setPower(-0.63250124000248);
-         rightFrontMotor.setPower(0.63250124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.191096702 && elapsedTime < 8.211118214) {
-         leftBackMotor.setPower(0.61375124000248);
-         rightBackMotor.setPower(-0.61375124000248);
-         leftFrontMotor.setPower(-0.62625124000248);
-         rightFrontMotor.setPower(0.62625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.211118214 && elapsedTime < 8.231113581) {
-         leftBackMotor.setPower(0.61625124000248);
-         rightBackMotor.setPower(-0.61625124000248);
-         leftFrontMotor.setPower(-0.6237512400024801);
-         rightFrontMotor.setPower(0.6237512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.231113581 && elapsedTime < 8.272785356) {
-         leftBackMotor.setPower(0.61875124000248);
-         rightBackMotor.setPower(-0.61875124000248);
-         leftFrontMotor.setPower(-0.62125124000248);
-         rightFrontMotor.setPower(0.62125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.272785356 && elapsedTime < 8.305189265) {
-         leftBackMotor.setPower(0.62625124000248);
-         rightBackMotor.setPower(-0.62625124000248);
-         leftFrontMotor.setPower(-0.61375124000248);
-         rightFrontMotor.setPower(0.61375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.305189265 && elapsedTime < 8.334942133) {
-         leftBackMotor.setPower(0.63125124000248);
-         rightBackMotor.setPower(-0.63125124000248);
-         leftFrontMotor.setPower(-0.60875124000248);
-         rightFrontMotor.setPower(0.60875124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.334942133 && elapsedTime < 8.365541302) {
-         leftBackMotor.setPower(0.63500124000248);
-         rightBackMotor.setPower(-0.63500124000248);
-         leftFrontMotor.setPower(-0.60500124000248);
-         rightFrontMotor.setPower(0.60500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.365541302 && elapsedTime < 8.391447867) {
-         leftBackMotor.setPower(0.63625124000248);
-         rightBackMotor.setPower(-0.63625124000248);
-         leftFrontMotor.setPower(-0.60375124000248);
-         rightFrontMotor.setPower(0.60375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.391447867 && elapsedTime < 8.412609536) {
-         leftBackMotor.setPower(0.63750124000248);
-         rightBackMotor.setPower(-0.63750124000248);
-         leftFrontMotor.setPower(-0.6025012400024801);
-         rightFrontMotor.setPower(0.6025012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.412609536 && elapsedTime < 8.444105685) {
-         leftBackMotor.setPower(0.63625124000248);
-         rightBackMotor.setPower(-0.63625124000248);
-         leftFrontMotor.setPower(-0.60375124000248);
-         rightFrontMotor.setPower(0.60375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.444105685 && elapsedTime < 8.466356) {
-         leftBackMotor.setPower(0.63500124000248);
-         rightBackMotor.setPower(-0.63500124000248);
-         leftFrontMotor.setPower(-0.60500124000248);
-         rightFrontMotor.setPower(0.60500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.466356 && elapsedTime < 8.507878087) {
-         leftBackMotor.setPower(0.63625124000248);
-         rightBackMotor.setPower(-0.63625124000248);
-         leftFrontMotor.setPower(-0.60375124000248);
-         rightFrontMotor.setPower(0.60375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.507878087 && elapsedTime < 8.527358037) {
-         leftBackMotor.setPower(0.63750124000248);
-         rightBackMotor.setPower(-0.63750124000248);
-         leftFrontMotor.setPower(-0.6025012400024801);
-         rightFrontMotor.setPower(0.6025012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.527358037 && elapsedTime < 8.553364394) {
-         leftBackMotor.setPower(0.63500124000248);
-         rightBackMotor.setPower(-0.63500124000248);
-         leftFrontMotor.setPower(-0.60500124000248);
-         rightFrontMotor.setPower(0.60500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.553364394 && elapsedTime < 8.590081481) {
-         leftBackMotor.setPower(0.6337512400024801);
-         rightBackMotor.setPower(-0.6337512400024801);
-         leftFrontMotor.setPower(-0.60625124000248);
-         rightFrontMotor.setPower(0.60625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.590081481 && elapsedTime < 8.614199556) {
-         leftBackMotor.setPower(0.63500124000248);
-         rightBackMotor.setPower(-0.63500124000248);
-         leftFrontMotor.setPower(-0.60500124000248);
-         rightFrontMotor.setPower(0.60500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.614199556 && elapsedTime < 8.654724821) {
-         leftBackMotor.setPower(0.6337512400024801);
-         rightBackMotor.setPower(-0.6337512400024801);
-         leftFrontMotor.setPower(-0.60625124000248);
-         rightFrontMotor.setPower(0.60625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.654724821 && elapsedTime < 8.682697063) {
-         leftBackMotor.setPower(0.2958977337052269);
-         rightBackMotor.setPower(-0.2958977337052269);
-         leftFrontMotor.setPower(-0.2683977337052269);
-         rightFrontMotor.setPower(0.2683977337052269);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.682697063 && elapsedTime < 8.709445347) {
-         leftBackMotor.setPower(0.01375);
-         rightBackMotor.setPower(-0.01375);
-         leftFrontMotor.setPower(0.01375);
-         rightFrontMotor.setPower(-0.01375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.709445347 && elapsedTime < 8.729245609) {
-         leftBackMotor.setPower(0.0125);
-         rightBackMotor.setPower(-0.0125);
-         leftFrontMotor.setPower(0.0125);
-         rightFrontMotor.setPower(-0.0125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.729245609 && elapsedTime < 8.762824779) {
-         leftBackMotor.setPower(0.01375);
-         rightBackMotor.setPower(-0.01375);
-         leftFrontMotor.setPower(0.01375);
-         rightFrontMotor.setPower(-0.01375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.762824779 && elapsedTime < 8.778753531) {
-         leftBackMotor.setPower(0.01625);
-         rightBackMotor.setPower(-0.01625);
-         leftFrontMotor.setPower(0.01625);
-         rightFrontMotor.setPower(-0.01625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.778753531 && elapsedTime < 8.787982282) {
-         leftBackMotor.setPower(0.02);
-         rightBackMotor.setPower(-0.02);
-         leftFrontMotor.setPower(0.02);
-         rightFrontMotor.setPower(-0.02);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.787982282 && elapsedTime < 8.797976554) {
-         leftBackMotor.setPower(0.0225);
-         rightBackMotor.setPower(-0.0225);
-         leftFrontMotor.setPower(0.0225);
-         rightFrontMotor.setPower(-0.0225);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.797976554 && elapsedTime < 8.814349212) {
-         leftBackMotor.setPower(0.02375);
-         rightBackMotor.setPower(-0.02375);
-         leftFrontMotor.setPower(0.02375);
-         rightFrontMotor.setPower(-0.02375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.814349212 && elapsedTime < 8.827963171) {
-         leftBackMotor.setPower(0.03125);
-         rightBackMotor.setPower(-0.03125);
-         leftFrontMotor.setPower(0.03125);
-         rightFrontMotor.setPower(-0.03125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.827963171 && elapsedTime < 8.844454944) {
-         leftBackMotor.setPower(0.03625);
-         rightBackMotor.setPower(-0.03625);
-         leftFrontMotor.setPower(0.03625);
-         rightFrontMotor.setPower(-0.03625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.844454944 && elapsedTime < 8.854277809) {
-         leftBackMotor.setPower(0.045);
-         rightBackMotor.setPower(-0.045);
-         leftFrontMotor.setPower(0.045);
-         rightFrontMotor.setPower(-0.045);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.854277809 && elapsedTime < 8.885502344) {
-         leftBackMotor.setPower(0.051250000000000004);
-         rightBackMotor.setPower(-0.051250000000000004);
-         leftFrontMotor.setPower(0.051250000000000004);
-         rightFrontMotor.setPower(-0.051250000000000004);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.885502344 && elapsedTime < 8.907606617) {
-         leftBackMotor.setPower(-0.5055988625846672);
-         rightBackMotor.setPower(0.5055988625846672);
-         leftFrontMotor.setPower(0.6330988625846672);
-         rightFrontMotor.setPower(-0.6330988625846672);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.907606617 && elapsedTime < 8.927608546) {
-         leftBackMotor.setPower(-0.5030988625846672);
-         rightBackMotor.setPower(0.5030988625846672);
-         leftFrontMotor.setPower(0.6355988625846672);
-         rightFrontMotor.setPower(-0.6355988625846672);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.927608546 && elapsedTime < 8.968123654) {
-         leftBackMotor.setPower(-0.55375124000248);
-         rightBackMotor.setPower(0.55375124000248);
-         leftFrontMotor.setPower(0.6862512400024801);
-         rightFrontMotor.setPower(-0.6862512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.968123654 && elapsedTime < 8.987891156) {
-         leftBackMotor.setPower(-0.55250124000248);
-         rightBackMotor.setPower(0.55250124000248);
-         leftFrontMotor.setPower(0.68750124000248);
-         rightFrontMotor.setPower(-0.68750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 8.987891156 && elapsedTime < 9.008964596) {
-         leftBackMotor.setPower(-0.54750124000248);
-         rightBackMotor.setPower(0.54750124000248);
-         leftFrontMotor.setPower(0.69250124000248);
-         rightFrontMotor.setPower(-0.69250124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.008964596 && elapsedTime < 9.031894389) {
-         leftBackMotor.setPower(-0.53375124000248);
-         rightBackMotor.setPower(0.53375124000248);
-         leftFrontMotor.setPower(0.7062512400024801);
-         rightFrontMotor.setPower(-0.7062512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.031894389 && elapsedTime < 9.052246839) {
-         leftBackMotor.setPower(-0.5137512400024801);
-         rightBackMotor.setPower(0.5137512400024801);
-         leftFrontMotor.setPower(0.72625124000248);
-         rightFrontMotor.setPower(-0.72625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.052246839 && elapsedTime < 9.07691554) {
-         leftBackMotor.setPower(-0.50500124000248);
-         rightBackMotor.setPower(0.50500124000248);
-         leftFrontMotor.setPower(0.73500124000248);
-         rightFrontMotor.setPower(-0.73500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.07691554 && elapsedTime < 9.10531247) {
-         leftBackMotor.setPower(-0.49375124000248005);
-         rightBackMotor.setPower(0.49375124000248005);
-         leftFrontMotor.setPower(0.74625124000248);
-         rightFrontMotor.setPower(-0.74625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.10531247 && elapsedTime < 9.131341483) {
-         leftBackMotor.setPower(-0.47500124000248);
-         rightBackMotor.setPower(0.47500124000248);
-         leftFrontMotor.setPower(0.76500124000248);
-         rightFrontMotor.setPower(-0.76500124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.131341483 && elapsedTime < 9.157282631) {
-         leftBackMotor.setPower(-0.46375124000248);
-         rightBackMotor.setPower(0.46375124000248);
-         leftFrontMotor.setPower(0.77625124000248);
-         rightFrontMotor.setPower(-0.77625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.157282631 && elapsedTime < 9.18418654) {
-         leftBackMotor.setPower(-0.45625124000248);
-         rightBackMotor.setPower(0.45625124000248);
-         leftFrontMotor.setPower(0.78375124000248);
-         rightFrontMotor.setPower(-0.78375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.18418654 && elapsedTime < 9.209979095) {
-         leftBackMotor.setPower(-0.44875124000248);
-         rightBackMotor.setPower(0.44875124000248);
-         leftFrontMotor.setPower(0.79125124000248);
-         rightFrontMotor.setPower(-0.79125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.209979095 && elapsedTime < 9.248529828) {
-         leftBackMotor.setPower(-0.44500124000248);
-         rightBackMotor.setPower(0.44500124000248);
-         leftFrontMotor.setPower(0.7950012400024801);
-         rightFrontMotor.setPower(-0.7950012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.248529828 && elapsedTime < 9.278943581) {
-         leftBackMotor.setPower(-0.44625124000248);
-         rightBackMotor.setPower(0.44625124000248);
-         leftFrontMotor.setPower(0.79375124000248);
-         rightFrontMotor.setPower(-0.79375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.278943581 && elapsedTime < 9.304733531) {
-         leftBackMotor.setPower(-0.44750124000248004);
-         rightBackMotor.setPower(0.44750124000248004);
-         leftFrontMotor.setPower(0.79250124000248);
-         rightFrontMotor.setPower(-0.79250124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.304733531 && elapsedTime < 9.332484472) {
-         leftBackMotor.setPower(-0.45625124000248);
-         rightBackMotor.setPower(0.45625124000248);
-         leftFrontMotor.setPower(0.78375124000248);
-         rightFrontMotor.setPower(-0.78375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.332484472 && elapsedTime < 9.360750464) {
-         leftBackMotor.setPower(-0.47000124000248);
-         rightBackMotor.setPower(0.47000124000248);
-         leftFrontMotor.setPower(0.77000124000248);
-         rightFrontMotor.setPower(-0.77000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.360750464 && elapsedTime < 9.393840936) {
-         leftBackMotor.setPower(-0.48375124000248004);
-         rightBackMotor.setPower(0.48375124000248004);
-         leftFrontMotor.setPower(0.75625124000248);
-         rightFrontMotor.setPower(-0.75625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.393840936 && elapsedTime < 9.413956823) {
-         leftBackMotor.setPower(-0.49875124000248006);
-         rightBackMotor.setPower(0.49875124000248006);
-         leftFrontMotor.setPower(0.74125124000248);
-         rightFrontMotor.setPower(-0.74125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.413956823 && elapsedTime < 9.43485344) {
-         leftBackMotor.setPower(-0.51125124000248);
-         rightBackMotor.setPower(0.51125124000248);
-         leftFrontMotor.setPower(0.72875124000248);
-         rightFrontMotor.setPower(-0.72875124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.43485344 && elapsedTime < 9.457857974) {
-         leftBackMotor.setPower(-0.52250124000248);
-         rightBackMotor.setPower(0.52250124000248);
-         leftFrontMotor.setPower(0.7175012400024801);
-         rightFrontMotor.setPower(-0.7175012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.457857974 && elapsedTime < 9.483867091) {
-         leftBackMotor.setPower(-0.53250124000248);
-         rightBackMotor.setPower(0.53250124000248);
-         leftFrontMotor.setPower(0.70750124000248);
-         rightFrontMotor.setPower(-0.70750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.483867091 && elapsedTime < 9.510403031) {
-         leftBackMotor.setPower(-0.5500012400024801);
-         rightBackMotor.setPower(0.5500012400024801);
-         leftFrontMotor.setPower(0.69000124000248);
-         rightFrontMotor.setPower(-0.69000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.510403031 && elapsedTime < 9.534996367) {
-         leftBackMotor.setPower(-0.55875124000248);
-         rightBackMotor.setPower(0.55875124000248);
-         leftFrontMotor.setPower(0.68125124000248);
-         rightFrontMotor.setPower(-0.68125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.534996367 && elapsedTime < 9.555971473) {
-         leftBackMotor.setPower(-0.5762512400024801);
-         rightBackMotor.setPower(0.5762512400024801);
-         leftFrontMotor.setPower(0.66375124000248);
-         rightFrontMotor.setPower(-0.66375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.555971473 && elapsedTime < 9.577147204) {
-         leftBackMotor.setPower(-0.58250124000248);
-         rightBackMotor.setPower(0.58250124000248);
-         leftFrontMotor.setPower(0.65750124000248);
-         rightFrontMotor.setPower(-0.65750124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.577147204 && elapsedTime < 9.602966217) {
-         leftBackMotor.setPower(-0.59125124000248);
-         rightBackMotor.setPower(0.59125124000248);
-         leftFrontMotor.setPower(0.6487512400024801);
-         rightFrontMotor.setPower(-0.6487512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.602966217 && elapsedTime < 9.622980178) {
-         leftBackMotor.setPower(-0.60375124000248);
-         rightBackMotor.setPower(0.60375124000248);
-         leftFrontMotor.setPower(0.63625124000248);
-         rightFrontMotor.setPower(-0.63625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.622980178 && elapsedTime < 9.645126378) {
-         leftBackMotor.setPower(-0.61125124000248);
-         rightBackMotor.setPower(0.61125124000248);
-         leftFrontMotor.setPower(0.6287512400024801);
-         rightFrontMotor.setPower(-0.6287512400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.645126378 && elapsedTime < 9.676413412) {
-         leftBackMotor.setPower(-0.61875124000248);
-         rightBackMotor.setPower(0.61875124000248);
-         leftFrontMotor.setPower(0.62125124000248);
-         rightFrontMotor.setPower(-0.62125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.676413412 && elapsedTime < 9.703368415) {
-         leftBackMotor.setPower(-0.62625124000248);
-         rightBackMotor.setPower(0.62625124000248);
-         leftFrontMotor.setPower(0.61375124000248);
-         rightFrontMotor.setPower(-0.61375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.703368415 && elapsedTime < 9.731321751) {
-         leftBackMotor.setPower(-0.6337512400024801);
-         rightBackMotor.setPower(0.6337512400024801);
-         leftFrontMotor.setPower(0.60625124000248);
-         rightFrontMotor.setPower(-0.60625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.731321751 && elapsedTime < 9.782883214) {
-         leftBackMotor.setPower(-0.64000124000248);
-         rightBackMotor.setPower(0.64000124000248);
-         leftFrontMotor.setPower(0.60000124000248);
-         rightFrontMotor.setPower(-0.60000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.782883214 && elapsedTime < 9.811768425) {
-         leftBackMotor.setPower(-0.64750124000248);
-         rightBackMotor.setPower(0.64750124000248);
-         leftFrontMotor.setPower(0.5925012400024801);
-         rightFrontMotor.setPower(-0.5925012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.811768425 && elapsedTime < 9.845504991) {
-         leftBackMotor.setPower(-0.64625124000248);
-         rightBackMotor.setPower(0.64625124000248);
-         leftFrontMotor.setPower(0.59375124000248);
-         rightFrontMotor.setPower(-0.59375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.845504991 && elapsedTime < 9.881653537) {
-         leftBackMotor.setPower(-0.65125124000248);
-         rightBackMotor.setPower(0.65125124000248);
-         leftFrontMotor.setPower(0.58875124000248);
-         rightFrontMotor.setPower(-0.58875124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.881653537 && elapsedTime < 9.919924374) {
-         leftBackMotor.setPower(-0.65000124000248);
-         rightBackMotor.setPower(0.65000124000248);
-         leftFrontMotor.setPower(0.59000124000248);
-         rightFrontMotor.setPower(-0.59000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.919924374 && elapsedTime < 9.945991043) {
-         leftBackMotor.setPower(-0.6487512400024801);
-         rightBackMotor.setPower(0.6487512400024801);
-         leftFrontMotor.setPower(0.59125124000248);
-         rightFrontMotor.setPower(-0.59125124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.945991043 && elapsedTime < 9.970524535) {
-         leftBackMotor.setPower(-0.64625124000248);
-         rightBackMotor.setPower(0.64625124000248);
-         leftFrontMotor.setPower(0.59375124000248);
-         rightFrontMotor.setPower(-0.59375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.970524535 && elapsedTime < 9.993884225) {
-         leftBackMotor.setPower(-0.64250124000248);
-         rightBackMotor.setPower(0.64250124000248);
-         leftFrontMotor.setPower(0.5975012400024801);
-         rightFrontMotor.setPower(-0.5975012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 9.993884225 && elapsedTime < 10.018970165) {
-         leftBackMotor.setPower(-0.64000124000248);
-         rightBackMotor.setPower(0.64000124000248);
-         leftFrontMotor.setPower(0.60000124000248);
-         rightFrontMotor.setPower(-0.60000124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.018970165 && elapsedTime < 10.044377563) {
-         leftBackMotor.setPower(-0.63625124000248);
-         rightBackMotor.setPower(0.63625124000248);
-         leftFrontMotor.setPower(0.60375124000248);
-         rightFrontMotor.setPower(-0.60375124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.044377563 && elapsedTime < 10.072089545) {
-         leftBackMotor.setPower(-0.6337512400024801);
-         rightBackMotor.setPower(0.6337512400024801);
-         leftFrontMotor.setPower(0.60625124000248);
-         rightFrontMotor.setPower(-0.60625124000248);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.072089545 && elapsedTime < 10.099162881) {
-         leftBackMotor.setPower(-0.63250124000248);
-         rightBackMotor.setPower(0.63250124000248);
-         leftFrontMotor.setPower(0.6075012400024801);
-         rightFrontMotor.setPower(-0.6075012400024801);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.099162881 && elapsedTime < 10.125117155) {
-         leftBackMotor.setPower(-0.3268744678213716);
-         rightBackMotor.setPower(0.3268744678213716);
-         leftFrontMotor.setPower(0.3093744678213716);
-         rightFrontMotor.setPower(-0.3093744678213716);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.125117155 && elapsedTime < 10.145575073) {
-         leftBackMotor.setPower(-0.3243744678213716);
-         rightBackMotor.setPower(0.3243744678213716);
-         leftFrontMotor.setPower(0.3118744678213716);
-         rightFrontMotor.setPower(-0.3118744678213716);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.145575073 && elapsedTime < 10.165370336) {
-         leftBackMotor.setPower(-0.005);
-         rightBackMotor.setPower(0.005);
-         leftFrontMotor.setPower(-0.005);
-         rightFrontMotor.setPower(0.005);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.165370336 && elapsedTime < 10.218048778) {
-         leftBackMotor.setPower(-0.00125);
-         rightBackMotor.setPower(0.00125);
-         leftFrontMotor.setPower(-0.00125);
-         rightFrontMotor.setPower(0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.218048778 && elapsedTime < 10.230808832) {
-         leftBackMotor.setPower(0.005);
-         rightBackMotor.setPower(-0.005);
-         leftFrontMotor.setPower(0.005);
-         rightFrontMotor.setPower(-0.005);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.230808832 && elapsedTime < 10.257042116) {
-         leftBackMotor.setPower(0.0075);
-         rightBackMotor.setPower(-0.0075);
-         leftFrontMotor.setPower(0.0075);
-         rightFrontMotor.setPower(-0.0075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.257042116 && elapsedTime < 10.27043894) {
-         leftBackMotor.setPower(0.00875);
-         rightBackMotor.setPower(-0.00875);
-         leftFrontMotor.setPower(0.00875);
-         rightFrontMotor.setPower(-0.00875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.27043894 && elapsedTime < 10.290203369) {
-         leftBackMotor.setPower(0.01);
-         rightBackMotor.setPower(-0.01);
-         leftFrontMotor.setPower(0.01);
-         rightFrontMotor.setPower(-0.01);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.290203369 && elapsedTime < 10.32073931) {
-         leftBackMotor.setPower(-0.34249999999999997);
-         rightBackMotor.setPower(0.34249999999999997);
-         leftFrontMotor.setPower(-0.34249999999999997);
-         rightFrontMotor.setPower(0.34249999999999997);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 10.32073931 && elapsedTime < 11.334635088) {
-         leftBackMotor.setPower(-0.35);
-         rightBackMotor.setPower(0.35);
-         leftFrontMotor.setPower(-0.35);
-         rightFrontMotor.setPower(0.35);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.334635088 && elapsedTime < 11.45079812) {
-         leftBackMotor.setPower(-0.09999999999999998);
-         rightBackMotor.setPower(0.6);
-         leftFrontMotor.setPower(-0.09999999999999998);
-         rightFrontMotor.setPower(0.6);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.45079812 && elapsedTime < 11.473204476) {
-         leftBackMotor.setPower(0.25);
-         rightBackMotor.setPower(0.25);
-         leftFrontMotor.setPower(0.25);
-         rightFrontMotor.setPower(0.25);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.473204476 && elapsedTime < 11.493701041) {
-         leftBackMotor.setPower(0.29625);
-         rightBackMotor.setPower(0.20375);
-         leftFrontMotor.setPower(0.29625);
-         rightFrontMotor.setPower(0.20375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.493701041 && elapsedTime < 11.513183699) {
-         leftBackMotor.setPower(0.34375);
-         rightBackMotor.setPower(0.15625);
-         leftFrontMotor.setPower(0.34375);
-         rightFrontMotor.setPower(0.15625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.513183699 && elapsedTime < 11.53264943) {
-         leftBackMotor.setPower(0.38875000000000004);
-         rightBackMotor.setPower(0.11124999999999999);
-         leftFrontMotor.setPower(0.38875000000000004);
-         rightFrontMotor.setPower(0.11124999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.53264943 && elapsedTime < 11.560506829) {
-         leftBackMotor.setPower(0.4275);
-         rightBackMotor.setPower(0.07250000000000001);
-         leftFrontMotor.setPower(0.4275);
-         rightFrontMotor.setPower(0.07250000000000001);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.560506829 && elapsedTime < 11.583710321) {
-         leftBackMotor.setPower(0.47);
-         rightBackMotor.setPower(0.03);
-         leftFrontMotor.setPower(0.47);
-         rightFrontMotor.setPower(0.03);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.583710321 && elapsedTime < 11.610068657) {
-         leftBackMotor.setPower(0.48750000000000004);
-         rightBackMotor.setPower(0.012499999999999983);
-         leftFrontMotor.setPower(0.48750000000000004);
-         rightFrontMotor.setPower(0.012499999999999983);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.610068657 && elapsedTime < 11.635027253) {
-         leftBackMotor.setPower(0.4975);
-         rightBackMotor.setPower(0.0025000000000000022);
-         leftFrontMotor.setPower(0.4975);
-         rightFrontMotor.setPower(0.0025000000000000022);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.635027253 && elapsedTime < 11.658764235) {
-         leftBackMotor.setPower(0.49375);
-         rightBackMotor.setPower(0.0062500000000000056);
-         leftFrontMotor.setPower(0.49375);
-         rightFrontMotor.setPower(0.0062500000000000056);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.658764235 && elapsedTime < 11.678572466) {
-         leftBackMotor.setPower(0.485);
-         rightBackMotor.setPower(0.014999999999999986);
-         leftFrontMotor.setPower(0.485);
-         rightFrontMotor.setPower(0.014999999999999986);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.678572466 && elapsedTime < 11.701324968) {
-         leftBackMotor.setPower(0.47375);
-         rightBackMotor.setPower(0.026249999999999996);
-         leftFrontMotor.setPower(0.47375);
-         rightFrontMotor.setPower(0.026249999999999996);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.701324968 && elapsedTime < 11.722589814) {
-         leftBackMotor.setPower(0.46125);
-         rightBackMotor.setPower(0.03875000000000001);
-         leftFrontMotor.setPower(0.46125);
-         rightFrontMotor.setPower(0.03875000000000001);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.722589814 && elapsedTime < 11.742368409) {
-         leftBackMotor.setPower(0.4425);
-         rightBackMotor.setPower(0.057499999999999996);
-         leftFrontMotor.setPower(0.4425);
-         rightFrontMotor.setPower(0.057499999999999996);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.742368409 && elapsedTime < 11.762513151) {
-         leftBackMotor.setPower(0.42500000000000004);
-         rightBackMotor.setPower(0.07499999999999998);
-         leftFrontMotor.setPower(0.42500000000000004);
-         rightFrontMotor.setPower(0.07499999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.762513151 && elapsedTime < 11.793839873) {
-         leftBackMotor.setPower(0.40375);
-         rightBackMotor.setPower(0.09625);
-         leftFrontMotor.setPower(0.40375);
-         rightFrontMotor.setPower(0.09625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.793839873 && elapsedTime < 11.835103679) {
-         leftBackMotor.setPower(0.375);
-         rightBackMotor.setPower(0.125);
-         leftFrontMotor.setPower(0.375);
-         rightFrontMotor.setPower(0.125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.835103679 && elapsedTime < 11.889865403) {
-         leftBackMotor.setPower(0.31875);
-         rightBackMotor.setPower(0.18125);
-         leftFrontMotor.setPower(0.31875);
-         rightFrontMotor.setPower(0.18125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.889865403 && elapsedTime < 11.920380042) {
-         leftBackMotor.setPower(0.26375);
-         rightBackMotor.setPower(0.23625);
-         leftFrontMotor.setPower(0.26375);
-         rightFrontMotor.setPower(0.23625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.920380042 && elapsedTime < 11.946470982) {
-         leftBackMotor.setPower(0.235);
-         rightBackMotor.setPower(0.265);
-         leftFrontMotor.setPower(0.235);
-         rightFrontMotor.setPower(0.265);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.946470982 && elapsedTime < 11.966842651) {
-         leftBackMotor.setPower(0.21375);
-         rightBackMotor.setPower(0.28625);
-         leftFrontMotor.setPower(0.21375);
-         rightFrontMotor.setPower(0.28625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.966842651 && elapsedTime < 11.986571038) {
-         leftBackMotor.setPower(0.19625);
-         rightBackMotor.setPower(0.30375);
-         leftFrontMotor.setPower(0.19625);
-         rightFrontMotor.setPower(0.30375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 11.986571038 && elapsedTime < 12.007575519) {
-         leftBackMotor.setPower(0.1875);
-         rightBackMotor.setPower(0.3125);
-         leftFrontMotor.setPower(0.1875);
-         rightFrontMotor.setPower(0.3125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.007575519 && elapsedTime < 12.032156095) {
-         leftBackMotor.setPower(0.17625000000000002);
-         rightBackMotor.setPower(0.32375);
-         leftFrontMotor.setPower(0.17625000000000002);
-         rightFrontMotor.setPower(0.32375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.032156095 && elapsedTime < 12.060185264) {
-         leftBackMotor.setPower(0.1725);
-         rightBackMotor.setPower(0.3275);
-         leftFrontMotor.setPower(0.1725);
-         rightFrontMotor.setPower(0.3275);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.060185264 && elapsedTime < 12.086173548) {
-         leftBackMotor.setPower(0.16625);
-         rightBackMotor.setPower(0.33375);
-         leftFrontMotor.setPower(0.16625);
-         rightFrontMotor.setPower(0.33375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.086173548 && elapsedTime < 12.122309437) {
-         leftBackMotor.setPower(0.16875);
-         rightBackMotor.setPower(0.33125);
-         leftFrontMotor.setPower(0.16875);
-         rightFrontMotor.setPower(0.33125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.122309437 && elapsedTime < 12.146598241) {
-         leftBackMotor.setPower(0.16999999999999998);
-         rightBackMotor.setPower(0.33);
-         leftFrontMotor.setPower(0.16999999999999998);
-         rightFrontMotor.setPower(0.33);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.146598241 && elapsedTime < 12.368316909) {
-         leftBackMotor.setPower(0.6);
-         rightBackMotor.setPower(-0.09999999999999998);
-         leftFrontMotor.setPower(0.6);
-         rightFrontMotor.setPower(-0.09999999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 12.368316909 && elapsedTime < 13.565371143) {
-         leftBackMotor.setPower(0.35);
-         rightBackMotor.setPower(-0.35);
-         leftFrontMotor.setPower(0.35);
-         rightFrontMotor.setPower(-0.35);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 13.565371143 && elapsedTime < 14.25456392) {
-         leftBackMotor.setPower(0.6);
-         rightBackMotor.setPower(-0.09999999999999998);
-         leftFrontMotor.setPower(0.6);
-         rightFrontMotor.setPower(-0.09999999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.25456392 && elapsedTime < 14.273829287) {
-         leftBackMotor.setPower(0.23125);
-         rightBackMotor.setPower(0.26875);
-         leftFrontMotor.setPower(0.23125);
-         rightFrontMotor.setPower(0.26875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.273829287 && elapsedTime < 14.294732518) {
-         leftBackMotor.setPower(0.1925);
-         rightBackMotor.setPower(0.3075);
-         leftFrontMotor.setPower(0.1925);
-         rightFrontMotor.setPower(0.3075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.294732518 && elapsedTime < 14.316099864) {
-         leftBackMotor.setPower(0.155);
-         rightBackMotor.setPower(0.345);
-         leftFrontMotor.setPower(0.155);
-         rightFrontMotor.setPower(0.345);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.316099864 && elapsedTime < 14.336443668) {
-         leftBackMotor.setPower(0.11875);
-         rightBackMotor.setPower(0.38125);
-         leftFrontMotor.setPower(0.11875);
-         rightFrontMotor.setPower(0.38125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.336443668 && elapsedTime < 14.359416274) {
-         leftBackMotor.setPower(0.08875);
-         rightBackMotor.setPower(0.41125);
-         leftFrontMotor.setPower(0.08875);
-         rightFrontMotor.setPower(0.41125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.359416274 && elapsedTime < 14.387513256) {
-         leftBackMotor.setPower(0.065);
-         rightBackMotor.setPower(0.435);
-         leftFrontMotor.setPower(0.065);
-         rightFrontMotor.setPower(0.435);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.387513256 && elapsedTime < 14.408494092) {
-         leftBackMotor.setPower(0.04125000000000001);
-         rightBackMotor.setPower(0.45875);
-         leftFrontMotor.setPower(0.04125000000000001);
-         rightFrontMotor.setPower(0.45875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.408494092 && elapsedTime < 14.431476438) {
-         leftBackMotor.setPower(0.03375);
-         rightBackMotor.setPower(0.46625);
-         leftFrontMotor.setPower(0.03375);
-         rightFrontMotor.setPower(0.46625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.431476438 && elapsedTime < 14.475128994) {
-         leftBackMotor.setPower(0.026249999999999996);
-         rightBackMotor.setPower(0.47375);
-         leftFrontMotor.setPower(0.026249999999999996);
-         rightFrontMotor.setPower(0.47375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.475128994 && elapsedTime < 14.505001185) {
-         leftBackMotor.setPower(0.03375);
-         rightBackMotor.setPower(0.46625);
-         leftFrontMotor.setPower(0.03375);
-         rightFrontMotor.setPower(0.46625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.505001185 && elapsedTime < 14.603831299) {
-         leftBackMotor.setPower(0.6);
-         rightBackMotor.setPower(-0.09999999999999998);
-         leftFrontMotor.setPower(0.6);
-         rightFrontMotor.setPower(-0.09999999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.603831299 && elapsedTime < 14.806240173) {
-         leftBackMotor.setPower(0.35);
-         rightBackMotor.setPower(-0.35);
-         leftFrontMotor.setPower(0.35);
-         rightFrontMotor.setPower(-0.35);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.806240173 && elapsedTime < 14.830852155) {
-         leftBackMotor.setPower(0.0);
-         rightBackMotor.setPower(0.0);
-         leftFrontMotor.setPower(0.0);
-         rightFrontMotor.setPower(0.0);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.830852155 && elapsedTime < 14.840531166) {
-         leftBackMotor.setPower(-0.0725);
-         rightBackMotor.setPower(0.0725);
-         leftFrontMotor.setPower(-0.0725);
-         rightFrontMotor.setPower(0.0725);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.840531166 && elapsedTime < 14.850793042) {
-         leftBackMotor.setPower(-0.0975);
-         rightBackMotor.setPower(0.0975);
-         leftFrontMotor.setPower(-0.0975);
-         rightFrontMotor.setPower(0.0975);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.850793042 && elapsedTime < 14.873163982) {
-         leftBackMotor.setPower(-0.12125);
-         rightBackMotor.setPower(0.12125);
-         leftFrontMotor.setPower(-0.12125);
-         rightFrontMotor.setPower(0.12125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.873163982 && elapsedTime < 14.895041067) {
-         leftBackMotor.setPower(-0.15875);
-         rightBackMotor.setPower(0.15875);
-         leftFrontMotor.setPower(-0.15875);
-         rightFrontMotor.setPower(0.15875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.895041067 && elapsedTime < 14.904931485) {
-         leftBackMotor.setPower(-0.185);
-         rightBackMotor.setPower(0.185);
-         leftFrontMotor.setPower(-0.185);
-         rightFrontMotor.setPower(0.185);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.904931485 && elapsedTime < 14.920112528) {
-         leftBackMotor.setPower(-0.19125);
-         rightBackMotor.setPower(0.19125);
-         leftFrontMotor.setPower(-0.19125);
-         rightFrontMotor.setPower(0.19125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.920112528 && elapsedTime < 14.929180133) {
-         leftBackMotor.setPower(-0.19375);
-         rightBackMotor.setPower(0.19375);
-         leftFrontMotor.setPower(-0.19375);
-         rightFrontMotor.setPower(0.19375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.929180133 && elapsedTime < 14.955622844) {
-         leftBackMotor.setPower(0.15499999999999997);
-         rightBackMotor.setPower(-0.15499999999999997);
-         leftFrontMotor.setPower(0.15499999999999997);
-         rightFrontMotor.setPower(-0.15499999999999997);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 14.955622844 && elapsedTime < 15.810707513) {
-         leftBackMotor.setPower(0.35);
-         rightBackMotor.setPower(-0.35);
-         leftFrontMotor.setPower(0.35);
-         rightFrontMotor.setPower(-0.35);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.810707513 && elapsedTime < 15.8347809) {
-         leftBackMotor.setPower(0.0);
-         rightBackMotor.setPower(0.0);
-         leftFrontMotor.setPower(0.0);
-         rightFrontMotor.setPower(0.0);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.8347809 && elapsedTime < 15.847702516) {
-         leftBackMotor.setPower(-0.07125000000000001);
-         rightBackMotor.setPower(0.07125000000000001);
-         leftFrontMotor.setPower(-0.07125000000000001);
-         rightFrontMotor.setPower(0.07125000000000001);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.847702516 && elapsedTime < 15.859831528) {
-         leftBackMotor.setPower(-0.0925);
-         rightBackMotor.setPower(0.0925);
-         leftFrontMotor.setPower(-0.0925);
-         rightFrontMotor.setPower(0.0925);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.859831528 && elapsedTime < 15.868824498) {
-         leftBackMotor.setPower(-0.115);
-         rightBackMotor.setPower(0.115);
-         leftFrontMotor.setPower(-0.115);
-         rightFrontMotor.setPower(0.115);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.868824498 && elapsedTime < 15.877854551) {
-         leftBackMotor.setPower(-0.1375);
-         rightBackMotor.setPower(0.1375);
-         leftFrontMotor.setPower(-0.1375);
-         rightFrontMotor.setPower(0.1375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.877854551 && elapsedTime < 15.894181531) {
-         leftBackMotor.setPower(-0.155);
-         rightBackMotor.setPower(0.155);
-         leftFrontMotor.setPower(-0.155);
-         rightFrontMotor.setPower(0.155);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.894181531 && elapsedTime < 15.921354451) {
-         leftBackMotor.setPower(-0.4225);
-         rightBackMotor.setPower(-0.07749999999999999);
-         leftFrontMotor.setPower(-0.4225);
-         rightFrontMotor.setPower(-0.07749999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.921354451 && elapsedTime < 15.942673151) {
-         leftBackMotor.setPower(-0.43);
-         rightBackMotor.setPower(-0.07);
-         leftFrontMotor.setPower(-0.43);
-         rightFrontMotor.setPower(-0.07);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.942673151 && elapsedTime < 15.965614039) {
-         leftBackMotor.setPower(-0.42625);
-         rightBackMotor.setPower(-0.07375000000000001);
-         leftFrontMotor.setPower(-0.42625);
-         rightFrontMotor.setPower(-0.07375000000000001);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.965614039 && elapsedTime < 15.999162167) {
-         leftBackMotor.setPower(-0.42000000000000004);
-         rightBackMotor.setPower(-0.07999999999999999);
-         leftFrontMotor.setPower(-0.42000000000000004);
-         rightFrontMotor.setPower(-0.07999999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 15.999162167 && elapsedTime < 16.038240348) {
-         leftBackMotor.setPower(-0.405);
-         rightBackMotor.setPower(-0.095);
-         leftFrontMotor.setPower(-0.405);
-         rightFrontMotor.setPower(-0.095);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.038240348 && elapsedTime < 16.066332382) {
-         leftBackMotor.setPower(-0.385);
-         rightBackMotor.setPower(-0.11499999999999999);
-         leftFrontMotor.setPower(-0.385);
-         rightFrontMotor.setPower(-0.11499999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.066332382 && elapsedTime < 16.086297696) {
-         leftBackMotor.setPower(-0.36375);
-         rightBackMotor.setPower(-0.13624999999999998);
-         leftFrontMotor.setPower(-0.36375);
-         rightFrontMotor.setPower(-0.13624999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.086297696 && elapsedTime < 16.107620042) {
-         leftBackMotor.setPower(-0.34875);
-         rightBackMotor.setPower(-0.15125);
-         leftFrontMotor.setPower(-0.34875);
-         rightFrontMotor.setPower(-0.15125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.107620042 && elapsedTime < 16.129614003) {
-         leftBackMotor.setPower(-0.3325);
-         rightBackMotor.setPower(-0.16749999999999998);
-         leftFrontMotor.setPower(-0.3325);
-         rightFrontMotor.setPower(-0.16749999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.129614003 && elapsedTime < 16.154733224) {
-         leftBackMotor.setPower(-0.3175);
-         rightBackMotor.setPower(-0.1825);
-         leftFrontMotor.setPower(-0.3175);
-         rightFrontMotor.setPower(-0.1825);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.154733224 && elapsedTime < 16.175885101) {
-         leftBackMotor.setPower(-0.2975);
-         rightBackMotor.setPower(-0.2025);
-         leftFrontMotor.setPower(-0.2975);
-         rightFrontMotor.setPower(-0.2025);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.175885101 && elapsedTime < 16.198379166) {
-         leftBackMotor.setPower(-0.28500000000000003);
-         rightBackMotor.setPower(-0.215);
-         leftFrontMotor.setPower(-0.28500000000000003);
-         rightFrontMotor.setPower(-0.215);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.198379166 && elapsedTime < 16.222575366) {
-         leftBackMotor.setPower(-0.27375);
-         rightBackMotor.setPower(-0.22625);
-         leftFrontMotor.setPower(-0.27375);
-         rightFrontMotor.setPower(-0.22625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.222575366 && elapsedTime < 16.48561258) {
-         leftBackMotor.setPower(0.09999999999999998);
-         rightBackMotor.setPower(-0.6);
-         leftFrontMotor.setPower(0.09999999999999998);
-         rightFrontMotor.setPower(-0.6);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.48561258 && elapsedTime < 16.51969425) {
-         leftBackMotor.setPower(-0.25);
-         rightBackMotor.setPower(-0.25);
-         leftFrontMotor.setPower(-0.25);
-         rightFrontMotor.setPower(-0.25);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.51969425 && elapsedTime < 16.55451717) {
-         leftBackMotor.setPower(-0.30375);
-         rightBackMotor.setPower(-0.19625);
-         leftFrontMotor.setPower(-0.30375);
-         rightFrontMotor.setPower(-0.19625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.55451717 && elapsedTime < 16.579585089) {
-         leftBackMotor.setPower(-0.36875);
-         rightBackMotor.setPower(-0.13124999999999998);
-         leftFrontMotor.setPower(-0.36875);
-         rightFrontMotor.setPower(-0.13124999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.579585089 && elapsedTime < 16.606419832) {
-         leftBackMotor.setPower(-0.39125);
-         rightBackMotor.setPower(-0.10874999999999999);
-         leftFrontMotor.setPower(-0.39125);
-         rightFrontMotor.setPower(-0.10874999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.606419832 && elapsedTime < 16.634512803) {
-         leftBackMotor.setPower(-0.41125);
-         rightBackMotor.setPower(-0.08875);
-         leftFrontMotor.setPower(-0.41125);
-         rightFrontMotor.setPower(-0.08875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.634512803 && elapsedTime < 16.665663171) {
-         leftBackMotor.setPower(-0.42375);
-         rightBackMotor.setPower(-0.07624999999999998);
-         leftFrontMotor.setPower(-0.42375);
-         rightFrontMotor.setPower(-0.07624999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.665663171 && elapsedTime < 16.691475882) {
-         leftBackMotor.setPower(-0.42500000000000004);
-         rightBackMotor.setPower(-0.07499999999999998);
-         leftFrontMotor.setPower(-0.42500000000000004);
-         rightFrontMotor.setPower(-0.07499999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.691475882 && elapsedTime < 16.715113905) {
-         leftBackMotor.setPower(-0.42125);
-         rightBackMotor.setPower(-0.07874999999999999);
-         leftFrontMotor.setPower(-0.42125);
-         rightFrontMotor.setPower(-0.07874999999999999);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.715113905 && elapsedTime < 16.734770886) {
-         leftBackMotor.setPower(-0.4125);
-         rightBackMotor.setPower(-0.0875);
-         leftFrontMotor.setPower(-0.4125);
-         rightFrontMotor.setPower(-0.0875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.734770886 && elapsedTime < 16.756598961) {
-         leftBackMotor.setPower(-0.40125);
-         rightBackMotor.setPower(-0.09875);
-         leftFrontMotor.setPower(-0.40125);
-         rightFrontMotor.setPower(-0.09875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.756598961 && elapsedTime < 16.779258651) {
-         leftBackMotor.setPower(-0.39375000000000004);
-         rightBackMotor.setPower(-0.10624999999999998);
-         leftFrontMotor.setPower(-0.39375000000000004);
-         rightFrontMotor.setPower(-0.10624999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.779258651 && elapsedTime < 16.808623237) {
-         leftBackMotor.setPower(-0.38);
-         rightBackMotor.setPower(-0.12);
-         leftFrontMotor.setPower(-0.38);
-         rightFrontMotor.setPower(-0.12);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.808623237 && elapsedTime < 16.838220896) {
-         leftBackMotor.setPower(-0.36375);
-         rightBackMotor.setPower(-0.13624999999999998);
-         leftFrontMotor.setPower(-0.36375);
-         rightFrontMotor.setPower(-0.13624999999999998);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.838220896 && elapsedTime < 16.863774649) {
-         leftBackMotor.setPower(-0.3425);
-         rightBackMotor.setPower(-0.1575);
-         leftFrontMotor.setPower(-0.3425);
-         rightFrontMotor.setPower(-0.1575);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.863774649 && elapsedTime < 16.888699495) {
-         leftBackMotor.setPower(-0.32);
-         rightBackMotor.setPower(-0.18);
-         leftFrontMotor.setPower(-0.32);
-         rightFrontMotor.setPower(-0.18);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.888699495 && elapsedTime < 16.920390175) {
-         leftBackMotor.setPower(-0.06);
-         rightBackMotor.setPower(0.06);
-         leftFrontMotor.setPower(-0.06);
-         rightFrontMotor.setPower(0.06);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.920390175 && elapsedTime < 16.93780575) {
-         leftBackMotor.setPower(-0.0375);
-         rightBackMotor.setPower(0.0375);
-         leftFrontMotor.setPower(-0.0375);
-         rightFrontMotor.setPower(0.0375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.93780575 && elapsedTime < 16.946574553) {
-         leftBackMotor.setPower(-0.02875);
-         rightBackMotor.setPower(0.02875);
-         leftFrontMotor.setPower(-0.02875);
-         rightFrontMotor.setPower(0.02875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.946574553 && elapsedTime < 16.955654971) {
-         leftBackMotor.setPower(-0.02375);
-         rightBackMotor.setPower(0.02375);
-         leftFrontMotor.setPower(-0.02375);
-         rightFrontMotor.setPower(0.02375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.955654971 && elapsedTime < 16.973600285) {
-         leftBackMotor.setPower(-0.02);
-         rightBackMotor.setPower(0.02);
-         leftFrontMotor.setPower(-0.02);
-         rightFrontMotor.setPower(0.02);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.973600285 && elapsedTime < 16.982676848) {
-         leftBackMotor.setPower(-0.01625);
-         rightBackMotor.setPower(0.01625);
-         leftFrontMotor.setPower(-0.01625);
-         rightFrontMotor.setPower(0.01625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.982676848 && elapsedTime < 16.997759975) {
-         leftBackMotor.setPower(-0.01375);
-         rightBackMotor.setPower(0.01375);
-         leftFrontMotor.setPower(-0.01375);
-         rightFrontMotor.setPower(0.01375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 16.997759975 && elapsedTime < 17.006597788) {
-         leftBackMotor.setPower(-0.00875);
-         rightBackMotor.setPower(0.00875);
-         leftFrontMotor.setPower(-0.00875);
-         rightFrontMotor.setPower(0.00875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.006597788 && elapsedTime < 17.02007555) {
-         leftBackMotor.setPower(-0.00625);
-         rightBackMotor.setPower(0.00625);
-         leftFrontMotor.setPower(-0.00625);
-         rightFrontMotor.setPower(0.00625);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.02007555 && elapsedTime < 17.036489979) {
-         leftBackMotor.setPower(-0.00375);
-         rightBackMotor.setPower(0.00375);
-         leftFrontMotor.setPower(-0.00375);
-         rightFrontMotor.setPower(0.00375);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.036489979 && elapsedTime < 17.058007064) {
-         leftBackMotor.setPower(0.00125);
-         rightBackMotor.setPower(-0.00125);
-         leftFrontMotor.setPower(0.00125);
-         rightFrontMotor.setPower(-0.00125);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.058007064 && elapsedTime < 17.067724617) {
-         leftBackMotor.setPower(0.005);
-         rightBackMotor.setPower(-0.005);
-         leftFrontMotor.setPower(0.005);
-         rightFrontMotor.setPower(-0.005);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.067724617 && elapsedTime < 17.088954775) {
-         leftBackMotor.setPower(0.0075);
-         rightBackMotor.setPower(-0.0075);
-         leftFrontMotor.setPower(0.0075);
-         rightFrontMotor.setPower(-0.0075);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-         if(elapsedTime > 17.088954775 && elapsedTime < 17.158796605) {
-         leftBackMotor.setPower(0.00875);
-         rightBackMotor.setPower(-0.00875);
-         leftFrontMotor.setPower(0.00875);
-         rightFrontMotor.setPower(-0.00875);
-         gripMotor.setPower(0.0);
-         armMotor.setPower(0.0);
-         }
-     }
+    public void teleOp2Auto() {
+        if (elapsedTime > 0 && elapsedTime < 0.093763603) {
+            leftBackMotor.setPower(0);
+            rightBackMotor.setPower(0);
+            leftFrontMotor.setPower(0);
+            rightFrontMotor.setPower(0);
+            gripMotor.setPower(0);
+            armMotor.setPower(0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.093763603 && elapsedTime < 0.121533554) {
+            leftBackMotor.setPower(0.7502015004030008);
+            rightBackMotor.setPower(0.7502015004030008);
+            leftFrontMotor.setPower(0.7502015004030008);
+            rightFrontMotor.setPower(0.7502015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.121533554 && elapsedTime < 0.148165744) {
+            leftBackMotor.setPower(0.7477015004030009);
+            rightBackMotor.setPower(0.7527015004030008);
+            leftFrontMotor.setPower(0.7477015004030009);
+            rightFrontMotor.setPower(0.7527015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.148165744 && elapsedTime < 0.176449236) {
+            leftBackMotor.setPower(0.7452015004030008);
+            rightBackMotor.setPower(0.7552015004030008);
+            leftFrontMotor.setPower(0.7452015004030008);
+            rightFrontMotor.setPower(0.7552015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.176449236 && elapsedTime < 0.202204499) {
+            leftBackMotor.setPower(0.7427015004030009);
+            rightBackMotor.setPower(0.7577015004030008);
+            leftFrontMotor.setPower(0.7427015004030009);
+            rightFrontMotor.setPower(0.7577015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.202204499 && elapsedTime < 0.229450335) {
+            leftBackMotor.setPower(0.7364515004030008);
+            rightBackMotor.setPower(0.7639515004030009);
+            leftFrontMotor.setPower(0.7364515004030008);
+            rightFrontMotor.setPower(0.7639515004030009);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.229450335 && elapsedTime < 0.255154973) {
+            leftBackMotor.setPower(0.7327015004030009);
+            rightBackMotor.setPower(0.7677015004030008);
+            leftFrontMotor.setPower(0.7327015004030009);
+            rightFrontMotor.setPower(0.7677015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.255154973 && elapsedTime < 0.282315236) {
+            leftBackMotor.setPower(0.7264515004030008);
+            rightBackMotor.setPower(0.7739515004030009);
+            leftFrontMotor.setPower(0.7264515004030008);
+            rightFrontMotor.setPower(0.7739515004030009);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.282315236 && elapsedTime < 0.309192895) {
+            leftBackMotor.setPower(0.7189515004030008);
+            rightBackMotor.setPower(0.7814515004030008);
+            leftFrontMotor.setPower(0.7189515004030008);
+            rightFrontMotor.setPower(0.7814515004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.309192895 && elapsedTime < 0.335229773) {
+            leftBackMotor.setPower(0.3209981307231061);
+            rightBackMotor.setPower(0.3959981307231061);
+            leftFrontMotor.setPower(0.3209981307231061);
+            rightFrontMotor.setPower(0.3959981307231061);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.335229773 && elapsedTime < 0.36232113) {
+            leftBackMotor.setPower(0.3134981307231061);
+            rightBackMotor.setPower(0.4034981307231061);
+            leftFrontMotor.setPower(0.3134981307231061);
+            rightFrontMotor.setPower(0.4034981307231061);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.36232113 && elapsedTime < 0.391951966) {
+            leftBackMotor.setPower(-0.0525);
+            rightBackMotor.setPower(0.0525);
+            leftFrontMotor.setPower(-0.0525);
+            rightFrontMotor.setPower(0.0525);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.391951966 && elapsedTime < 0.405094832) {
+            leftBackMotor.setPower(-0.06);
+            rightBackMotor.setPower(0.06);
+            leftFrontMotor.setPower(-0.06);
+            rightFrontMotor.setPower(0.06);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.405094832 && elapsedTime < 0.419281604) {
+            leftBackMotor.setPower(-0.058750000000000004);
+            rightBackMotor.setPower(0.058750000000000004);
+            leftFrontMotor.setPower(-0.058750000000000004);
+            rightFrontMotor.setPower(0.058750000000000004);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.419281604 && elapsedTime < 0.431923064) {
+            leftBackMotor.setPower(-0.06);
+            rightBackMotor.setPower(0.06);
+            leftFrontMotor.setPower(-0.06);
+            rightFrontMotor.setPower(0.06);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.431923064 && elapsedTime < 0.444116763) {
+            leftBackMotor.setPower(-0.0575);
+            rightBackMotor.setPower(0.0575);
+            leftFrontMotor.setPower(-0.0575);
+            rightFrontMotor.setPower(0.0575);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.444116763 && elapsedTime < 0.457112597) {
+            leftBackMotor.setPower(-0.0525);
+            rightBackMotor.setPower(0.0525);
+            leftFrontMotor.setPower(-0.0525);
+            rightFrontMotor.setPower(0.0525);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.457112597 && elapsedTime < 0.470198797) {
+            leftBackMotor.setPower(-0.05375);
+            rightBackMotor.setPower(0.05375);
+            leftFrontMotor.setPower(-0.05375);
+            rightFrontMotor.setPower(0.05375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.470198797 && elapsedTime < 0.484263121) {
+            leftBackMotor.setPower(-0.0525);
+            rightBackMotor.setPower(0.0525);
+            leftFrontMotor.setPower(-0.0525);
+            rightFrontMotor.setPower(0.0525);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.484263121 && elapsedTime < 0.497094945) {
+            leftBackMotor.setPower(-0.05);
+            rightBackMotor.setPower(0.05);
+            leftFrontMotor.setPower(-0.05);
+            rightFrontMotor.setPower(0.05);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.497094945 && elapsedTime < 0.51212552) {
+            leftBackMotor.setPower(-0.04875);
+            rightBackMotor.setPower(0.04875);
+            leftFrontMotor.setPower(-0.04875);
+            rightFrontMotor.setPower(0.04875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.51212552 && elapsedTime < 0.529832761) {
+            leftBackMotor.setPower(-0.045);
+            rightBackMotor.setPower(0.045);
+            leftFrontMotor.setPower(-0.045);
+            rightFrontMotor.setPower(0.045);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.529832761 && elapsedTime < 0.552655888) {
+            leftBackMotor.setPower(-0.0425);
+            rightBackMotor.setPower(0.0425);
+            leftFrontMotor.setPower(-0.0425);
+            rightFrontMotor.setPower(0.0425);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.552655888 && elapsedTime < 0.616940009) {
+            leftBackMotor.setPower(-0.11882862380946818);
+            rightBackMotor.setPower(-0.03882862380946817);
+            leftFrontMotor.setPower(-0.11882862380946818);
+            rightFrontMotor.setPower(-0.03882862380946817);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.616940009 && elapsedTime < 0.64415897) {
+            leftBackMotor.setPower(-0.5415848476400692);
+            rightBackMotor.setPower(-0.4790848476400692);
+            leftFrontMotor.setPower(-0.5415848476400692);
+            rightFrontMotor.setPower(-0.4790848476400692);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.64415897 && elapsedTime < 0.671265015) {
+            leftBackMotor.setPower(-0.7639847312929418);
+            rightBackMotor.setPower(-0.7114847312929418);
+            leftFrontMotor.setPower(-0.7639847312929418);
+            rightFrontMotor.setPower(-0.7114847312929418);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.671265015 && elapsedTime < 0.698369913) {
+            leftBackMotor.setPower(-0.7714515004030008);
+            rightBackMotor.setPower(-0.7289515004030008);
+            leftFrontMotor.setPower(-0.7714515004030008);
+            rightFrontMotor.setPower(-0.7289515004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.698369913 && elapsedTime < 0.733027104) {
+            leftBackMotor.setPower(-0.7664515004030008);
+            rightBackMotor.setPower(-0.7339515004030008);
+            leftFrontMotor.setPower(-0.7664515004030008);
+            rightFrontMotor.setPower(-0.7339515004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.733027104 && elapsedTime < 0.761804607) {
+            leftBackMotor.setPower(-0.7602015004030008);
+            rightBackMotor.setPower(-0.7402015004030008);
+            leftFrontMotor.setPower(-0.7602015004030008);
+            rightFrontMotor.setPower(-0.7402015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.761804607 && elapsedTime < 0.788577266) {
+            leftBackMotor.setPower(-0.7514515004030008);
+            rightBackMotor.setPower(-0.7489515004030008);
+            leftFrontMotor.setPower(-0.7514515004030008);
+            rightFrontMotor.setPower(-0.7489515004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.788577266 && elapsedTime < 0.815964977) {
+            leftBackMotor.setPower(-0.7552015004030008);
+            rightBackMotor.setPower(-0.7452015004030008);
+            leftFrontMotor.setPower(-0.7552015004030008);
+            rightFrontMotor.setPower(-0.7452015004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.815964977 && elapsedTime < 0.843031126) {
+            leftBackMotor.setPower(-0.7527015004030008);
+            rightBackMotor.setPower(-0.7477015004030009);
+            leftFrontMotor.setPower(-0.7527015004030008);
+            rightFrontMotor.setPower(-0.7477015004030009);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.843031126 && elapsedTime < 0.869769305) {
+            leftBackMotor.setPower(-0.7439515004030008);
+            rightBackMotor.setPower(-0.7564515004030008);
+            leftFrontMotor.setPower(-0.7439515004030008);
+            rightFrontMotor.setPower(-0.7564515004030008);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 0.869769305 && elapsedTime < 0.910498216) {
+            leftBackMotor.setPower(-0.3547481307231061);
+            rightBackMotor.setPower(-0.3622481307231061);
+            leftFrontMotor.setPower(-0.3547481307231061);
+            rightFrontMotor.setPower(-0.3622481307231061);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.910498216 && elapsedTime < 0.938525718) {
+            leftBackMotor.setPower(0.01);
+            rightBackMotor.setPower(-0.01);
+            leftFrontMotor.setPower(0.01);
+            rightFrontMotor.setPower(-0.01);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.938525718 && elapsedTime < 0.966744315) {
+            leftBackMotor.setPower(0.00375);
+            rightBackMotor.setPower(-0.00375);
+            leftFrontMotor.setPower(0.00375);
+            rightFrontMotor.setPower(-0.00375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.966744315 && elapsedTime < 0.992865828) {
+            leftBackMotor.setPower(0.00125);
+            rightBackMotor.setPower(-0.00125);
+            leftFrontMotor.setPower(0.00125);
+            rightFrontMotor.setPower(-0.00125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 0.992865828 && elapsedTime < 1.006530152) {
+            leftBackMotor.setPower(-0.00625);
+            rightBackMotor.setPower(0.00625);
+            leftFrontMotor.setPower(-0.00625);
+            rightFrontMotor.setPower(0.00625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.006530152 && elapsedTime < 1.021186091) {
+            leftBackMotor.setPower(-0.01);
+            rightBackMotor.setPower(0.01);
+            leftFrontMotor.setPower(-0.01);
+            rightFrontMotor.setPower(0.01);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.021186091 && elapsedTime < 1.040991718) {
+            leftBackMotor.setPower(-0.02);
+            rightBackMotor.setPower(0.02);
+            leftFrontMotor.setPower(-0.02);
+            rightFrontMotor.setPower(0.02);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.040991718 && elapsedTime < 1.059699116) {
+            leftBackMotor.setPower(-0.025);
+            rightBackMotor.setPower(0.025);
+            leftFrontMotor.setPower(-0.025);
+            rightFrontMotor.setPower(0.025);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.059699116 && elapsedTime < 1.072476357) {
+            leftBackMotor.setPower(-0.035);
+            rightBackMotor.setPower(0.035);
+            leftFrontMotor.setPower(-0.035);
+            rightFrontMotor.setPower(0.035);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.072476357 && elapsedTime < 1.125556466) {
+            leftBackMotor.setPower(-0.043750000000000004);
+            rightBackMotor.setPower(0.043750000000000004);
+            leftFrontMotor.setPower(-0.043750000000000004);
+            rightFrontMotor.setPower(0.043750000000000004);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.125556466 && elapsedTime < 1.164756626) {
+            leftBackMotor.setPower(-0.0675);
+            rightBackMotor.setPower(0.0675);
+            leftFrontMotor.setPower(-0.0675);
+            rightFrontMotor.setPower(0.0675);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.164756626 && elapsedTime < 1.194407931) {
+            leftBackMotor.setPower(-0.4614262951500551);
+            rightBackMotor.setPower(0.4614262951500551);
+            leftFrontMotor.setPower(0.29892629515005514);
+            rightFrontMotor.setPower(-0.29892629515005514);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.194407931 && elapsedTime < 1.221841215) {
+            leftBackMotor.setPower(-0.70375124000248);
+            rightBackMotor.setPower(0.70375124000248);
+            leftFrontMotor.setPower(0.53625124000248);
+            rightFrontMotor.setPower(-0.53625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.221841215 && elapsedTime < 1.24790403) {
+            leftBackMotor.setPower(-0.7012512400024801);
+            rightBackMotor.setPower(0.7012512400024801);
+            leftFrontMotor.setPower(0.53875124000248);
+            rightFrontMotor.setPower(-0.53875124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.24790403 && elapsedTime < 1.274612731) {
+            leftBackMotor.setPower(-0.68875124000248);
+            rightBackMotor.setPower(0.68875124000248);
+            leftFrontMotor.setPower(0.55125124000248);
+            rightFrontMotor.setPower(-0.55125124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.274612731 && elapsedTime < 1.3009319) {
+            leftBackMotor.setPower(-0.67625124000248);
+            rightBackMotor.setPower(0.67625124000248);
+            leftFrontMotor.setPower(0.56375124000248);
+            rightFrontMotor.setPower(-0.56375124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.3009319 && elapsedTime < 1.329018205) {
+            leftBackMotor.setPower(-0.66250124000248);
+            rightBackMotor.setPower(0.66250124000248);
+            leftFrontMotor.setPower(0.57750124000248);
+            rightFrontMotor.setPower(-0.57750124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.329018205 && elapsedTime < 1.355998416) {
+            leftBackMotor.setPower(-0.64500124000248);
+            rightBackMotor.setPower(0.64500124000248);
+            leftFrontMotor.setPower(0.59500124000248);
+            rightFrontMotor.setPower(-0.59500124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.355998416 && elapsedTime < 1.381867846) {
+            leftBackMotor.setPower(-0.6175012400024801);
+            rightBackMotor.setPower(0.6175012400024801);
+            leftFrontMotor.setPower(0.62250124000248);
+            rightFrontMotor.setPower(-0.62250124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.381867846 && elapsedTime < 1.408151911) {
+            leftBackMotor.setPower(-0.60000124000248);
+            rightBackMotor.setPower(0.60000124000248);
+            leftFrontMotor.setPower(0.64000124000248);
+            rightFrontMotor.setPower(-0.64000124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.408151911 && elapsedTime < 1.434700299) {
+            leftBackMotor.setPower(-0.57250124000248);
+            rightBackMotor.setPower(0.57250124000248);
+            leftFrontMotor.setPower(0.66750124000248);
+            rightFrontMotor.setPower(-0.66750124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.434700299 && elapsedTime < 1.462449416) {
+            leftBackMotor.setPower(-0.54375124000248);
+            rightBackMotor.setPower(0.54375124000248);
+            leftFrontMotor.setPower(0.6962512400024801);
+            rightFrontMotor.setPower(-0.6962512400024801);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.462449416 && elapsedTime < 1.489091659) {
+            leftBackMotor.setPower(-0.52625124000248);
+            rightBackMotor.setPower(0.52625124000248);
+            leftFrontMotor.setPower(0.71375124000248);
+            rightFrontMotor.setPower(-0.71375124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.489091659 && elapsedTime < 1.521136089) {
+            leftBackMotor.setPower(-0.50000124000248);
+            rightBackMotor.setPower(0.50000124000248);
+            leftFrontMotor.setPower(0.74000124000248);
+            rightFrontMotor.setPower(-0.74000124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.521136089 && elapsedTime < 1.550000258) {
+            leftBackMotor.setPower(-0.47375124000248003);
+            rightBackMotor.setPower(0.47375124000248003);
+            leftFrontMotor.setPower(0.76625124000248);
+            rightFrontMotor.setPower(-0.76625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.550000258 && elapsedTime < 1.587995158) {
+            leftBackMotor.setPower(-0.45250124000248004);
+            rightBackMotor.setPower(0.45250124000248004);
+            leftFrontMotor.setPower(0.78750124000248);
+            rightFrontMotor.setPower(-0.78750124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.587995158 && elapsedTime < 1.655025529) {
+            leftBackMotor.setPower(-0.42875124000248);
+            rightBackMotor.setPower(0.42875124000248);
+            leftFrontMotor.setPower(0.8112512400024801);
+            rightFrontMotor.setPower(-0.8112512400024801);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.655025529 && elapsedTime < 1.69800095) {
+            leftBackMotor.setPower(-0.40375124000248);
+            rightBackMotor.setPower(0.40375124000248);
+            leftFrontMotor.setPower(0.83625124000248);
+            rightFrontMotor.setPower(-0.83625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.69800095 && elapsedTime < 1.725051265) {
+            leftBackMotor.setPower(0.2175);
+            rightBackMotor.setPower(-0.2175);
+            leftFrontMotor.setPower(0.2175);
+            rightFrontMotor.setPower(-0.2175);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.725051265 && elapsedTime < 1.752087362) {
+            leftBackMotor.setPower(0.21625);
+            rightBackMotor.setPower(-0.21625);
+            leftFrontMotor.setPower(0.21625);
+            rightFrontMotor.setPower(-0.21625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.752087362 && elapsedTime < 1.764877572) {
+            leftBackMotor.setPower(0.21);
+            rightBackMotor.setPower(-0.21);
+            leftFrontMotor.setPower(0.21);
+            rightFrontMotor.setPower(-0.21);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.764877572 && elapsedTime < 1.778060906) {
+            leftBackMotor.setPower(0.19625);
+            rightBackMotor.setPower(-0.19625);
+            leftFrontMotor.setPower(0.19625);
+            rightFrontMotor.setPower(-0.19625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.778060906 && elapsedTime < 1.791945647) {
+            leftBackMotor.setPower(0.18625);
+            rightBackMotor.setPower(-0.18625);
+            leftFrontMotor.setPower(0.18625);
+            rightFrontMotor.setPower(-0.18625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.791945647 && elapsedTime < 1.804899398) {
+            leftBackMotor.setPower(0.17625);
+            rightBackMotor.setPower(-0.17625);
+            leftFrontMotor.setPower(0.17625);
+            rightFrontMotor.setPower(-0.17625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.804899398 && elapsedTime < 1.817936535) {
+            leftBackMotor.setPower(0.1575);
+            rightBackMotor.setPower(-0.1575);
+            leftFrontMotor.setPower(0.1575);
+            rightFrontMotor.setPower(-0.1575);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.817936535 && elapsedTime < 1.830850547) {
+            leftBackMotor.setPower(0.1475);
+            rightBackMotor.setPower(-0.1475);
+            leftFrontMotor.setPower(0.1475);
+            rightFrontMotor.setPower(-0.1475);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.830850547 && elapsedTime < 1.844146017) {
+            leftBackMotor.setPower(0.13875);
+            rightBackMotor.setPower(-0.13875);
+            leftFrontMotor.setPower(0.13875);
+            rightFrontMotor.setPower(-0.13875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.844146017 && elapsedTime < 1.857394352) {
+            leftBackMotor.setPower(0.12);
+            rightBackMotor.setPower(-0.12);
+            leftFrontMotor.setPower(0.12);
+            rightFrontMotor.setPower(-0.12);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.857394352 && elapsedTime < 1.87150628) {
+            leftBackMotor.setPower(0.11);
+            rightBackMotor.setPower(-0.11);
+            leftFrontMotor.setPower(0.11);
+            rightFrontMotor.setPower(-0.11);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.87150628 && elapsedTime < 1.894220709) {
+            leftBackMotor.setPower(0.10125);
+            rightBackMotor.setPower(-0.10125);
+            leftFrontMotor.setPower(0.10125);
+            rightFrontMotor.setPower(-0.10125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.894220709 && elapsedTime < 1.911525919) {
+            leftBackMotor.setPower(0.0825);
+            rightBackMotor.setPower(-0.0825);
+            leftFrontMotor.setPower(0.0825);
+            rightFrontMotor.setPower(-0.0825);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.911525919 && elapsedTime < 1.936173161) {
+            leftBackMotor.setPower(0.0775);
+            rightBackMotor.setPower(-0.0775);
+            leftFrontMotor.setPower(0.0775);
+            rightFrontMotor.setPower(-0.0775);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.936173161 && elapsedTime < 1.962999362) {
+            leftBackMotor.setPower(0.07);
+            rightBackMotor.setPower(-0.07);
+            leftFrontMotor.setPower(0.07);
+            rightFrontMotor.setPower(-0.07);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.962999362 && elapsedTime < 1.993878792) {
+            leftBackMotor.setPower(0.31707912342242917);
+            rightBackMotor.setPower(-0.31707912342242917);
+            leftFrontMotor.setPower(-0.17957912342242918);
+            rightFrontMotor.setPower(0.17957912342242918);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 1.993878792 && elapsedTime < 2.022402806) {
+            leftBackMotor.setPower(0.47112016287293035);
+            rightBackMotor.setPower(-0.47112016287293035);
+            leftFrontMotor.setPower(-0.3386201628729303);
+            rightFrontMotor.setPower(0.3386201628729303);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.022402806 && elapsedTime < 2.060129216) {
+            leftBackMotor.setPower(0.5953809026168495);
+            rightBackMotor.setPower(-0.5953809026168495);
+            leftFrontMotor.setPower(-0.46538090261684956);
+            rightFrontMotor.setPower(0.46538090261684956);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.060129216 && elapsedTime < 2.092799948) {
+            leftBackMotor.setPower(0.5878809026168496);
+            rightBackMotor.setPower(-0.5878809026168496);
+            leftFrontMotor.setPower(-0.47288090261684956);
+            rightFrontMotor.setPower(0.47288090261684956);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.092799948 && elapsedTime < 2.165967091) {
+            leftBackMotor.setPower(0.662198125035489);
+            rightBackMotor.setPower(-0.662198125035489);
+            leftFrontMotor.setPower(-0.557198125035489);
+            rightFrontMotor.setPower(0.557198125035489);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.165967091 && elapsedTime < 2.203342928) {
+            leftBackMotor.setPower(0.65000124000248);
+            rightBackMotor.setPower(-0.65000124000248);
+            leftFrontMotor.setPower(-0.59000124000248);
+            rightFrontMotor.setPower(0.59000124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.203342928 && elapsedTime < 2.229339389) {
+            leftBackMotor.setPower(0.6337512400024801);
+            rightBackMotor.setPower(-0.6337512400024801);
+            leftFrontMotor.setPower(-0.60625124000248);
+            rightFrontMotor.setPower(0.60625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.229339389 && elapsedTime < 2.25553111) {
+            leftBackMotor.setPower(0.62250124000248);
+            rightBackMotor.setPower(-0.62250124000248);
+            leftFrontMotor.setPower(-0.6175012400024801);
+            rightFrontMotor.setPower(0.6175012400024801);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.25553111 && elapsedTime < 2.283578144) {
+            leftBackMotor.setPower(0.60375124000248);
+            rightBackMotor.setPower(-0.60375124000248);
+            leftFrontMotor.setPower(-0.63625124000248);
+            rightFrontMotor.setPower(0.63625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.283578144 && elapsedTime < 2.31041122) {
+            leftBackMotor.setPower(0.5925012400024801);
+            rightBackMotor.setPower(-0.5925012400024801);
+            leftFrontMotor.setPower(-0.64750124000248);
+            rightFrontMotor.setPower(0.64750124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.31041122 && elapsedTime < 2.335559087) {
+            leftBackMotor.setPower(0.57375124000248);
+            rightBackMotor.setPower(-0.57375124000248);
+            leftFrontMotor.setPower(-0.66625124000248);
+            rightFrontMotor.setPower(0.66625124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.335559087 && elapsedTime < 2.364602163) {
+            leftBackMotor.setPower(0.55750124000248);
+            rightBackMotor.setPower(-0.55750124000248);
+            leftFrontMotor.setPower(-0.68250124000248);
+            rightFrontMotor.setPower(0.68250124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.364602163 && elapsedTime < 2.391453259) {
+            leftBackMotor.setPower(0.54750124000248);
+            rightBackMotor.setPower(-0.54750124000248);
+            leftFrontMotor.setPower(-0.69250124000248);
+            rightFrontMotor.setPower(0.69250124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.391453259 && elapsedTime < 2.417433939) {
+            leftBackMotor.setPower(0.53125124000248);
+            rightBackMotor.setPower(-0.53125124000248);
+            leftFrontMotor.setPower(-0.70875124000248);
+            rightFrontMotor.setPower(0.70875124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.417433939 && elapsedTime < 2.446281441) {
+            leftBackMotor.setPower(0.52250124000248);
+            rightBackMotor.setPower(-0.52250124000248);
+            leftFrontMotor.setPower(-0.7175012400024801);
+            rightFrontMotor.setPower(0.7175012400024801);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.446281441 && elapsedTime < 2.478581236) {
+            leftBackMotor.setPower(0.51625124000248);
+            rightBackMotor.setPower(-0.51625124000248);
+            leftFrontMotor.setPower(-0.72375124000248);
+            rightFrontMotor.setPower(0.72375124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.478581236 && elapsedTime < 2.504601499) {
+            leftBackMotor.setPower(0.50500124000248);
+            rightBackMotor.setPower(-0.50500124000248);
+            leftFrontMotor.setPower(-0.73500124000248);
+            rightFrontMotor.setPower(0.73500124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.504601499 && elapsedTime < 2.528565721) {
+            leftBackMotor.setPower(0.50250124000248);
+            rightBackMotor.setPower(-0.50250124000248);
+            leftFrontMotor.setPower(-0.7375012400024801);
+            rightFrontMotor.setPower(0.7375012400024801);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.528565721 && elapsedTime < 2.564601193) {
+            leftBackMotor.setPower(0.50000124000248);
+            rightBackMotor.setPower(-0.50000124000248);
+            leftFrontMotor.setPower(-0.74000124000248);
+            rightFrontMotor.setPower(0.74000124000248);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.564601193 && elapsedTime < 2.603399113) {
+            leftBackMotor.setPower(-0.125);
+            rightBackMotor.setPower(0.125);
+            leftFrontMotor.setPower(-0.125);
+            rightFrontMotor.setPower(0.125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.603399113 && elapsedTime < 2.668100266) {
+            leftBackMotor.setPower(-0.12375);
+            rightBackMotor.setPower(0.12375);
+            leftFrontMotor.setPower(-0.12375);
+            rightFrontMotor.setPower(0.12375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.668100266 && elapsedTime < 2.68279058) {
+            leftBackMotor.setPower(-0.08875);
+            rightBackMotor.setPower(0.08875);
+            leftFrontMotor.setPower(-0.08875);
+            rightFrontMotor.setPower(0.08875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.68279058 && elapsedTime < 2.696642977) {
+            leftBackMotor.setPower(-0.08);
+            rightBackMotor.setPower(0.08);
+            leftFrontMotor.setPower(-0.08);
+            rightFrontMotor.setPower(0.08);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.696642977 && elapsedTime < 2.708371311) {
+            leftBackMotor.setPower(-0.06125);
+            rightBackMotor.setPower(0.06125);
+            leftFrontMotor.setPower(-0.06125);
+            rightFrontMotor.setPower(0.06125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.708371311 && elapsedTime < 2.722361469) {
+            leftBackMotor.setPower(-0.05375);
+            rightBackMotor.setPower(0.05375);
+            leftFrontMotor.setPower(-0.05375);
+            rightFrontMotor.setPower(0.05375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.722361469 && elapsedTime < 2.73516147) {
+            leftBackMotor.setPower(-0.04625);
+            rightBackMotor.setPower(0.04625);
+            leftFrontMotor.setPower(-0.04625);
+            rightFrontMotor.setPower(0.04625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.73516147 && elapsedTime < 2.748263503) {
+            leftBackMotor.setPower(-0.03875);
+            rightBackMotor.setPower(0.03875);
+            leftFrontMotor.setPower(-0.03875);
+            rightFrontMotor.setPower(0.03875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.748263503 && elapsedTime < 2.760776837) {
+            leftBackMotor.setPower(-0.02125);
+            rightBackMotor.setPower(0.02125);
+            leftFrontMotor.setPower(-0.02125);
+            rightFrontMotor.setPower(0.02125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.760776837 && elapsedTime < 2.77361137) {
+            leftBackMotor.setPower(-0.0125);
+            rightBackMotor.setPower(0.0125);
+            leftFrontMotor.setPower(-0.0125);
+            rightFrontMotor.setPower(0.0125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.77361137 && elapsedTime < 2.786620486) {
+            leftBackMotor.setPower(-0.005);
+            rightBackMotor.setPower(0.005);
+            leftFrontMotor.setPower(-0.005);
+            rightFrontMotor.setPower(0.005);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.786620486 && elapsedTime < 2.799560383) {
+            leftBackMotor.setPower(0.00875);
+            rightBackMotor.setPower(-0.00875);
+            leftFrontMotor.setPower(0.00875);
+            rightFrontMotor.setPower(-0.00875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.799560383 && elapsedTime < 2.812952051) {
+            leftBackMotor.setPower(0.01375);
+            rightBackMotor.setPower(-0.01375);
+            leftFrontMotor.setPower(0.01375);
+            rightFrontMotor.setPower(-0.01375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.812952051 && elapsedTime < 2.825374188) {
+            leftBackMotor.setPower(0.01875);
+            rightBackMotor.setPower(-0.01875);
+            leftFrontMotor.setPower(0.01875);
+            rightFrontMotor.setPower(-0.01875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.825374188 && elapsedTime < 2.838670803) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.838670803 && elapsedTime < 2.856656691) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(1.0);
+            rightServo.setPosition(0.0);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 2.856656691 && elapsedTime < 2.895740705) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(1.0);
+            rightServo.setPosition(0.0);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 2.895740705 && elapsedTime < 2.908537425) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(1.0);
+            rightServo.setPosition(0.0);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 2.908537425 && elapsedTime < 3.438883155) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(1.0);
+            rightServo.setPosition(0.0);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 3.438883155 && elapsedTime < 5.067905401) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 5.067905401 && elapsedTime < 5.111433061) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(-0.5661243200302124);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 5.111433061 && elapsedTime < 5.153869107) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(-0.9916562438011169);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 5.153869107 && elapsedTime < 5.553240553) {
+            leftBackMotor.setPower(0.03);
+            rightBackMotor.setPower(-0.03);
+            leftFrontMotor.setPower(0.03);
+            rightFrontMotor.setPower(-0.03);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(-1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 5.553240553 && elapsedTime < 6.244016247) {
+            leftBackMotor.setPower(0.03125);
+            rightBackMotor.setPower(-0.03125);
+            leftFrontMotor.setPower(0.03125);
+            rightFrontMotor.setPower(-0.03125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(-1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.244016247 && elapsedTime < 6.272541979) {
+            leftBackMotor.setPower(0.03125);
+            rightBackMotor.setPower(-0.03125);
+            leftFrontMotor.setPower(0.03125);
+            rightFrontMotor.setPower(-0.03125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(-0.3158114552497864);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.272541979 && elapsedTime < 6.353199227) {
+            leftBackMotor.setPower(0.03125);
+            rightBackMotor.setPower(-0.03125);
+            leftFrontMotor.setPower(0.03125);
+            rightFrontMotor.setPower(-0.03125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.353199227 && elapsedTime < 6.366947717) {
+            leftBackMotor.setPower(0.03375);
+            rightBackMotor.setPower(-0.03375);
+            leftFrontMotor.setPower(0.03375);
+            rightFrontMotor.setPower(-0.03375);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.366947717 && elapsedTime < 6.379734437) {
+            leftBackMotor.setPower(0.0325);
+            rightBackMotor.setPower(-0.0325);
+            leftFrontMotor.setPower(0.0325);
+            rightFrontMotor.setPower(-0.0325);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.379734437 && elapsedTime < 6.392732564) {
+            leftBackMotor.setPower(0.03125);
+            rightBackMotor.setPower(-0.03125);
+            leftFrontMotor.setPower(0.03125);
+            rightFrontMotor.setPower(-0.03125);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.392732564 && elapsedTime < 6.405521315) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.405521315 && elapsedTime < 6.431826943) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.431826943 && elapsedTime < 6.448536007) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.06549853831529617);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.448536007 && elapsedTime < 6.461830175) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.06549853831529617);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.461830175 && elapsedTime < 6.473959655) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.06549853831529617);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.473959655 && elapsedTime < 6.490074292) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.18231122195720673);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 6.490074292 && elapsedTime < 6.515866066) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.18231122195720673);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.515866066 && elapsedTime < 6.554911903) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.18231122195720673);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.554911903 && elapsedTime < 6.597057167) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.02377972938120365);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.597057167 && elapsedTime < 6.796918437) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 6.796918437 && elapsedTime < 7.143353576) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(-0.3);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.143353576 && elapsedTime < 7.549620544) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.3);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.549620544 && elapsedTime < 7.633819042) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.3);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.633819042 && elapsedTime < 7.750825772) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.750825772 && elapsedTime < 7.791247964) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.3158114552497864);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.791247964 && elapsedTime < 7.832749686) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.9165623784065247);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 7.832749686 && elapsedTime < 7.848901094) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 7.848901094 && elapsedTime < 7.861533752) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.861533752 && elapsedTime < 7.915577559) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 7.915577559 && elapsedTime < 7.929983759) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.929983759 && elapsedTime < 7.968797356) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 7.968797356 && elapsedTime < 8.006898662) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 8.006898662 && elapsedTime < 8.031943613) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 8.031943613 && elapsedTime < 8.057001688) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 8.057001688 && elapsedTime < 8.069963148) {
+            leftBackMotor.setPower(0.02875);
+            rightBackMotor.setPower(-0.02875);
+            leftFrontMotor.setPower(0.02875);
+            rightFrontMotor.setPower(-0.02875);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 8.069963148 && elapsedTime < 8.881130103) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 8.881130103 && elapsedTime < 8.894468751) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 8.894468751 && elapsedTime < 8.907562762) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 8.907562762 && elapsedTime < 8.950795162) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.41593658924102783);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 8.950795162 && elapsedTime < 9.019356263) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.019356263 && elapsedTime < 9.057434496) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.057434496 && elapsedTime < 9.109529397) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.109529397 && elapsedTime < 9.135583254) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.135583254 && elapsedTime < 9.148892943) {
+            leftBackMotor.setPower(0.025);
+            rightBackMotor.setPower(-0.025);
+            leftFrontMotor.setPower(0.025);
+            rightFrontMotor.setPower(-0.025);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.148892943 && elapsedTime < 9.180596227) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.180596227 && elapsedTime < 9.194011385) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.194011385 && elapsedTime < 9.236992222) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.10721736401319504);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.236992222 && elapsedTime < 9.278045768) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.6161869168281555);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.278045768 && elapsedTime < 9.303853739) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.303853739 && elapsedTime < 9.35888838) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(1.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.35888838 && elapsedTime < 9.377567809) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.9249061346054077);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.377567809 && elapsedTime < 9.391725415) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.9249061346054077);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.391725415 && elapsedTime < 9.407882291) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.3491864800453186);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.407882291 && elapsedTime < 9.420838438) {
+            leftBackMotor.setPower(0.0275);
+            rightBackMotor.setPower(-0.0275);
+            leftFrontMotor.setPower(0.0275);
+            rightFrontMotor.setPower(-0.0275);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.3491864800453186);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if (elapsedTime > 9.420838438 && elapsedTime < 9.433757346) {
+            leftBackMotor.setPower(0.025);
+            rightBackMotor.setPower(-0.025);
+            leftFrontMotor.setPower(0.025);
+            rightFrontMotor.setPower(-0.025);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.3491864800453186);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.433757346 && elapsedTime < 9.992128183) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 9.992128183 && elapsedTime < 10.250925813) {
+            leftBackMotor.setPower(0.02625);
+            rightBackMotor.setPower(-0.02625);
+            leftFrontMotor.setPower(0.02625);
+            rightFrontMotor.setPower(-0.02625);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.98);
+        }
+        if(elapsedTime > 10.250925813 && elapsedTime < 10.548168342) {
+            leftBackMotor.setPower(0.025);
+            rightBackMotor.setPower(-0.025);
+            leftFrontMotor.setPower(0.025);
+            rightFrontMotor.setPower(-0.025);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.98);
+        }
+        if(elapsedTime > 10.548168342 && elapsedTime < 10.700740701) {
+            leftBackMotor.setPower(0.025);
+            rightBackMotor.setPower(-0.025);
+            leftFrontMotor.setPower(0.025);
+            rightFrontMotor.setPower(-0.025);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+        if(elapsedTime > 10.700740701 && elapsedTime < 11.523819898) {
+            leftBackMotor.setPower(0.0);
+            rightBackMotor.setPower(0.0);
+            leftFrontMotor.setPower(0.0);
+            rightFrontMotor.setPower(0.0);
+            gripMotor.setPower(0.0);
+            armMotor.setPower(0.0);
+            leftServo.setPosition(0.1);
+            rightServo.setPosition(0.9);
+            skystoneServo.setPosition(0.52);
+        }
+    endTime = 11.523819898;
+    }
 }

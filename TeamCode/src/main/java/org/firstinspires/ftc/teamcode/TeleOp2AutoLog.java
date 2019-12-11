@@ -105,12 +105,9 @@ public class TeleOp2AutoLog extends LinearOpMode {
         // set up the elapsed timer
         ElapsedTime timer = new ElapsedTime();
 
-        // adding header to log
-        String header = "elapsedTime,leftBackPower,rightBackPower,leftFrontPower,rightFrontPower,gripPower,armPower,leftServoState,rightServoState,skystoneServoState";
-        Logging.logNoFormatNoMethod(header);
-
         // wait for the game to start
         waitForStart();
+        timer.reset();
 
         // run until the end of the match
         while (opModeIsActive()) {
@@ -243,7 +240,7 @@ public class TeleOp2AutoLog extends LinearOpMode {
             rightServo.setPosition(rightServoState);
             skystoneServo.setPosition(skystoneServoState);
 
-            // adding motor values to csv
+            // adding motor values to log
             String values = elapsedTime + "," + leftBackPower + "," + rightBackPower + "," + leftFrontPower + "," + rightFrontPower + "," + gripPower + "," + armPower + "," + leftServoState + "," + rightServoState + "," + skystoneServoState;
             Logging.logNoFormatNoMethod(values);
         }

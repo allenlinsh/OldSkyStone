@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -25,6 +26,8 @@ public class TestTeleOp extends LinearOpMode {
     private Servo rightServo;
     private Servo skystoneServo;
     private ColorSensor colorSensor;
+    private DigitalChannel topLimit;
+    private DigitalChannel bottomLimit;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
     double leftServoState, rightServoState, skystoneServoState;
@@ -42,6 +45,8 @@ public class TestTeleOp extends LinearOpMode {
         rightServo      = hardwareMap.get(Servo.class, "rightServo");
         skystoneServo   = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor     = hardwareMap.get(ColorSensor.class,"colorSensor");
+        topLimit        = hardwareMap.get(DigitalChannel.class, "topLimit");
+        bottomLimit     = hardwareMap.get(DigitalChannel.class, "bottomLimit");
 
         // set motor direction
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -129,7 +134,7 @@ public class TestTeleOp extends LinearOpMode {
             driveAxial      = 0;
             driveLateral    = 0;
             driveYaw        = 0;
-            armPower        = this.gamepad2.left_stick_y;
+            armPower        = 0;
             gripPower       = 0;
 
             if (this.gamepad1.right_bumper) {
@@ -228,8 +233,17 @@ public class TestTeleOp extends LinearOpMode {
                 leftFrontMotor.setPower(0);
                 rightFrontMotor.setPower(0);
             }
+            
+            armPower = this.gamepad2.left_stick_y;
+            // arm stops if top limit is on and arm is moving backward
+            // or if bottom limit is on and arm is moving forward
+            if ((armPower > 0 && topPressed()) || (armPower < 0 && bottomPressed())) {
+                armMotor.setPower(0);
+            }
+            else {
+                armMotor.setPower(armPower);
+            }
             gripMotor.setPower(gripPower);
-            armMotor.setPower(armPower);
             leftServo.setPosition(leftServoState);
             rightServo.setPosition(rightServoState);
             skystoneServo.setPosition(skystoneServoState);
@@ -248,6 +262,12 @@ public class TestTeleOp extends LinearOpMode {
     }
     public void skystoneOff() {
         skystoneServoState = 0.52;
+    }
+    public boolean topPressed() {
+        return topLimit.getState();
+    }
+    public boolean bottomPressed() {
+        return bottomLimit.getState();
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()
