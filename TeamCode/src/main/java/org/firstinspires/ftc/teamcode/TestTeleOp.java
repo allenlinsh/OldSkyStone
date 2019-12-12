@@ -26,8 +26,7 @@ public class TestTeleOp extends LinearOpMode {
     private Servo rightServo;
     private Servo skystoneServo;
     private ColorSensor colorSensor;
-    private DigitalChannel topLimit;
-    private DigitalChannel bottomLimit;
+    private DigitalChannel topLimit, bottomLimit;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
     double leftServoState, rightServoState, skystoneServoState;

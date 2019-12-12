@@ -126,7 +126,7 @@ public class TestTele2Auto extends LinearOpMode {
             // **************************************************
 
             if (startAutonomous) { // https://stemrobotics.cs.pdx.edu/node/5184
-                teleOp2Auto();
+                // teleOp2Auto();
                 if(elapsedTime > endTime) {
                     startAutonomous = false;
                 }
@@ -2301,5 +2301,5 @@ public class TestTele2Auto extends LinearOpMode {
         }
     endTime = 11.523819898;
     }
-    *//
+    */
 }
