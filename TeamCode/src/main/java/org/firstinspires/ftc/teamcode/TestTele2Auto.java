@@ -25,6 +25,7 @@ public class TestTele2Auto extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
+    private Servo skystoneServo;
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0.2, correction;
@@ -45,6 +46,7 @@ public class TestTele2Auto extends LinearOpMode {
         armMotor                = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo               = hardwareMap.get(Servo.class, "leftServo");
         rightServo              = hardwareMap.get(Servo.class, "rightServo");
+        skystoneServo           = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor             = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         // set motor direction
@@ -61,8 +63,9 @@ public class TestTele2Auto extends LinearOpMode {
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // initialize the hook
+        // initialize servos
         hookOff();
+        skystoneOff();
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -141,6 +144,12 @@ public class TestTele2Auto extends LinearOpMode {
     public void hookOff() {
         leftServo.setPosition(0.1);
         rightServo.setPosition(0.9);
+    }
+    public void skystoneOn() {
+        skystoneServo.setPosition(0.98);
+    }
+    public void skystoneOff() {
+        skystoneServo.setPosition(0.52);
     }
     public void gripHold() {
         double power = 0.3;
