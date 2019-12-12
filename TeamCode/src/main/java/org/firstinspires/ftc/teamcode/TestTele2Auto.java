@@ -383,6 +383,7 @@ public class TestTele2Auto extends LinearOpMode {
         // reset angle tracking on new heading.
         resetAngle();
     }
+    /*
     public void teleOp2Auto() {
         if (elapsedTime > 0 && elapsedTime < 0.093763603) {
             leftBackMotor.setPower(0);
@@ -2300,4 +2301,5 @@ public class TestTele2Auto extends LinearOpMode {
         }
     endTime = 11.523819898;
     }
+    *//
 }

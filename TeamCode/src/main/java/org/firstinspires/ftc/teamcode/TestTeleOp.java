@@ -264,10 +264,10 @@ public class TestTeleOp extends LinearOpMode {
         skystoneServoState = 0.52;
     }
     public boolean topPressed() {
-        return topLimit.getState();
+        return !topLimit.getState();
     }
     public boolean bottomPressed() {
-        return bottomLimit.getState();
+        return !bottomLimit.getState();
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

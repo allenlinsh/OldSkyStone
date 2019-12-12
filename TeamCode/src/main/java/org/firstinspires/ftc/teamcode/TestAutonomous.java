@@ -25,9 +25,10 @@ public class TestAutonomous extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
+    private Servo skystoneServo;
     private ColorSensor colorSensor;
     Orientation lastAngles = new Orientation();
-    double globalAngle, power = 0.2, correction;
+    double globalAngle, power = 0.25, correction;
     double elapsedTime;
     boolean startAutonomous = true;
 
@@ -45,6 +46,7 @@ public class TestAutonomous extends LinearOpMode {
         armMotor                = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo               = hardwareMap.get(Servo.class, "leftServo");
         rightServo              = hardwareMap.get(Servo.class, "rightServo");
+        skystoneServo           = hardwareMap.get(Servo.class, "skystoneServo");
         colorSensor             = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         // set motor direction
@@ -61,8 +63,9 @@ public class TestAutonomous extends LinearOpMode {
         leftFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightFrontMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        // initialize the hook
+        // initialize servos
         hookOff();
+        skystoneOff();
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -121,21 +124,25 @@ public class TestAutonomous extends LinearOpMode {
             // **************************************************
 
             if (startAutonomous) { // https://stemrobotics.cs.pdx.edu/node/5184
-                //driveForward(1,power,correction);
-                //driveBackward(1,power,correction);
-                //driveForward(1,power,correction);
-                //driveBackward(1,power,correction);
                 driveRight(1,power,correction);
+                stopMotor();
+                pause();
                 driveLeft(1,power,correction);
+                stopMotor();
+                pause();
                 driveRight(1,power,correction);
+                stopMotor();
+                pause();
                 driveLeft(1,power,correction);
+                stopMotor();
+                pause();
                 startAutonomous = false;
             }
         }
         stopMotor();
     }
     public void pause() {
-        sleep(100);
+        sleep(75);
     }
     public void hookOn() {
         leftServo.setPosition(1);
@@ -144,6 +151,12 @@ public class TestAutonomous extends LinearOpMode {
     public void hookOff() {
         leftServo.setPosition(0.1);
         rightServo.setPosition(0.9);
+    }
+    public void skystoneOn() {
+        skystoneServo.setPosition(0.98);
+    }
+    public void skystoneOff() {
+        skystoneServo.setPosition(0.52);
     }
     public void gripHold() {
         double power = 0.3;
