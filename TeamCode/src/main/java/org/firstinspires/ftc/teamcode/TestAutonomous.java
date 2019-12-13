@@ -26,17 +26,24 @@ public class TestAutonomous extends LinearOpMode {
     private DcMotor armMotor;
     private Servo leftServo;
     private Servo rightServo;
-    private Servo skystoneServo;
-    private ColorSensor colorSensor;
+    private Servo leftSkystoneServo;
+    private Servo rightSkystoneServo;
+    private ColorSensor leftColorSensor;
+    private ColorSensor rightColorSensor;
     private DigitalChannel topLimit, bottomLimit;
     Orientation lastAngles = new Orientation();
-    double globalAngle, power = 0.25, correction;
-    double colorThreshold;
-    double leftServoState, rightServoState, skystoneServoState;
+    double globalAngle, power = 0.6, correction;
+    double slowPower = 0.25;
+    double leftColorThreshod, rightColorThreshold;
+    int currPos, startPos, endPos;
+    double slowFactor = 0.25;
+    double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
     double leftBackPower, rightBackPower, leftFrontPower, rightFrontPower = 0;
+    boolean runAutonomous = true;
 
     int ticksPerRev             = 480;
-    String alliance             = "blue";
+    String alliance             = "red";
+    String mode                 = "foundation";
 
     @Override
     public void runOpMode() {
@@ -49,8 +56,10 @@ public class TestAutonomous extends LinearOpMode {
         armMotor                = hardwareMap.get(DcMotor.class, "armMotor");
         leftServo               = hardwareMap.get(Servo.class, "leftServo");
         rightServo              = hardwareMap.get(Servo.class, "rightServo");
-        skystoneServo           = hardwareMap.get(Servo.class, "skystoneServo");
-        colorSensor             = hardwareMap.get(ColorSensor.class, "colorSensor");
+        leftSkystoneServo       = hardwareMap.get(Servo.class, "leftSkystoneServo");
+        rightSkystoneServo      = hardwareMap.get(Servo.class, "rightSkystoneServo");
+        leftColorSensor         = hardwareMap.get(ColorSensor.class, "leftColorSensor");
+        rightColorSensor         = hardwareMap.get(ColorSensor.class, "rightColorSensor");
         topLimit                = hardwareMap.get(DigitalChannel.class, "topLimit");
         bottomLimit             = hardwareMap.get(DigitalChannel.class, "bottomLimit");
 
@@ -70,7 +79,10 @@ public class TestAutonomous extends LinearOpMode {
 
         // initialize servos
         hookOff();
-        skystoneOff();
+        leftSkystoneServoState = 0.52;
+        rightSkystoneServoState = 0.98;
+        leftSkystoneServo.setPosition(leftSkystoneServoState);
+        rightSkystoneServo.setPosition(rightSkystoneServoState);
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -98,58 +110,119 @@ public class TestAutonomous extends LinearOpMode {
         telemetry.addData("Status", "Running");
         telemetry.addData("Alliance", alliance);
 
-        if (opModeIsActive()) {
+        while (opModeIsActive()) {
+            // Use gyro to drive in a straight line.
+            correction = checkDirection();
+
             telemetry.addData("1 imu heading", lastAngles.firstAngle);
             telemetry.addData("2 global heading", globalAngle);
             telemetry.addData("3 correction", correction);
             telemetry.addData("4 power", power);
             telemetry.update();
 
-            // foundation + park
-            driveLeft(0.25, power);
-            driveBackward(1.25, power);
-            hookOn();
-            driveForward(1, power);
-            rotate(90, power);
-            hookOff();
-            driveRight(1, power);
-            driveForward(1.5, power);
-
-            // skystone + park
-            driveRight(1, power);
-            while(true) {
-                driveBackward(0.1,0.25);
-                colorThreshold = colorSensor.red() * colorSensor.green() / (colorSensor.blue() * colorSensor.blue());
-                if (colorThreshold <= 3) {
-                    skystoneOn();
-                    break;
+            if(runAutonomous) {
+                switch (alliance) {
+                    case "blue":
+                        switch (mode) {
+                            case "full":
+                                runAutonomous = false;
+                            case "foundation":
+                                runAutonomous = false;
+                            case "skystone":
+                                runAutonomous = false;
+                            case "park":
+                                runAutonomous = false;
+                        }
+                    case "red":
+                        switch (mode) {
+                            case "full":
+                                runAutonomous = false;
+                            case "foundation":
+                                //driveLeft(0.5, power);
+                                //driveBackward(1.25, power);
+                                //hookOn();
+                                //driveForward(1, power);
+                                rotate(90, slowPower);
+                                //hookOff();
+                                //driveRight(1, power);
+                                //driveForward(1.5, power);
+                                runAutonomous = false;
+                            case "skystone":
+                                driveRight(1.25, power);
+                                while(rightSkystoneServoState == 0.52) {
+                                    driveBackward(0.1,slowPower);
+                                    rightColorThreshold = rightColorSensor.red() * rightColorSensor.green() / (rightColorSensor.blue() * rightColorSensor.blue());
+                                    if (rightColorThreshold <= 3) {
+                                        rightSkystoneOn();
+                                    }
+                                }
+                                runAutonomous = false;
+                            case "park":
+                                runAutonomous = false;
+                        }
                 }
             }
         }
         stopMotor();
     }
-    public void pause() {
+
+    public void motorPause() {
         sleep(75);
+    }
+    public void servoPause() {
+        sleep(500);
     }
     public void hookOn() {
         leftServoState = 1;
         rightServoState = 0;
         leftServo.setPosition(leftServoState);
         rightServo.setPosition(rightServoState);
+        while (leftServo.getPosition()  != 1) {
+            stopMotor();
+        }
+        servoPause();
     }
     public void hookOff() {
         leftServoState = 0.1;
         rightServoState = 0.9;
         leftServo.setPosition(leftServoState);
         rightServo.setPosition(rightServoState);
+        while (leftServo.getPosition() != 0.1) {
+            stopMotor();
+        }
+        servoPause();
     }
-    public void skystoneOn() {
-        skystoneServoState = 0.98;
-        skystoneServo.setPosition(skystoneServoState);
+    public void leftSkystoneOn() {
+        leftSkystoneServoState = 0.98;
+        leftSkystoneServo.setPosition(leftSkystoneServoState);
+        if (leftSkystoneServo.getPosition()  != 0.98) {
+            stopMotor();
+        }
+        servoPause();
     }
-    public void skystoneOff() {
-        skystoneServoState = 0.52;
-        skystoneServo.setPosition(skystoneServoState);
+    public void rightSkystoneOn() {
+        rightSkystoneServoState = 0.98;
+        rightSkystoneServo.setPosition(rightSkystoneServoState);
+        if (rightSkystoneServo.getPosition()  != 0.98) {
+            stopMotor();
+        }
+        servoPause();
+    }
+    public void leftSkystoneOff() {
+        leftSkystoneServoState = 0.52;
+        leftSkystoneServo.setPosition(leftSkystoneServoState);
+        if (leftSkystoneServo.getPosition()  != 0.52) {
+            stopMotor();
+        }
+        servoPause();
+    }
+    public void rightSkystoneOff() {
+        rightSkystoneServoState = 0.52;
+        rightSkystoneServo.setPosition(rightSkystoneServoState);
+        if (rightSkystoneServo.getPosition()  != 0.52) {
+            stopMotor();
+        }
+        servoPause();
     }
     public boolean topPressed() {
         return !topLimit.getState();
@@ -164,7 +237,6 @@ public class TestAutonomous extends LinearOpMode {
         gripMotor.setPower(-0.3);
         sleep(300);
         gripMotor.setPower(0);
-        pause();
     }
     public void stopMotor() {
         leftBackMotor.setPower(0);
@@ -186,7 +258,7 @@ public class TestAutonomous extends LinearOpMode {
     public void armForward() {
         armMotor.setPower(-0.25);
         while (opModeIsActive() && armMotor.isBusy()) {
-            if (topPressed()) {
+            if (bottomPressed()) {
                 armMotor.setPower(0);
             }
             else {
@@ -219,38 +291,50 @@ public class TestAutonomous extends LinearOpMode {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
-        leftBackMotor.setPower(0.25);
-        rightBackMotor.setPower(0.25);
-        leftFrontMotor.setPower(0.25);
-        rightFrontMotor.setPower(0.25);
+        leftBackMotor.setPower(slowPower);
+        rightBackMotor.setPower(slowPower);
+        leftFrontMotor.setPower(slowPower);
+        rightFrontMotor.setPower(slowPower);
 
         while(opModeIsActive() && leftBackMotor.isBusy()) {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            currPos = (int)Math.abs(leftBackMotor.getCurrentPosition());
+            startPos = (int)Math.abs(targetPos * slowFactor);
+            endPos = (int)Math.abs(targetPos * (1-slowFactor));
 
-            if (Math.abs(targetPos) < 500) {
-                leftBackMotor.setPower(0.25);
-                rightBackMotor.setPower(0.25);
-                leftFrontMotor.setPower(0.25);
-                rightFrontMotor.setPower(0.25);
+            telemetry.addData("targetPos",targetPos);
+            telemetry.addData("currPos", leftFrontMotor.getCurrentPosition());
+            telemetry.update();
+
+            // start
+            if (currPos < startPos) {
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
             }
-
-            leftBackPower = power - correction;
-            rightBackPower = power + correction;
-            leftFrontPower = power - correction;
-            rightFrontPower = power + correction;
+            // end
+            else if (currPos > endPos) {
+                int tempPos = currPos - endPos;
+                int finalPos = Math.abs(targetPos) - endPos;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
+                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+            }
+            // running
+            else {
+                leftBackPower = power - correction;
+                rightBackPower = power + correction;
+                leftFrontPower = power - correction;
+                rightFrontPower = power + correction;
+            }
 
             leftBackMotor.setPower(leftBackPower);
             rightBackMotor.setPower(rightBackPower);
             leftFrontMotor.setPower(leftFrontPower);
             rightFrontMotor.setPower(rightFrontPower);
-
-            if (Math.abs(leftBackMotor.getCurrentPosition() - targetPos) < 500) {
-                leftBackMotor.setPower(0.25 - correction);
-                rightBackMotor.setPower(0.25 + correction);
-                leftFrontMotor.setPower(0.25 - correction);
-                rightFrontMotor.setPower(0.25 + correction);
-            }
         }
         stopMotor();
     }
@@ -279,38 +363,46 @@ public class TestAutonomous extends LinearOpMode {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
-        leftBackMotor.setPower(-0.25);
-        rightBackMotor.setPower(-0.25);
-        leftFrontMotor.setPower(-0.25);
-        rightFrontMotor.setPower(-0.25);
+        leftBackMotor.setPower(-slowPower);
+        rightBackMotor.setPower(-slowPower);
+        leftFrontMotor.setPower(-slowPower);
+        rightFrontMotor.setPower(-slowPower);
 
         while(opModeIsActive() && leftBackMotor.isBusy()) {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            currPos = (int)Math.abs(leftBackMotor.getCurrentPosition());
+            startPos = (int)Math.abs(targetPos * slowFactor);
+            endPos = (int)Math.abs(targetPos * (1-slowFactor));
 
-            if (Math.abs(targetPos) < 500) {
-                leftBackMotor.setPower(-0.25);
-                rightBackMotor.setPower(-0.25);
-                leftFrontMotor.setPower(-0.25);
-                rightFrontMotor.setPower(-0.25);
+            // start
+            if (currPos < startPos) {
+                leftBackPower = -slowPower - currPos / startPos * (power - slowPower) - correction;
+                rightBackPower = -slowPower - currPos / startPos * (power - slowPower) + correction;
+                leftFrontPower = -slowPower - currPos / startPos * (power - slowPower) - correction;
+                rightFrontPower = -slowPower - currPos / startPos * (power - slowPower) + correction;
             }
-
-            leftBackPower = -power - correction;
-            rightBackPower = -power + correction;
-            leftFrontPower = -power - correction;
-            rightFrontPower = -power + correction;
+            // end
+            else if (currPos > endPos) {
+                int tempPos = currPos - endPos;
+                int finalPos = Math.abs(targetPos) - endPos;
+                leftBackPower = -power + tempPos / finalPos * (power - slowPower) - correction;
+                rightBackPower = -power + tempPos / finalPos * (power - slowPower) + correction;
+                leftFrontPower = -power + tempPos / finalPos * (power - slowPower) - correction;
+                rightFrontPower = -power + tempPos / finalPos * (power - slowPower) + correction;
+            }
+            // running
+            else {
+                leftBackPower = -power - correction;
+                rightBackPower = -power + correction;
+                leftFrontPower = -power - correction;
+                rightFrontPower = -power + correction;
+            }
 
             leftBackMotor.setPower(leftBackPower);
             rightBackMotor.setPower(rightBackPower);
             leftFrontMotor.setPower(leftFrontPower);
             rightFrontMotor.setPower(rightFrontPower);
-
-            if (Math.abs(leftBackMotor.getCurrentPosition() - targetPos) < 500) {
-                leftBackMotor.setPower(-0.25 - correction);
-                rightBackMotor.setPower(-0.25 + correction);
-                leftFrontMotor.setPower(-0.25 - correction);
-                rightFrontMotor.setPower(-0.25 + correction);
-            }
         }
         stopMotor();
     }
@@ -339,38 +431,46 @@ public class TestAutonomous extends LinearOpMode {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
-        leftBackMotor.setPower(0.25);
-        rightBackMotor.setPower(-0.25);
-        leftFrontMotor.setPower(-0.25);
-        rightFrontMotor.setPower(0.25);
+        leftBackMotor.setPower(slowPower);
+        rightBackMotor.setPower(-slowPower);
+        leftFrontMotor.setPower(-slowPower);
+        rightFrontMotor.setPower(slowPower);
 
         while(opModeIsActive() && leftBackMotor.isBusy()) {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            currPos = (int)Math.abs(leftBackMotor.getCurrentPosition());
+            startPos = (int)Math.abs(targetPos * slowFactor);
+            endPos = (int)Math.abs(targetPos * (1-slowFactor));
 
-            if (Math.abs(targetPos) < 500) {
-                leftBackMotor.setPower(0.25);
-                rightBackMotor.setPower(-0.25);
-                leftFrontMotor.setPower(-0.25);
-                rightFrontMotor.setPower(0.25);
+            // start
+            if (currPos < startPos) {
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
+                rightBackPower = -slowPower - currPos / startPos * (power - slowPower) + correction;
+                leftFrontPower = -slowPower - currPos / startPos * (power - slowPower) - correction;
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
             }
-
-            leftBackPower = power - correction;
-            rightBackPower = -power + correction;
-            leftFrontPower = -power - correction;
-            rightFrontPower = power + correction;
+            // end
+            else if (currPos > endPos) {
+                int tempPos = currPos - endPos;
+                int finalPos = Math.abs(targetPos) - endPos;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
+                rightBackPower = -power + tempPos / finalPos * (power - slowPower) + correction;
+                leftFrontPower = -power + tempPos / finalPos * (power - slowPower) - correction;
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+            }
+            // running
+            else {
+                leftBackPower = power - correction;
+                rightBackPower = -power + correction;
+                leftFrontPower = -power - correction;
+                rightFrontPower = power + correction;
+            }
 
             leftBackMotor.setPower(leftBackPower);
             rightBackMotor.setPower(rightBackPower);
             leftFrontMotor.setPower(leftFrontPower);
             rightFrontMotor.setPower(rightFrontPower);
-
-            if (Math.abs(leftBackMotor.getCurrentPosition() - targetPos) < 500) {
-                leftBackMotor.setPower(0.25 - correction);
-                rightBackMotor.setPower(-0.25 + correction);
-                leftFrontMotor.setPower(-0.25 - correction);
-                rightFrontMotor.setPower(0.25 + correction);
-            }
         }
         stopMotor();
     }
@@ -399,38 +499,46 @@ public class TestAutonomous extends LinearOpMode {
         rightFrontMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         // set motor speed
-        leftBackMotor.setPower(-0.25);
-        rightBackMotor.setPower(0.25);
-        leftFrontMotor.setPower(0.25);
-        rightFrontMotor.setPower(-0.25);
+        leftBackMotor.setPower(-slowPower);
+        rightBackMotor.setPower(slowPower);
+        leftFrontMotor.setPower(slowPower);
+        rightFrontMotor.setPower(-slowPower);
 
         while(opModeIsActive() && leftBackMotor.isBusy()) {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
+            currPos = (int)Math.abs(leftBackMotor.getCurrentPosition());
+            startPos = (int)Math.abs(targetPos * slowFactor);
+            endPos = (int)Math.abs(targetPos * (1-slowFactor));
 
-            if (Math.abs(targetPos) < 500) {
-                leftBackMotor.setPower(-0.25);
-                rightBackMotor.setPower(0.25);
-                leftFrontMotor.setPower(0.25);
-                rightFrontMotor.setPower(-0.25);
+            // start
+            if (currPos < startPos) {
+                leftBackPower = -slowPower - currPos / startPos * (power - slowPower) - correction;
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
+                rightFrontPower = -slowPower - currPos / startPos * (power - slowPower) + correction;
             }
-
-            leftBackPower = -power - correction;
-            rightBackPower = power + correction;
-            leftFrontPower = power - correction;
-            rightFrontPower = -power + correction;
+            // end
+            else if (currPos > endPos) {
+                int tempPos = currPos - endPos;
+                int finalPos = Math.abs(targetPos) - endPos;
+                leftBackPower = -power + tempPos / finalPos * (power - slowPower) - correction;
+                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
+                rightFrontPower = -power + tempPos / finalPos * (power - slowPower) + correction;
+            }
+            // running
+            else {
+                leftBackPower = -power - correction;
+                rightBackPower = power + correction;
+                leftFrontPower = power - correction;
+                rightFrontPower = -power + correction;
+            }
 
             leftBackMotor.setPower(leftBackPower);
             rightBackMotor.setPower(rightBackPower);
             leftFrontMotor.setPower(leftFrontPower);
             rightFrontMotor.setPower(rightFrontPower);
-
-            if (Math.abs(leftBackMotor.getCurrentPosition() - targetPos) < 500) {
-                leftBackMotor.setPower(-0.25 - correction);
-                rightBackMotor.setPower(0.25 + correction);
-                leftFrontMotor.setPower(0.25 - correction);
-                rightFrontMotor.setPower(-0.25 + correction);
-            }
         }
         stopMotor();
     }
@@ -506,12 +614,21 @@ public class TestAutonomous extends LinearOpMode {
         if (degrees < 0)
         {
             // On right turn we have to get off zero first.
-            while (opModeIsActive() && getAngle() == 0) {}
+            while (opModeIsActive() && getAngle() == 0) {
+                // Use gyro to drive in a straight line.
+                correction = checkDirection();
+            }
 
-            while (opModeIsActive() && getAngle() > degrees) {}
+            while (opModeIsActive() && getAngle() > degrees) {
+                // Use gyro to drive in a straight line.
+                correction = checkDirection();
+            }
         }
         else    // left turn.
-            while (opModeIsActive() && getAngle() < degrees) {}
+            while (opModeIsActive() && getAngle() < degrees) {
+                // Use gyro to drive in a straight line.
+                correction = checkDirection();
+            }
 
         // turn the motors off.
         stopMotor();
