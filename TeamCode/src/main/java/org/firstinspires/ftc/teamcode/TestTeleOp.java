@@ -32,6 +32,7 @@ public class TestTeleOp extends LinearOpMode {
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
     double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
+    double leftColorThreshold, rightColorThreshold;
 
     @Override
     public void runOpMode() {
@@ -138,7 +139,6 @@ public class TestTeleOp extends LinearOpMode {
             telemetry.addData("7 rightFrontPower", rightBackPower);
             telemetry.addData("8 gripPower", gripPower);
             telemetry.addData("9 armPower", armPower);
-            telemetry.addData("noStart", noStart);
             telemetry.update();
 
             // assign controller power values
@@ -256,7 +256,7 @@ public class TestTeleOp extends LinearOpMode {
                 leftFrontMotor.setPower(0);
                 rightFrontMotor.setPower(0);
             }
-            
+
             armPower = this.gamepad2.left_stick_y;
             // arm stops if top limit is on and arm is moving backward
             // or if bottom limit is on and arm is moving forward

@@ -28,7 +28,6 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import java.util.ArrayList;
 import java.util.List;
 
-@Autonomous
 public class VuforiaAutonomousBlue extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftMotor;

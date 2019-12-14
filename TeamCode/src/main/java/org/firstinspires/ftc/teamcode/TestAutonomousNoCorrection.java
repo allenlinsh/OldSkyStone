@@ -8,14 +8,13 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public class TestAutonomous extends LinearOpMode {
+public class TestAutonomousNoCorrection extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -150,12 +149,15 @@ public class TestAutonomous extends LinearOpMode {
                             //driveForward(1.5, power);
                             runAutonomous = false;
                         case "skystone":
-                            driveForward(1, power);
-                            driveRight(1.2, power);
-                            rightSkystoneOn();
-                            driveLeft(0.5, power);
-                            driveBackward(2, power);
-                            rightSkystoneOff();
+                            //driveForward(1, power);
+                            //driveRight(1.2, power);
+                            //rightRecognize();
+                            //driveLeft(0.5, power);
+                            driveForward(1.5, power);
+                            driveRight(1.5, power);
+                            driveLeft(1.5, power);
+                            driveBackward(1.5, power);
+                            //rightSkystoneOff();
                             //runAutonomous = false;
                         case "park":
                             runAutonomous = false;
@@ -166,7 +168,7 @@ public class TestAutonomous extends LinearOpMode {
     }
 
     public void motorPause() {
-        sleep(75);
+        sleep(750);
     }
     public void servoPause() {
         sleep(500);
@@ -329,26 +331,26 @@ public class TestAutonomous extends LinearOpMode {
 
             // start
             if (currPos < startPos) {
-                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
-                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower);
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower);
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower);
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower);
             }
             // end
             else if (currPos > endPos) {
                 int tempPos = currPos - endPos;
                 int finalPos = Math.abs(targetPos) - endPos;
-                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
-                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower);
+                rightBackPower = power - tempPos / finalPos * (power - slowPower);
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower);
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower);
             }
             // running
             else {
-                leftBackPower = power - correction;
-                rightBackPower = power + correction;
-                leftFrontPower = power - correction;
-                rightFrontPower = power + correction;
+                leftBackPower = power;
+                rightBackPower = power;
+                leftFrontPower = power;
+                rightFrontPower = power;
             }
 
             leftBackMotor.setPower(leftBackPower);
@@ -397,26 +399,26 @@ public class TestAutonomous extends LinearOpMode {
 
             // start
             if (currPos < startPos) {
-                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
-                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower);
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower);
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower);
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower);
             }
             // end
             else if (currPos > endPos) {
                 int tempPos = currPos - endPos;
                 int finalPos = Math.abs(targetPos) - endPos;
-                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
-                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower);
+                rightBackPower = power - tempPos / finalPos * (power - slowPower);
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower);
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower);
             }
             // running
             else {
-                leftBackPower = power - correction;
-                rightBackPower = power + correction;
-                leftFrontPower = power - correction;
-                rightFrontPower = power + correction;
+                leftBackPower = power;
+                rightBackPower = power;
+                leftFrontPower = power;
+                rightFrontPower = power;
             }
 
             leftBackMotor.setPower(leftBackPower);
@@ -465,26 +467,26 @@ public class TestAutonomous extends LinearOpMode {
 
             // start
             if (currPos < startPos) {
-                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
-                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower);
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower);
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower);
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower);
             }
             // end
             else if (currPos > endPos) {
                 int tempPos = currPos - endPos;
                 int finalPos = Math.abs(targetPos) - endPos;
-                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
-                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower);
+                rightBackPower = power - tempPos / finalPos * (power - slowPower);
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower);
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower);
             }
             // running
             else {
-                leftBackPower = power - correction;
-                rightBackPower = power + correction;
-                leftFrontPower = power - correction;
-                rightFrontPower = power + correction;
+                leftBackPower = power;
+                rightBackPower = power;
+                leftFrontPower = power;
+                rightFrontPower = power;
             }
 
             leftBackMotor.setPower(leftBackPower);
@@ -533,26 +535,26 @@ public class TestAutonomous extends LinearOpMode {
 
             // start
             if (currPos < startPos) {
-                leftBackPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightBackPower = slowPower + currPos / startPos * (power - slowPower) + correction;
-                leftFrontPower = slowPower + currPos / startPos * (power - slowPower) - correction;
-                rightFrontPower = slowPower + currPos / startPos * (power - slowPower) + correction;
+                leftBackPower = slowPower + currPos / startPos * (power - slowPower);
+                rightBackPower = slowPower + currPos / startPos * (power - slowPower);
+                leftFrontPower = slowPower + currPos / startPos * (power - slowPower);
+                rightFrontPower = slowPower + currPos / startPos * (power - slowPower);
             }
             // end
             else if (currPos > endPos) {
                 int tempPos = currPos - endPos;
                 int finalPos = Math.abs(targetPos) - endPos;
-                leftBackPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightBackPower = power - tempPos / finalPos * (power - slowPower) + correction;
-                leftFrontPower = power - tempPos / finalPos * (power - slowPower) - correction;
-                rightFrontPower = power - tempPos / finalPos * (power - slowPower) + correction;
+                leftBackPower = power - tempPos / finalPos * (power - slowPower);
+                rightBackPower = power - tempPos / finalPos * (power - slowPower);
+                leftFrontPower = power - tempPos / finalPos * (power - slowPower);
+                rightFrontPower = power - tempPos / finalPos * (power - slowPower);
             }
             // running
             else {
-                leftBackPower = power - correction;
-                rightBackPower = power + correction;
-                leftFrontPower = power - correction;
-                rightFrontPower = power + correction;
+                leftBackPower = power;
+                rightBackPower = power;
+                leftFrontPower = power;
+                rightFrontPower = power;
             }
 
             leftBackMotor.setPower(leftBackPower);
