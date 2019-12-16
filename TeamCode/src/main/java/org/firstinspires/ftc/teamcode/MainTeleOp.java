@@ -16,23 +16,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 @TeleOp
 public class MainTeleOp extends LinearOpMode {
     private BNO055IMU imu;
-    private DcMotor leftBackMotor;
-    private DcMotor rightBackMotor;
-    private DcMotor leftFrontMotor;
-    private DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor, rightBackMotor, leftFrontMotor, rightFrontMotor;
     private DcMotor gripMotor;
     private DcMotor armMotor;
-    private Servo leftServo;
-    private Servo rightServo;
-    private Servo leftSkystoneServo;
-    private Servo rightSkystoneServo;
-    private ColorSensor leftColorSensor;
-    private ColorSensor rightColorSensor;
+    private Servo leftServo, rightServo;
+    private Servo leftSkystoneServo, rightSkystoneServo;
+    private ColorSensor leftColorSensor, rightColorSensor;
     private DigitalChannel topLimit, bottomLimit;
-    Orientation lastAngles = new Orientation();
-    double globalAngle, power = 0, correction;
+
     double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
     double leftColorThreshold, rightColorThreshold;
+    Orientation lastAngles = new Orientation();
+    double globalAngle, power = 0, correction;
 
     @Override
     public void runOpMode() {
@@ -49,8 +44,8 @@ public class MainTeleOp extends LinearOpMode {
         rightSkystoneServo  = hardwareMap.get(Servo.class, "rightSkystoneServo");
         leftColorSensor     = hardwareMap.get(ColorSensor.class, "leftColorSensor");
         rightColorSensor    = hardwareMap.get(ColorSensor.class, "rightColorSensor");
-        topLimit        = hardwareMap.get(DigitalChannel.class, "topLimit");
-        bottomLimit     = hardwareMap.get(DigitalChannel.class, "bottomLimit");
+        topLimit            = hardwareMap.get(DigitalChannel.class, "topLimit");
+        bottomLimit         = hardwareMap.get(DigitalChannel.class, "bottomLimit");
 
         // set motor direction
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -122,7 +117,7 @@ public class MainTeleOp extends LinearOpMode {
             noStart = !(this.gamepad1.start || this.gamepad2.start);
 
             // Use gyro to drive in a straight line.
-            if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
+            if (driveYaw != 0 && !leftBackMotor.isBusy()){
                 correction = 0;
                 resetAngle();
             }
@@ -148,6 +143,9 @@ public class MainTeleOp extends LinearOpMode {
             armPower        = 0;
             gripPower       = 0;
 
+            /*
+            foundation grabber
+             */
             if (this.gamepad1.right_bumper) {
                 hookOn();
             }
@@ -155,6 +153,9 @@ public class MainTeleOp extends LinearOpMode {
                 hookOff();
             }
 
+            /*
+            gripper
+             */
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
@@ -164,6 +165,9 @@ public class MainTeleOp extends LinearOpMode {
                 gripPower = -0.3;
             }
 
+            /*
+            skystone grabber
+             */
             if (noStart && this.gamepad2.x) {
                 if (leftSkystoneServo.getPosition() < 0.98) {
                     leftSkystoneOn();
@@ -183,6 +187,9 @@ public class MainTeleOp extends LinearOpMode {
                 shortPause();
             }
 
+            /*
+            fine movement control
+             */
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
                 // dpad_left = slow left
                 if (gamepad1.dpad_left) {
@@ -209,6 +216,9 @@ public class MainTeleOp extends LinearOpMode {
                     driveYaw = 0.35;
                 }
             }
+            /*
+            regular movement control
+             */
             else {
                 // set axial movement to logarithmic values and set a dead zone
                 driveAxial = this.gamepad1.left_stick_y;

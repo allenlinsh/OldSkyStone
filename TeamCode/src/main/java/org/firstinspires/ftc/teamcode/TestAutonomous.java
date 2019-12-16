@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,27 +16,25 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+@Autonomous
+@Disabled
 public class TestAutonomous extends LinearOpMode {
     private BNO055IMU imu;
-    private DcMotor leftBackMotor;
-    private DcMotor rightBackMotor;
-    private DcMotor leftFrontMotor;
-    private DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor, rightBackMotor, leftFrontMotor, rightFrontMotor;
     private DcMotor gripMotor;
     private DcMotor armMotor;
-    private Servo leftServo;
-    private Servo rightServo;
-    private Servo leftSkystoneServo;
-    private Servo rightSkystoneServo;
-    private ColorSensor leftColorSensor;
-    private ColorSensor rightColorSensor;
+    private Servo leftServo, rightServo;
+    private Servo leftSkystoneServo, rightSkystoneServo;
+    private ColorSensor leftColorSensor, rightColorSensor;
     private DigitalChannel topLimit, bottomLimit;
+
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0.4, correction;
     double slowPower = 0.25;
+    double slowFactor = 0.25;
     double leftColorThreshold, rightColorThreshold;
     int currPos, startPos, endPos;
-    double slowFactor = 0.25;
+
     double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
     double leftBackPower, rightBackPower, leftFrontPower, rightFrontPower = 0;
     boolean runAutonomous = true;
@@ -176,9 +175,7 @@ public class TestAutonomous extends LinearOpMode {
         rightServoState = 0;
         leftServo.setPosition(leftServoState);
         rightServo.setPosition(rightServoState);
-        while (leftServo.getPosition()  != 1) {
-            stopMotor();
-        }
+        while (opModeIsActive() && leftServo.getPosition()  != 1) {}
         servoPause();
     }
     public void hookOff() {
@@ -186,9 +183,7 @@ public class TestAutonomous extends LinearOpMode {
         rightServoState = 0.9;
         leftServo.setPosition(leftServoState);
         rightServo.setPosition(rightServoState);
-        while (leftServo.getPosition() != 0.1) {
-            stopMotor();
-        }
+        while (opModeIsActive() && leftServo.getPosition() != 0.1) {}
     }
     public void leftSkystoneOn() {
         leftSkystoneServoState = 0.98;

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -15,34 +16,36 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 @TeleOp
 public class TestColorSensor extends LinearOpMode {
     private BNO055IMU imu;
-    private DcMotor leftBackMotor;
-    private DcMotor rightBackMotor;
-    private DcMotor leftFrontMotor;
-    private DcMotor rightFrontMotor;
+    private DcMotor leftBackMotor, rightBackMotor, leftFrontMotor, rightFrontMotor;
     private DcMotor gripMotor;
     private DcMotor armMotor;
-    private Servo leftServo;
-    private Servo rightServo;
-    private Servo skystoneServo;
-    private ColorSensor colorSensor;
+    private Servo leftServo, rightServo;
+    private Servo leftSkystoneServo, rightSkystoneServo;
+    private ColorSensor leftColorSensor, rightColorSensor;
+    private DigitalChannel topLimit, bottomLimit;
+
+    double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
+    double leftColorThreshold, rightColorThreshold;
     Orientation lastAngles = new Orientation();
     double globalAngle, power = 0, correction;
-    double colorThreshold;
-    double leftServoState, rightServoState, skystoneServoState;
 
     @Override
     public void runOpMode() {
-        imu             = hardwareMap.get(BNO055IMU.class, "imu");
-        leftBackMotor   = hardwareMap.get(DcMotor.class, "leftBackMotor");
-        rightBackMotor  = hardwareMap.get(DcMotor.class, "rightBackMotor");
-        leftFrontMotor  = hardwareMap.get(DcMotor.class, "leftFrontMotor");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFrontMotor");
-        gripMotor       = hardwareMap.get(DcMotor.class, "gripMotor");
-        armMotor        = hardwareMap.get(DcMotor.class, "armMotor");
-        leftServo       = hardwareMap.get(Servo.class, "leftServo");
-        rightServo      = hardwareMap.get(Servo.class, "rightServo");
-        skystoneServo   = hardwareMap.get(Servo.class, "skystoneServo");
-        colorSensor     = hardwareMap.get(ColorSensor.class,"colorSensor");
+        imu                 = hardwareMap.get(BNO055IMU.class, "imu");
+        leftBackMotor       = hardwareMap.get(DcMotor.class, "leftBackMotor");
+        rightBackMotor      = hardwareMap.get(DcMotor.class, "rightBackMotor");
+        leftFrontMotor      = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        rightFrontMotor     = hardwareMap.get(DcMotor.class, "rightFrontMotor");
+        gripMotor           = hardwareMap.get(DcMotor.class, "gripMotor");
+        armMotor            = hardwareMap.get(DcMotor.class, "armMotor");
+        leftServo           = hardwareMap.get(Servo.class, "leftServo");
+        rightServo          = hardwareMap.get(Servo.class, "rightServo");
+        leftSkystoneServo   = hardwareMap.get(Servo.class, "leftSkystoneServo");
+        rightSkystoneServo  = hardwareMap.get(Servo.class, "rightSkystoneServo");
+        leftColorSensor     = hardwareMap.get(ColorSensor.class, "leftColorSensor");
+        rightColorSensor    = hardwareMap.get(ColorSensor.class, "rightColorSensor");
+        topLimit        = hardwareMap.get(DigitalChannel.class, "topLimit");
+        bottomLimit     = hardwareMap.get(DigitalChannel.class, "bottomLimit");
 
         // set motor direction
         rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -66,7 +69,10 @@ public class TestColorSensor extends LinearOpMode {
 
         // initialize servos
         hookOff();
-        skystoneOff();
+        leftSkystoneServoState = 0.52;
+        rightSkystoneServoState = 0.98;
+        leftSkystoneServo.setPosition(leftSkystoneServoState);
+        rightSkystoneServo.setPosition(rightSkystoneServoState);
 
         // initialize imu
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -104,27 +110,43 @@ public class TestColorSensor extends LinearOpMode {
         double leftFrontPower   = 0;
         double rightFrontPower  = 0;
 
+        boolean noStart         = true;
+
         // run until the end of the match
         while (opModeIsActive()) {
-            // skystone recognition
-            colorThreshold = colorSensor.red() * colorSensor.green() / (colorSensor.blue() * colorSensor.blue());
-
-            if (colorThreshold <= 3) {
-                // skystone
-                skystoneOn();
-            }
-            else {
-                // no skystone
-                skystoneOff();
-            }
+            noStart = !(this.gamepad1.start || this.gamepad2.start);
 
             // Use gyro to drive in a straight line.
             if (gamepad1.right_stick_x != 0 || gamepad1.x || gamepad1.b){
-                resetAngle();
                 correction = 0;
+                resetAngle();
             }
             else {
                 correction = checkDirection();
+            }
+
+            // left skystone recognition
+            leftColorThreshold = leftColorSensor.red() * leftColorSensor.green() / (leftColorSensor.blue() * leftColorSensor.blue());
+
+            if (leftColorThreshold <= 3) {
+                // skystone
+                leftSkystoneOn();
+            }
+            else {
+                // no skystone
+                leftSkystoneOff();
+            }
+
+            // right skystone recognition
+            rightColorThreshold = rightColorSensor.red() * rightColorSensor.green() / (rightColorSensor.blue() * rightColorSensor.blue());
+
+            if (rightColorThreshold <= 3) {
+                // skystone
+                rightSkystoneOn();
+            }
+            else {
+                // no skystone
+                rightSkystoneOff();
             }
 
             telemetry.addData("1 imu heading", lastAngles.firstAngle);
@@ -136,27 +158,50 @@ public class TestColorSensor extends LinearOpMode {
             telemetry.addData("7 rightFrontPower", rightBackPower);
             telemetry.addData("8 gripPower", gripPower);
             telemetry.addData("9 armPower", armPower);
+            telemetry.addData("10 leftColorThreshold", leftColorThreshold);
+            telemetry.addData("11 rightColorThreshold", rightColorThreshold);
             telemetry.update();
 
             // assign controller power values
             driveAxial      = 0;
             driveLateral    = 0;
             driveYaw        = 0;
-            armPower        = this.gamepad2.left_stick_y;
+            armPower        = 0;
             gripPower       = 0;
 
             if (this.gamepad1.right_bumper) {
                 hookOn();
-            } else if (this.gamepad1.left_bumper) {
+            }
+            else if (this.gamepad1.left_bumper) {
                 hookOff();
             }
 
             if (this.gamepad2.right_bumper) {
                 // grip hold
                 gripPower = 0.3;
-            } else if (this.gamepad2.left_bumper) {
+            }
+            else if (this.gamepad2.left_bumper) {
                 // grip release
                 gripPower = -0.3;
+            }
+
+            if (noStart && this.gamepad2.x) {
+                if (leftSkystoneServo.getPosition() < 0.98) {
+                    leftSkystoneOn();
+                }
+                else if (leftSkystoneServo.getPosition() > 0.52){
+                    leftSkystoneOff();
+                }
+                shortPause();
+            }
+            else if (noStart && this.gamepad2.b) {
+                if (rightSkystoneServo.getPosition() > 0.52) {
+                    rightSkystoneOn();
+                }
+                else if (rightSkystoneServo.getPosition() < 0.98) {
+                    rightSkystoneOff();
+                }
+                shortPause();
             }
 
             if (this.gamepad1.left_stick_y == 0 && this.gamepad1.left_stick_x == 0 && this.gamepad1.right_stick_x == 0) {
@@ -177,11 +222,11 @@ public class TestColorSensor extends LinearOpMode {
                     driveAxial = 0.25;
                 }
                 // x = slow rotate ccw
-                if (gamepad1.x) {
+                if (noStart && gamepad1.x) {
                     driveYaw = -0.35;
                 }
                 // b = slow rotate cw
-                if (gamepad1.b) {
+                if (noStart && gamepad1.b) {
                     driveYaw = 0.35;
                 }
             }
@@ -232,12 +277,25 @@ public class TestColorSensor extends LinearOpMode {
                 leftFrontMotor.setPower(0);
                 rightFrontMotor.setPower(0);
             }
+
+            armPower = this.gamepad2.left_stick_y;
+            // arm stops if top limit is on and arm is moving backward
+            // or if bottom limit is on and arm is moving forward
+            if ((armPower > 0 && topPressed()) || (armPower < 0 && bottomPressed())) {
+                armMotor.setPower(0);
+            }
+            else {
+                armMotor.setPower(armPower);
+            }
             gripMotor.setPower(gripPower);
-            armMotor.setPower(armPower);
             leftServo.setPosition(leftServoState);
             rightServo.setPosition(rightServoState);
-            skystoneServo.setPosition(skystoneServoState);
+            rightSkystoneServo.setPosition(rightSkystoneServoState);
+            leftSkystoneServo.setPosition(leftSkystoneServoState);
         }
+    }
+    public void shortPause() {
+        sleep(150);
     }
     public void hookOn() {
         leftServoState = 1;
@@ -247,11 +305,23 @@ public class TestColorSensor extends LinearOpMode {
         leftServoState = 0.1;
         rightServoState = 0.9;
     }
-    public void skystoneOn() {
-        skystoneServoState = 0.98;
+    public void leftSkystoneOn() {
+        leftSkystoneServoState = 0.98;
     }
-    public void skystoneOff() {
-        skystoneServoState = 0.52;
+    public void rightSkystoneOn() {
+        rightSkystoneServoState = 0.52;
+    }
+    public void leftSkystoneOff() {
+        leftSkystoneServoState = 0.52;
+    }
+    public void rightSkystoneOff() {
+        rightSkystoneServoState = 0.98;
+    }
+    public boolean topPressed() {
+        return !topLimit.getState();
+    }
+    public boolean bottomPressed() {
+        return !bottomLimit.getState();
     }
     // resets the cumulative angle tracking to zero.
     private void resetAngle()

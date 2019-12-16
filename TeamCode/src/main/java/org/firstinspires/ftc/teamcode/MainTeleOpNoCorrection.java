@@ -1,21 +1,20 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
-
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
-public class BackupTeleOp extends LinearOpMode {
+public class MainTeleOpNoCorrection extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
     private DcMotor rightBackMotor;
@@ -23,24 +22,33 @@ public class BackupTeleOp extends LinearOpMode {
     private DcMotor rightFrontMotor;
     private DcMotor gripMotor;
     private DcMotor armMotor;
-    private DigitalChannel topLimit, bottomLimit;
     private Servo leftServo;
     private Servo rightServo;
     private Servo leftSkystoneServo;
     private Servo rightSkystoneServo;
+    private ColorSensor leftColorSensor;
+    private ColorSensor rightColorSensor;
+    private DigitalChannel topLimit, bottomLimit;
+    Orientation lastAngles = new Orientation();
+    double globalAngle, power = 0, correction;
     double leftServoState, rightServoState, leftSkystoneServoState, rightSkystoneServoState;
+    double leftColorThreshold, rightColorThreshold;
 
     @Override
     public void runOpMode() {
-        imu             = hardwareMap.get(BNO055IMU.class, "imu");
-        leftBackMotor   = hardwareMap.get(DcMotor.class, "leftBackMotor");
-        rightBackMotor  = hardwareMap.get(DcMotor.class, "rightBackMotor");
-        leftFrontMotor  = hardwareMap.get(DcMotor.class, "leftFrontMotor");
-        rightFrontMotor = hardwareMap.get(DcMotor.class, "rightFrontMotor");
-        gripMotor       = hardwareMap.get(DcMotor.class, "gripMotor");
-        armMotor        = hardwareMap.get(DcMotor.class, "armMotor");
-        leftServo       = hardwareMap.get(Servo.class, "leftServo");
-        rightServo      = hardwareMap.get(Servo.class, "rightServo");
+        imu                 = hardwareMap.get(BNO055IMU.class, "imu");
+        leftBackMotor       = hardwareMap.get(DcMotor.class, "leftBackMotor");
+        rightBackMotor      = hardwareMap.get(DcMotor.class, "rightBackMotor");
+        leftFrontMotor      = hardwareMap.get(DcMotor.class, "leftFrontMotor");
+        rightFrontMotor     = hardwareMap.get(DcMotor.class, "rightFrontMotor");
+        gripMotor           = hardwareMap.get(DcMotor.class, "gripMotor");
+        armMotor            = hardwareMap.get(DcMotor.class, "armMotor");
+        leftServo           = hardwareMap.get(Servo.class, "leftServo");
+        rightServo          = hardwareMap.get(Servo.class, "rightServo");
+        leftSkystoneServo   = hardwareMap.get(Servo.class, "leftSkystoneServo");
+        rightSkystoneServo  = hardwareMap.get(Servo.class, "rightSkystoneServo");
+        leftColorSensor     = hardwareMap.get(ColorSensor.class, "leftColorSensor");
+        rightColorSensor    = hardwareMap.get(ColorSensor.class, "rightColorSensor");
         topLimit        = hardwareMap.get(DigitalChannel.class, "topLimit");
         bottomLimit     = hardwareMap.get(DigitalChannel.class, "bottomLimit");
 
@@ -71,8 +79,22 @@ public class BackupTeleOp extends LinearOpMode {
         leftSkystoneServo.setPosition(leftSkystoneServoState);
         rightSkystoneServo.setPosition(rightSkystoneServoState);
 
+        // initialize imu
+        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        imuParameters.loggingEnabled = false;
+        imu.initialize(imuParameters);
+
         telemetry.addData("Status", "Initializing...");
         telemetry.update();
+
+        // make sure the imu gyro is calibrated before continuing.
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
+            sleep(50);
+            idle();
+        }
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
@@ -99,6 +121,9 @@ public class BackupTeleOp extends LinearOpMode {
         while (opModeIsActive()) {
             noStart = !(this.gamepad1.start || this.gamepad2.start);
 
+            telemetry.addData("1 imu heading", lastAngles.firstAngle);
+            telemetry.addData("2 global heading", globalAngle);
+            telemetry.addData("3 correction", correction);
             telemetry.addData("4 leftBackPower", leftBackPower);
             telemetry.addData("5 rightBackPower", rightBackPower);
             telemetry.addData("6 leftFrontPower", leftFrontPower);

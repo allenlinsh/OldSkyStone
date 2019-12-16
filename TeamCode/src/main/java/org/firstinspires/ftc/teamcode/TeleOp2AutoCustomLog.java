@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
 import android.os.Environment;
+
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -24,6 +26,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @TeleOp
+@Disabled
 public class TeleOp2AutoCustomLog extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor leftBackMotor;
